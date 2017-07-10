@@ -16,6 +16,8 @@ var test;
 var touchXPos, touchYPos;
 var coin;
 var backgroundTex;
+var btnPlay;
+var btnOptions;
 
 var bMenu = true;
 var bPlay = false;
@@ -47,6 +49,20 @@ Game.prototype.init=function()
 	}, false);
 	backgroundTex.src = 'Images/background.png';
 
+	btnPlay = new Image();
+	btnPlay.addEventListener("load", function()
+	{
+
+	}, false);
+	btnPlay.src = 'Images/playbtn.png';
+
+	btnOptions = new Image();
+	btnOptions.addEventListener("load", function()
+	{
+
+	}, false);
+	btnOptions.src = 'Images/optionsbtn.png';
+
 Game.prototype.update=function()
 {
 	console.log('Updating');
@@ -54,6 +70,8 @@ Game.prototype.update=function()
 	if (bMenu === true){
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(backgroundTex, 0, 0, canvas.width, canvas.height);
+		ctx.drawImage(btnPlay, (canvas.width / 2) - 145, (canvas.height / 2) - 160, 290, 160);
+		ctx.drawImage(btnOptions, (canvas.width / 2) - 145, (canvas.height / 2) + 160, 290, 160);
 	}
 	
 	if (bPlay === true){
