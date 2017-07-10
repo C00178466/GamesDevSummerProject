@@ -91,6 +91,11 @@ Game.prototype.update=function()
 			ctx.drawImage(coin,imageFrame*44, 0,44, 44, 20,0,44,44 );
 		}
 	}
+
+	if (bOptions === true)
+	{
+		ctx.clearRect(0, 0, canvas.width, canvas.height); 
+	}
 	
 
 	window.requestAnimationFrame(myGame.update);
@@ -111,14 +116,26 @@ function onTouchStart(e)
 
     if (bMenu === true)
     {
-    	if (touches[0].clientX >= 25 &&
-	    	touches[0].clientX <= 360 &&
-	    	touches[0].clientY >= 0 &&
-	    	touches[0].clientY <= 640)
+    	if (touches[0].clientX >= (canvas.width / 2) - 145 &&
+	    	touches[0].clientX <= (canvas.width / 2) + 145 &&
+	    	touches[0].clientY >= (canvas.height / 2) - 160 &&
+	    	touches[0].clientY <= canvas.height / 2)
 	    {
 	    	console.log("Play Button Pressed");
 	    	bMenu = false;
 	    	bPlay = true;
+	    	bOptions = false;
+	    }
+
+	    if (touches[0].clientX >= (canvas.width / 2) - 145 &&
+	    	touches[0].clientX <= (canvas.width / 2) + 145 &&
+	    	touches[0].clientY >= (canvas.height / 2) + 160 &&
+	    	touches[0].clientY <= (canvas.height / 2) + 320)
+	    {
+	    	console.log("Options Button Pressed");
+	    	bMenu = false;
+	    	bPlay = false;
+	    	bOptions = true;
 	    }
     }
 
