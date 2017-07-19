@@ -16,8 +16,17 @@ var test;
 var touchXPos, touchYPos;
 var coin;
 var backgroundTex;
+var player;
 var btnPlay;
 var btnOptions;
+
+var swirl;
+var swirlImgFrame = 0;
+var swirlOldTime = Date.now();
+
+var enemy;
+var enemyImgFrame = 0;
+var enemyOldTime = Date.now();
 
 var bMenu = true;
 var bPlay = false;
@@ -40,7 +49,12 @@ Game.prototype.init=function()
 	{
 	}, false);
 	coin.src = 'Images/coin.png'; // Set source path
-	}
+
+	swirl = new Image();
+	swirl.addEventListener("load", function()
+	{
+	}, false);
+	swirl.src = 'Images/swirleffect.png';
 
 	backgroundTex = new Image();
 	backgroundTex.addEventListener("load", function()
@@ -62,6 +76,21 @@ Game.prototype.init=function()
 
 	}, false);
 	btnOptions.src = 'Images/optionsbtn.png';
+
+	player = new Image();
+	player.addEventListener("load", function()
+	{
+
+	}, false);
+	player.src = 'Images/player.png';
+
+	enemy = new Image();
+	enemy.addEventListener("load", function()
+	{
+
+	}, false);
+	enemy.src = 'Images/enemy_walk_right.png';
+}
 
 Game.prototype.update=function()
 {
@@ -90,6 +119,39 @@ Game.prototype.update=function()
 			ctx.clearRect(20,0,44,44);
 			ctx.drawImage(coin,imageFrame*44, 0,44, 44, 20,0,44,44 );
 		}
+
+		//play the swirl effect
+		if (Date.now() - swirlOldTime > 1000 / fps)
+		{
+			if (swirlImgFrame == 6)
+			{
+			//	swirlImgFrame = 0;
+			}
+
+			swirlImgFrame++;
+
+			swirlOldTime = Date.now();
+			ctx.clearRect(20,0,72,72);
+			ctx.drawImage(swirl,swirlImgFrame*72, 0,72, 72, 100,100,144,144 );
+		}
+
+		if (swirlImgFrame === 6)
+		{
+			if (Date.now() - enemyOldTime > 1000 / fps)
+			{
+				if (enemyImgFrame == 9)
+				{
+					enemyImgFrame = 0;
+				}
+
+				enemyImgFrame++;
+
+				enemyOldTime = Date.now();
+				//ctx.clearRect(20,0,72,72);
+				ctx.drawImage(enemy,enemyImgFrame*72, 0,72, 72, 100,100,144,144 );
+			}
+		}
+		
 	}
 
 	if (bOptions === true)
