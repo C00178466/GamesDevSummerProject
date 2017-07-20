@@ -128,7 +128,10 @@ Game.prototype.update=function()
 			//	swirlImgFrame = 0;
 			}
 
-			swirlImgFrame++;
+			if (swirlImgFrame < 6)
+			{
+				swirlImgFrame++;
+			}
 
 			swirlOldTime = Date.now();
 			ctx.clearRect(20,0,72,72);
@@ -148,7 +151,7 @@ Game.prototype.update=function()
 
 				enemyOldTime = Date.now();
 				//ctx.clearRect(20,0,72,72);
-				ctx.drawImage(enemy,enemyImgFrame*72, 0,72, 72, 100,100,144,144 );
+				ctx.drawImage(enemy,enemyImgFrame*64, 0, 64, 64, 100,100,144,144 );
 			}
 		}
 		
