@@ -154,6 +154,27 @@ Game.prototype.update=function()
 				ctx.drawImage(enemy,enemyImgFrame*64, 0, 64, 64, 100,100,144,144 );
 			}
 		}
+
+		//Move the player
+		if (38 in keysDown) { // Player holding up
+		enemy.y -= enemy.speed * modifier;
+		}
+		if (40 in keysDown) { // Player holding down
+			enemy.y += enemy.speed * modifier;
+		}
+		if (37 in keysDown) { // Player holding left
+			enemy.x -= enemy.speed * modifier;
+		}
+		if (39 in keysDown) { // Player holding right
+			enemy.x += enemy.speed * modifier;
+		}
+
+		// Score
+		ctx.fillStyle = "rgb(250, 250, 250)";
+		ctx.font = "24px Helvetica";
+		ctx.textAlign = "left";
+		ctx.textBaseline = "top";
+		ctx.fillText("Goblins caught: " + 32, 200, 100);
 		
 	}
 
@@ -207,5 +228,10 @@ function onTouchStart(e)
     if (bPlay === true)
     {
 
+    }
+
+    if (bOptions === true)
+    {
+    	
     }
 }
