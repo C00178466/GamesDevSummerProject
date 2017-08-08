@@ -1,5 +1,3 @@
-var oldTime = Date.now();
-var imageFrame = 0;
 var fps = 24;
 
 //creates a new canvas element
@@ -10,29 +8,24 @@ document.body.appendChild(canvas);
 document.addEventListener("touchstart", onTouchStart);
 canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
-ctx = canvas.getContext("2d");
+app.ctx = canvas.getContext("2d");
 
 var test;
 var touchXPos, touchYPos;
-var coin;
+
 var backgroundTex;
-var player;
 var btnPlay;
 var btnOptions;
 
-var swirl;
-var swirlImgFrame = 0;
-var swirlOldTime = Date.now();
-
+var player;
 var enemy;
-var enemyImgFrame = 0;
-var enemyOldTime = Date.now();
+var coin;
+
+var level1;
 
 var bMenu = true;
 var bPlay = false;
 var bOptions = false;
-
-var keysDown = {};
 
 function Game(){
 	this.init();
@@ -45,18 +38,9 @@ Game.prototype.init=function()
 	test = new TouchTest();
 	console.log(test.is_touch_device());
 
-	//Load coin image
-	coin = new Image();   // Create new img element
-	coin.addEventListener("load", function() 
-	{
-	}, false);
-	coin.src = 'Assets/Gameplay/coin.png'; // Set source path
-
-	swirl = new Image();
-	swirl.addEventListener("load", function()
-	{
-	}, false);
-	swirl.src = 'Assets/Gameplay/swirleffect.png';
+	app.player = new Player(innerWidth / 2, innerHeight / 2);
+	app.enemy = new Enemy(100, 100);
+	app.coin = new Coin();
 
 	backgroundTex = new Image();
 	backgroundTex.addEventListener("load", function()
@@ -79,19 +63,13 @@ Game.prototype.init=function()
 	}, false);
 	btnOptions.src = 'Assets/Menu/optionsbtn.png';
 
-	player = new Image();
-	player.addEventListener("load", function()
-	{
-
-	}, false);
-	player.src = 'Assets/Gameplay/officer_walk_strip.png';
-
-	enemy = new Image();
-	enemy.addEventListener("load", function()
-	{
-
-	}, false);
-	enemy.src = 'Assets/Gameplay/enemy_walk_right.png';
+	level1 = [
+		[1, 1, 1, 1, 1],
+		[1, 0, 0, 0, 1],
+		[1, 0, 0, 0, 1],
+		[1, 0, 0, 0, 1],
+		[1, 0, 0, 0, 1]
+	];
 }
 
 Game.prototype.update=function()
@@ -100,94 +78,35 @@ Game.prototype.update=function()
 
 	//if menu is showing
 	if (bMenu === true){
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		ctx.drawImage(backgroundTex, 0, 0, canvas.width, canvas.height);
-		ctx.drawImage(btnPlay, (canvas.width / 2) - 145, (canvas.height / 2) - 160, 290, 160);
-		ctx.drawImage(btnOptions, (canvas.width / 2) - 145, (canvas.height / 2) + 160, 290, 160);
+		app.ctx.clearRect(0, 0, canvas.width, canvas.height);
+		app.ctx.drawImage(backgroundTex, 0, 0, canvas.width, canvas.height);
+		app.ctx.drawImage(btnPlay, (canvas.width / 2) - 145, (canvas.height / 2) - 160, 290, 160);
+		app.ctx.drawImage(btnOptions, (canvas.width / 2) - 145, (canvas.height / 2) + 160, 290, 160);
 	}
 	
 	//if gameplay is running
 	if (bPlay === true){
-		// first animated sprite
-		if (Date.now() - oldTime > 1000 / fps)
-		{
-			if (imageFrame == 9)
-			{
-				imageFrame = 0;
-			}
-
-			imageFrame++;
-
-			oldTime = Date.now();
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.clearRect(20,0,44,44);
-			ctx.drawImage(coin,imageFrame*44, 0,44, 44, 20,0,44,44 );
-		}
-
-		//play the swirl effect
-		if (Date.now() - swirlOldTime > 1000 / fps)
-		{
-			if (swirlImgFrame == 6)
-			{
-			//	swirlImgFrame = 0;
-			}
-
-			if (swirlImgFrame < 6)
-			{
-				swirlImgFrame++;
-			}
-
-			swirlOldTime = Date.now();
-			ctx.clearRect(20,0,72,72);
-			ctx.drawImage(swirl,swirlImgFrame*72, 0,72, 72, 100,100,144,144 );
-		}
-
-		if (swirlImgFrame === 6)
-		{
-			if (Date.now() - enemyOldTime > 1000 / fps)
-			{
-				if (enemyImgFrame == 9)
-				{
-					enemyImgFrame = 0;
-				}
-
-				enemyImgFrame++;
-
-				enemyOldTime = Date.now();
-				//ctx.clearRect(20,0,72,72);
-				ctx.drawImage(enemy,enemyImgFrame*64, 0, 64, 64, 100,100,144,144 );
-			}
-		}
-
-		//Move the player
-		if (38 in keysDown) { // Player holding up
-			enemy.y -= enemy.speed * modifier;
-		}
-		if (40 in keysDown) { // Player holding down
-			enemy.y += enemy.speed * modifier;
-		}
-		if (37 in keysDown) { // Player holding left
-			enemy.x -= enemy.speed * modifier;
-		}
-		if (39 in keysDown) { // Player holding right
-			enemy.x += enemy.speed * modifier;
-		}
+		
+		app.player.update();
+		app.enemy.update();
+		app.coin.update();
+		
+		
 
 		// Score
-		ctx.fillStyle = "rgb(250, 250, 250)";
-		ctx.font = "24px Helvetica";
-		ctx.textAlign = "left";
-		ctx.textBaseline = "top";
-		ctx.fillText("Goblins caught: " + 32, 200, 100);
+		//app.ctx.fillStyle = "rgb(250, 250, 250)";
+		//app.ctx.font = "24px Helvetica";
+		//app.ctx.textAlign = "left";
+		//app.ctx.textBaseline = "top";
+		//app.ctx.fillText("Goblins caught: " + 32, 200, 100);
 		
 	}
 
 	if (bOptions === true)
 	{
-		ctx.clearRect(0, 0, canvas.width, canvas.height); 
+		app.ctx.clearRect(0, 0, canvas.width, canvas.height); 
 	}
 	
-
 	window.requestAnimationFrame(myGame.update);
 }
 
