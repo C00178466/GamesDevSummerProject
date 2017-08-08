@@ -32,6 +32,8 @@ var bMenu = true;
 var bPlay = false;
 var bOptions = false;
 
+var keysDown = {};
+
 function Game(){
 	this.init();
 }
@@ -48,54 +50,55 @@ Game.prototype.init=function()
 	coin.addEventListener("load", function() 
 	{
 	}, false);
-	coin.src = 'Images/coin.png'; // Set source path
+	coin.src = 'Assets/Gameplay/coin.png'; // Set source path
 
 	swirl = new Image();
 	swirl.addEventListener("load", function()
 	{
 	}, false);
-	swirl.src = 'Images/swirleffect.png';
+	swirl.src = 'Assets/Gameplay/swirleffect.png';
 
 	backgroundTex = new Image();
 	backgroundTex.addEventListener("load", function()
 	{
 
 	}, false);
-	backgroundTex.src = 'Images/background.png';
+	backgroundTex.src = 'Assets/Menu/background.png';
 
 	btnPlay = new Image();
 	btnPlay.addEventListener("load", function()
 	{
 
 	}, false);
-	btnPlay.src = 'Images/playbtn.png';
+	btnPlay.src = 'Assets/Menu/playbtn.png';
 
 	btnOptions = new Image();
 	btnOptions.addEventListener("load", function()
 	{
 
 	}, false);
-	btnOptions.src = 'Images/optionsbtn.png';
+	btnOptions.src = 'Assets/Menu/optionsbtn.png';
 
 	player = new Image();
 	player.addEventListener("load", function()
 	{
 
 	}, false);
-	player.src = 'Images/player.png';
+	player.src = 'Assets/Gameplay/officer_walk_strip.png';
 
 	enemy = new Image();
 	enemy.addEventListener("load", function()
 	{
 
 	}, false);
-	enemy.src = 'Images/enemy_walk_right.png';
+	enemy.src = 'Assets/Gameplay/enemy_walk_right.png';
 }
 
 Game.prototype.update=function()
 {
 	console.log('Updating');
 
+	//if menu is showing
 	if (bMenu === true){
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.drawImage(backgroundTex, 0, 0, canvas.width, canvas.height);
@@ -103,6 +106,7 @@ Game.prototype.update=function()
 		ctx.drawImage(btnOptions, (canvas.width / 2) - 145, (canvas.height / 2) + 160, 290, 160);
 	}
 	
+	//if gameplay is running
 	if (bPlay === true){
 		// first animated sprite
 		if (Date.now() - oldTime > 1000 / fps)
@@ -157,7 +161,7 @@ Game.prototype.update=function()
 
 		//Move the player
 		if (38 in keysDown) { // Player holding up
-		enemy.y -= enemy.speed * modifier;
+			enemy.y -= enemy.speed * modifier;
 		}
 		if (40 in keysDown) { // Player holding down
 			enemy.y += enemy.speed * modifier;
