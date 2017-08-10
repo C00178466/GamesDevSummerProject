@@ -1,8 +1,9 @@
 var coin;
 var oldTime = Date.now();
 var imageFrame = 0;
+var coinXPos, coinYPos;
 
-function Coin(){
+function Coin(x, y){
 
 	//Load coin image
 	coin = new Image();
@@ -11,6 +12,8 @@ function Coin(){
 	}, false);
 	coin.src = 'Assets/Gameplay/coin.png';
 
+	app.coinXPos = x;
+	app.coinYPos = y;
 }
 
 Coin.prototype.update = function(){
@@ -27,8 +30,8 @@ Coin.prototype.update = function(){
 		imageFrame++;
 
 		oldTime = Date.now();
-		app.ctx.clearRect(20,0,44,44);
-		app.ctx.drawImage(coin,imageFrame*44, 0,44, 44, 20,0,44,44 );
+		//app.ctx.clearRect(20,0,44,44);
+		app.ctx.drawImage(coin,imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
 	}
 }
 

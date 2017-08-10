@@ -22,6 +22,7 @@ var enemy;
 var coin;
 
 var level1;
+var HUDcoin;
 
 var bMenu = true;
 var bPlay = false;
@@ -38,9 +39,15 @@ Game.prototype.init=function()
 	test = new TouchTest();
 	console.log(test.is_touch_device());
 
-	app.player = new Player(innerWidth / 2, innerHeight / 2);
-	app.enemy = new Enemy(100, 100);
-	app.coin = new Coin();
+	app.player = new Player(canvas.width / 3, canvas.height / 3);
+	app.enemy = new Enemy(200, 200);
+	app.coin = new Coin(300, 300);
+	app.HUDcoin = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+
+	app.ctx.beginPath();
+	app.ctx.rect(0, 0, canvas.width, canvas.height);
+	app.ctx.fillStyle = "green";
+	app.ctx.fill();
 
 	backgroundTex = new Image();
 	backgroundTex.addEventListener("load", function()
@@ -64,11 +71,21 @@ Game.prototype.init=function()
 	btnOptions.src = 'Assets/Menu/optionsbtn.png';
 
 	level1 = [
-		[1, 1, 1, 1, 1],
-		[1, 0, 0, 0, 1],
-		[1, 0, 0, 0, 1],
-		[1, 0, 0, 0, 1],
-		[1, 0, 0, 0, 1]
+		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 	];
 }
 
@@ -90,15 +107,23 @@ Game.prototype.update=function()
 		app.player.update();
 		app.enemy.update();
 		app.coin.update();
-		
-		
+
+		if (player.playerXPos <= (coin.coinXPos + 64)
+		&& app.coin.coinXPos <= (app.player.playerXPos + 64)
+		&& app.player.playerYPos <= (app.coin.coinYPos + 64)
+		&& app.coin.coinYPos <= (app.player.playerYPos + 64)) 
+		{
+			//++monstersCaught;
+			//reset();
+			console.log("Collide")
+		}
 
 		// Score
-		//app.ctx.fillStyle = "rgb(250, 250, 250)";
-		//app.ctx.font = "24px Helvetica";
-		//app.ctx.textAlign = "left";
-		//app.ctx.textBaseline = "top";
-		//app.ctx.fillText("Goblins caught: " + 32, 200, 100);
+		app.ctx.fillStyle = "rgb(0, 0, 0)";
+		app.ctx.font = "42px Helvetica";
+		app.ctx.textAlign = "left";
+		app.ctx.textBaseline = "top";
+		app.ctx.fillText("Coins: " + " 0 / 2", (canvas.width / 7), (canvas.height / 7) * 5);
 		
 	}
 

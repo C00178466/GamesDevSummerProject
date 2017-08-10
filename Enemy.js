@@ -1,7 +1,7 @@
 var enemy;
 var enemyImgFrame = 0;
 var enemyOldTime = Date.now();
-var xPos, yPos;
+var enemyXPos, enemyYPos;
 
 var swirl;
 var swirlImgFrame = 0;
@@ -21,8 +21,8 @@ function Enemy(x, y){
 	}, false);
 	enemy.src = 'Assets/Gameplay/enemy_walk_right.png';
 
-	xPos = x;
-	yPos = y;
+	enemyXPos = x;
+	enemyYPos = y;
 }
 
 Enemy.prototype.update = function(){
@@ -41,8 +41,8 @@ Enemy.prototype.update = function(){
 			}
 
 			swirlOldTime = Date.now();
-			app.ctx.clearRect(20,0,72,72);
-			app.ctx.drawImage(swirl,swirlImgFrame*72, 0,72, 72, xPos,yPos,64,64 );
+			//app.ctx.clearRect(20,0,72,72);
+			app.ctx.drawImage(swirl,swirlImgFrame*72, 0,72, 72, enemyXPos, enemyYPos ,64,64 );
 		}
 
 		//draw & animate the enemy when the swirl has finished
@@ -58,9 +58,9 @@ Enemy.prototype.update = function(){
 				enemyImgFrame++;
 
 				enemyOldTime = Date.now();
-				app.ctx.clearRect(20,0,72,72);
+				//app.ctx.clearRect(20,0,72,72);
 				//app.ctx.clearRect(0, 0, canvas.width, canvas.height);
-				app.ctx.drawImage(enemy,enemyImgFrame*64, 0, 64, 64, xPos,yPos,64,64 );
+				app.ctx.drawImage(enemy,enemyImgFrame*64, 0, 64, 64, enemyXPos, enemyYPos,64,64 );
 			}
 		}
 }
