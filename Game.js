@@ -118,6 +118,24 @@ Game.prototype.update=function()
 			console.log("Collide")
 		}
 
+		//loop through array and draw the map/level
+		for (i = 0; i < 15; i++)
+		{
+			for (j = 0; j < 15; j++)
+			{
+				if (level1[i][j] === 0)
+				{
+					//draw border
+				}
+
+				if (level1[i][j] === 1)
+				{
+					//draw
+					app.ctx.drawImage(backgroundTex, j * 64, i * 64, 64, 64);
+				}
+			}
+		}
+
 		// Score
 		app.ctx.fillStyle = "rgb(0, 0, 0)";
 		app.ctx.font = "42px Helvetica";
