@@ -33,7 +33,7 @@ Enemy.prototype.update = function(){
 
 	app.ctx.drawImage(swirl,swirlImgFrame*72, 0,72, 72, swirlXPos, swirlYPos ,64,64 );
 	app.ctx.drawImage(enemy,enemyImgFrame*64, 0, 64, 64, app.enemyXPos, app.enemyYPos,64,64 );
-	console.log(app.enemyXPos, app.enemyYPos);
+	//console.log(app.enemyXPos, app.enemyYPos);
 
 	//play the swirl effect
 		if (Date.now() - swirlOldTime > 1000 / fps)

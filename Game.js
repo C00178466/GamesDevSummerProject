@@ -17,7 +17,6 @@ var backgroundTex;
 var btnPlay;
 var btnOptions;
 
-var player;
 var enemy;
 
 var levelLdr;
@@ -37,7 +36,6 @@ Game.prototype.init=function()
 	test = new TouchTest();
 	console.log(test.is_touch_device());
 
-	app.player = new Player(canvas.width / 3, canvas.height / 3);
 	app.enemy = new Enemy(200, 200);
 	levelLdr = new Level();
 
@@ -83,7 +81,7 @@ Game.prototype.update=function()
 	if (bPlay === true){
 
 		levelLdr.update();
-		app.player.update();
+		
 		app.enemy.update();
 		//app.HUDcoin.update();
 
@@ -100,7 +98,8 @@ Game.prototype.update=function()
 
 	if (bOptions === true)
 	{
-		app.ctx.clearRect(0, 0, canvas.width, canvas.height); 
+		app.ctx.clearRect(0, 0, canvas.width, canvas.height);
+		app.ctx.drawImage(backgroundTex, 0, 0, canvas.width, canvas.height);
 	}
 	
 	window.requestAnimationFrame(myGame.update);
@@ -147,6 +146,14 @@ function onTouchStart(e)
     if (bPlay === true)
     {
     	//code for when HUD controls are pressed/touched
+    	//Pause Button
+    	if (touches[0].clientX >= (canvas.width / 7) &&
+	    	touches[0].clientX <= (canvas.width / 7) + 216 &&
+	    	touches[0].clientY >= ((canvas.height / 7) * 6)  &&
+	    	touches[0].clientY <= ((canvas.height / 7) * 6 ) + 96)
+	    {
+	    	console.log("Pause");
+	    }
     }
 
     if (bOptions === true)
