@@ -18,6 +18,8 @@ function Coin(x, y){
 
 Coin.prototype.update = function(){
 
+	app.ctx.drawImage(coin,imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
+
 	//draw & animate the coin
 	if (Date.now() - oldTime > 1000 / fps)
 	{
@@ -29,8 +31,12 @@ Coin.prototype.update = function(){
 		imageFrame++;
 
 		oldTime = Date.now();
-		//app.ctx.clearRect(20,0,44,44);
+		//app.ctx.clearRect(app.coinXPos, app.coinYPos, 64, 64);
 		app.ctx.drawImage(coin,imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
+		//draw();
 	}
 }
 
+Coin.prototype.draw = function(){
+	app.ctx.drawImage(coin,imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
+}

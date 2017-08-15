@@ -19,11 +19,8 @@ var btnOptions;
 
 var player;
 var enemy;
-var coin1;
 
-var level1;
-var bdr_Tree;
-var HUDcoin;
+var levelLdr;
 
 var bMenu = true;
 var bPlay = false;
@@ -42,8 +39,7 @@ Game.prototype.init=function()
 
 	app.player = new Player(canvas.width / 3, canvas.height / 3);
 	app.enemy = new Enemy(200, 200);
-	app.coin1 = new Coin(300, 300);
-	app.HUDcoin = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+	levelLdr = new Level();
 
 	backgroundTex = new Image();
 	backgroundTex.addEventListener("load", function()
@@ -66,30 +62,7 @@ Game.prototype.init=function()
 	}, false);
 	btnOptions.src = 'Assets/Menu/optionsbtn.png';
 
-	bdr_Tree = new Image();
-	bdr_Tree.addEventListener("load", function()
-	{
-
-	}, false);
-	bdr_Tree.src = 'Assets/Gameplay/border_hedge.png';
-
-	level1 = [
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-	];
+	
 }
 
 Game.prototype.update=function()
@@ -108,54 +81,21 @@ Game.prototype.update=function()
 	
 	//if gameplay is running
 	if (bPlay === true){
-		
-		app.ctx.beginPath();
-		app.ctx.rect(0, 0, canvas.width, canvas.height);
-		app.ctx.fillStyle = "green";
-		app.ctx.fill();
 
+		levelLdr.update();
 		app.player.update();
 		app.enemy.update();
-		app.coin1.update();
 		//app.HUDcoin.update();
 
-		
-
-		if (player.playerXPos <= (coin.coinXPos + 64)
-		&& app.coin.coinXPos <= (app.player.playerXPos + 64)
-		&& app.player.playerYPos <= (app.coin.coinYPos + 64)
-		&& app.coin.coinYPos <= (app.player.playerYPos + 64)) 
+		if (app.player.playerXPos <= (app.enemy.enemyXPos + 64)
+		&& app.enemy.enemyXPos <= (app.player.playerXPos + 64)
+		&& app.player.playerYPos <= (app.enemy.enemyYPos + 64)
+		&& app.enemy.enemyYPos <= (app.player.playerYPos + 64)) 
 		{
 			//++monstersCaught;
 			//reset();
 			console.log("Collide");
 		}
-
-		//loop through array and draw the map/level
-		for (i = 0; i < 15; i++)
-		{
-			for (j = 0; j < 15; j++)
-			{
-				if (level1[i][j] === 0)
-				{
-					//draw border
-				}
-
-				if (level1[i][j] === 1)
-				{
-					//draw
-					app.ctx.drawImage(bdr_Tree, j * 64, i * 64, 64, 64);
-				}
-			}
-		}
-
-		// Score
-		app.ctx.fillStyle = "rgb(0, 0, 0)";
-		app.ctx.font = "42px Helvetica";
-		app.ctx.textAlign = "left";
-		app.ctx.textBaseline = "top";
-		app.ctx.fillText("Coins: " + " 0 / 2", (canvas.width / 7), (canvas.height / 7) * 5);
-		
 	}
 
 	if (bOptions === true)
@@ -206,7 +146,7 @@ function onTouchStart(e)
 
     if (bPlay === true)
     {
-
+    	//code for when HUD controls are pressed/touched
     }
 
     if (bOptions === true)

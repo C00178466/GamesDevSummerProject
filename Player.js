@@ -19,7 +19,6 @@ function Player(x, y){
 	player = new Image();
 	player.addEventListener("load", function()
 	{
-		console.log("Player Loaded")
 	}, false);
 	player.src = 'Assets/Gameplay/officer_walk_strip_right.png';
 
@@ -33,6 +32,7 @@ Player.prototype.update = function(){
 	//app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 	//app.ctx.clearRect(20,0,72,72);
 	app.ctx.drawImage(player,playerImgFrame*64, 0, 64, 90, playerXPos, playerYPos , 64, 90);
+	console.log(playerXPos, playerYPos);
 
 	//Move the player
 	if (38 in keysDown) 
