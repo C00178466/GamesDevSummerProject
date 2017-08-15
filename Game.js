@@ -19,9 +19,10 @@ var btnOptions;
 
 var player;
 var enemy;
-var coin;
+var coin1;
 
 var level1;
+var bdr_Tree;
 var HUDcoin;
 
 var bMenu = true;
@@ -41,13 +42,8 @@ Game.prototype.init=function()
 
 	app.player = new Player(canvas.width / 3, canvas.height / 3);
 	app.enemy = new Enemy(200, 200);
-	app.coin = new Coin(300, 300);
+	app.coin1 = new Coin(300, 300);
 	app.HUDcoin = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
-
-	app.ctx.beginPath();
-	app.ctx.rect(0, 0, canvas.width, canvas.height);
-	app.ctx.fillStyle = "green";
-	app.ctx.fill();
 
 	backgroundTex = new Image();
 	backgroundTex.addEventListener("load", function()
@@ -69,6 +65,13 @@ Game.prototype.init=function()
 
 	}, false);
 	btnOptions.src = 'Assets/Menu/optionsbtn.png';
+
+	bdr_Tree = new Image();
+	bdr_Tree.addEventListener("load", function()
+	{
+
+	}, false);
+	bdr_Tree.src = 'Assets/Gameplay/border_hedge.png';
 
 	level1 = [
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -92,6 +95,8 @@ Game.prototype.init=function()
 Game.prototype.update=function()
 {
 	console.log('Updating');
+	
+	app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	//if menu is showing
 	if (bMenu === true){
@@ -104,9 +109,17 @@ Game.prototype.update=function()
 	//if gameplay is running
 	if (bPlay === true){
 		
+		app.ctx.beginPath();
+		app.ctx.rect(0, 0, canvas.width, canvas.height);
+		app.ctx.fillStyle = "green";
+		app.ctx.fill();
+
 		app.player.update();
 		app.enemy.update();
-		app.coin.update();
+		app.coin1.update();
+		//app.HUDcoin.update();
+
+		
 
 		if (player.playerXPos <= (coin.coinXPos + 64)
 		&& app.coin.coinXPos <= (app.player.playerXPos + 64)
@@ -115,7 +128,7 @@ Game.prototype.update=function()
 		{
 			//++monstersCaught;
 			//reset();
-			console.log("Collide")
+			console.log("Collide");
 		}
 
 		//loop through array and draw the map/level
@@ -131,7 +144,7 @@ Game.prototype.update=function()
 				if (level1[i][j] === 1)
 				{
 					//draw
-					app.ctx.drawImage(backgroundTex, j * 64, i * 64, 64, 64);
+					app.ctx.drawImage(bdr_Tree, j * 64, i * 64, 64, 64);
 				}
 			}
 		}

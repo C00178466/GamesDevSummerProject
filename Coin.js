@@ -17,7 +17,6 @@ function Coin(x, y){
 }
 
 Coin.prototype.update = function(){
-	//app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	//draw & animate the coin
 	if (Date.now() - oldTime > 1000 / fps)
