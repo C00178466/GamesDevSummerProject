@@ -16,8 +16,8 @@ function Level(){
 
 	coin1 = new Coin(300, 300);
 	HUDcoin = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
-	player = new Player(canvas.width / 3, canvas.height / 3);
-	enemy = new Enemy(200, 200);
+	app.player = new Player(canvas.width / 3, canvas.height / 3);
+	app.enemy = new Enemy(200, 200);
 
 	//coins = [coin1, HUDcoin];
 
@@ -117,14 +117,11 @@ Level.prototype.update = function(){
 		}
 	}
 
-	//coin1.update();
-	//HUDcoin.update();
-
-	//coins[0].update();
-	//coins[1].update();
-	enemy.update();
-	player.update();
+	app.enemy.update();
+	app.player.update();
+	coin1.update();
 	CollisionPlayerToEnemy();
+	FollowPlayer();
 	drawHUD();
 }
 
@@ -154,13 +151,36 @@ function drawHUD(){
 
 function CollisionPlayerToEnemy()
 {
-	if (player.playerXPos <= (enemy.enemyXPos + 64)
-	&& enemy.enemyXPos <= (player.playerXPos + 64)
-	&& player.playerYPos <= (enemy.enemyYPos + 64)
-	&& enemy.enemyYPos <= (player.playerYPos + 64)) 
+	if (app.player.playerXPos <= (app.enemy.enemyXPos + 64)
+	&& app.enemy.enemyXPos <= (app.player.playerXPos + 64)
+	&& app.player.playerYPos <= (app.enemy.enemyYPos + 64)
+	&& app.enemy.enemyYPos <= (app.player.playerYPos + 64)) 
 	{
 		//++monstersCaught;
 		//reset();
 		console.log("Collide");
+	}
+}
+
+function FollowPlayer()
+{
+	if (app.player.playerXPos > app.enemy.enemyXPos)
+	{
+		app.enemy.enemyXPos = app.enemy.enemyXPos + 1;
+	}
+
+	else if (app.player.playerXPos < app.enemy.enemyXPos)
+	{
+		app.enemy.enemyXPos = app.enemy.enemyXPos - 1;
+	}
+
+	else if (app.player.playerYPos > app.enemy.enemyYPos)
+	{
+		app.enemy.enemyYPos = app.enemy.enemyYPos + 1;
+	}
+
+	else if (app.player.playerYPos < app.enemy.enemyYPos)
+	{
+		app.enemy.enemyYPos = app.enemy.enemyYPos - 1;
 	}
 }

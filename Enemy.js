@@ -9,11 +9,6 @@ var swirlOldTime = Date.now();
 var swirlXPos, swirlYPos;
 
 function Enemy(x, y){
-	this.init();
-}
-
-Enemy.prototype.init = function(){
-	
 	swirl = new Image();
 	swirl.addEventListener("load", function()
 	{
@@ -25,20 +20,18 @@ Enemy.prototype.init = function(){
 	{
 
 	}, false);
-	enemyTex.src = 'Assets/Gameplay/enemy_walk_right.png';
+	enemyTex.src = 'Assets/Gameplay/player_walk_strip_right.png';
 
-	enemyXPos = x;
-	enemyYPos = y;
+	this.enemyXPos = x;
+	this.enemyYPos = y;
 
-	swirlXPos = enemyXPos;
-	swirlYPos = enemyYPos;
+	swirlXPos = this.enemyXPos;
+	swirlYPos = this.enemyYPos;
 }
 
 Enemy.prototype.update = function(){
 
-	app.ctx.drawImage(swirl, swirlImgFrame*72, 0, 72, 72, swirlXPos, swirlYPos, 64, 64 );
-	app.ctx.drawImage(enemyTex, enemyImgFrame*64, 0, 64, 64, enemyXPos, enemyYPos, 64, 64 );
-	//console.log(app.enemyXPos, app.enemyYPos);
+	app.ctx.drawImage(swirl, swirlImgFrame*72, 0, 72, 72, swirlXPos, swirlYPos, 64, 90 );
 
 	//play the swirl effect
 	if (Date.now() - swirlOldTime > 1000 / fps)
@@ -55,15 +48,18 @@ Enemy.prototype.update = function(){
 
 		swirlOldTime = Date.now();
 		//app.ctx.clearRect(20,0,72,72);
-		app.ctx.drawImage(swirl,swirlImgFrame*72, 0,72, 72, swirlXPos, swirlYPos ,64,64 );
+		app.ctx.drawImage(swirl,swirlImgFrame*72, 0,72, 72, swirlXPos, swirlYPos ,64,90 );
 	}
 
+	//
 	//draw & animate the enemy when the swirl has finished
 	if (swirlImgFrame === 6)
 	{
+		app.ctx.drawImage(enemyTex, enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos, 64, 90 );
+
 		if (Date.now() - enemyOldTime > 1000 / fps)
 		{
-			if (enemyImgFrame == 9)
+			if (enemyImgFrame == 5)
 			{
 				enemyImgFrame = 0;
 			}
@@ -73,7 +69,7 @@ Enemy.prototype.update = function(){
 			enemyOldTime = Date.now();
 			//app.ctx.clearRect(20,0,72,72);
 			//app.ctx.clearRect(0, 0, canvas.width, canvas.height);
-			app.ctx.drawImage(enemyTex,enemyImgFrame*64, 0, 64, 64, enemyXPos, enemyYPos,64,64 );
+			app.ctx.drawImage(enemyTex,enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos,64,90 );
 		}
 	}
 }

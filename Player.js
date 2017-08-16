@@ -16,37 +16,30 @@ addEventListener("keyup", function(e) {
 }, false);
 
 function Player(x, y){
-	this.init();
-}
-
-Player.prototype.init = function(){
 	playerTex = new Image();
 	playerTex.addEventListener("load", function()
 	{
 	}, false);
 	playerTex.src = 'Assets/Gameplay/officer_walk_strip_right.png';
 
-	playerXPos = x;
-	playerYPos = y;
+	this.playerXPos = x;
+	this.playerYPos = y;
 	speed = 16;
 }
 
 Player.prototype.update = function(){
 
-	//app.ctx.clearRect(0, 0, canvas.width, canvas.height);
-	//app.ctx.clearRect(20,0,72,72);
-	app.ctx.drawImage(playerTex, playerImgFrame*64, 0, 64, 90, playerXPos, playerYPos , 64, 90);
-	//console.log(playerXPos, playerYPos);
+	app.ctx.drawImage(playerTex, playerImgFrame*64, 0, 64, 90, this.playerXPos, this.playerYPos , 64, 90);
 
 	//Move the player
 	if (38 in keysDown) 
 	{ // Player holding up
-		playerYPos -= speed * .5;
+		this.playerYPos -= speed * .5;
 	}
 
 	else if (40 in keysDown) 
 	{ // Player holding down
-		playerYPos += speed * .5;
+		this.playerYPos += speed * .5;
 	}
 
 	else if (37 in keysDown) 
@@ -54,7 +47,7 @@ Player.prototype.update = function(){
 
 		playerTex.src = 'Assets/Gameplay/officer_walk_strip_left.png';
 
-		playerXPos -= speed * .5;
+		this.playerXPos -= speed * .5;
 
 		//draw & animate the player
 		if (Date.now() - playerOldTime > 1000 / fps)
@@ -67,7 +60,7 @@ Player.prototype.update = function(){
 			playerImgFrame++;
 
 			playerOldTime = Date.now();
-			app.ctx.drawImage(playerTex ,playerImgFrame*64, 0, 64, 90, playerXPos, playerYPos , 64, 90);
+			app.ctx.drawImage(playerTex ,playerImgFrame*64, 0, 64, 90, this.playerXPos, this.playerYPos , 64, 90);
 		}
 	}
 
@@ -76,7 +69,7 @@ Player.prototype.update = function(){
 
 		playerTex.src = 'Assets/Gameplay/officer_walk_strip_right.png';
 
-		playerXPos += speed * .5;
+		this.playerXPos += speed * .5;
 
 		//draw & animate the player
 		if (Date.now() - playerOldTime > 1000 / fps)
@@ -89,7 +82,7 @@ Player.prototype.update = function(){
 			playerImgFrame++;
 
 			playerOldTime = Date.now();
-			app.ctx.drawImage(playerTex ,playerImgFrame*64, 0, 64, 90, playerXPos, playerYPos , 64, 90);
+			app.ctx.drawImage(playerTex ,playerImgFrame*64, 0, 64, 90, this.playerXPos, this.playerYPos , 64, 90);
 		}
 	}
 }
