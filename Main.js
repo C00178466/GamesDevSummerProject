@@ -1,8 +1,6 @@
 app = {};
 var ctx;
 var canvas;
-var x;
-var y;
 
 
 function main()

@@ -8,13 +8,16 @@ var HUDPause;
 
 var player;
 
+var enemy;
+
 var coins;
 
 function Level(){
 
 	coin1 = new Coin(300, 300);
 	HUDcoin = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
-	app.player = new Player(canvas.width / 3, canvas.height / 3);
+	player = new Player(canvas.width / 3, canvas.height / 3);
+	enemy = new Enemy(200, 200);
 
 	//coins = [coin1, HUDcoin];
 
@@ -119,7 +122,9 @@ Level.prototype.update = function(){
 
 	//coins[0].update();
 	//coins[1].update();
-	app.player.update();
+	enemy.update();
+	player.update();
+	CollisionPlayerToEnemy();
 	drawHUD();
 }
 
@@ -145,4 +150,17 @@ function drawHUD(){
 
 	//Pause Button
 	app.ctx.drawImage(HUDPause, canvas.width / 7, (canvas.height / 7) * 6, 216, 96);
+}
+
+function CollisionPlayerToEnemy()
+{
+	if (player.playerXPos <= (enemy.enemyXPos + 64)
+	&& enemy.enemyXPos <= (player.playerXPos + 64)
+	&& player.playerYPos <= (enemy.enemyYPos + 64)
+	&& enemy.enemyYPos <= (player.playerYPos + 64)) 
+	{
+		//++monstersCaught;
+		//reset();
+		console.log("Collide");
+	}
 }

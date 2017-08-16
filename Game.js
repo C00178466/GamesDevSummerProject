@@ -17,8 +17,6 @@ var backgroundTex;
 var btnPlay;
 var btnOptions;
 
-var enemy;
-
 var levelLdr;
 
 var bMenu = true;
@@ -36,7 +34,6 @@ Game.prototype.init=function()
 	test = new TouchTest();
 	console.log(test.is_touch_device());
 
-	app.enemy = new Enemy(200, 200);
 	levelLdr = new Level();
 
 	backgroundTex = new Image();
@@ -82,18 +79,6 @@ Game.prototype.update=function()
 
 		levelLdr.update();
 		
-		app.enemy.update();
-		//app.HUDcoin.update();
-
-		if (app.player.playerXPos <= (app.enemy.enemyXPos + 64)
-		&& app.enemy.enemyXPos <= (app.player.playerXPos + 64)
-		&& app.player.playerYPos <= (app.enemy.enemyYPos + 64)
-		&& app.enemy.enemyYPos <= (app.player.playerYPos + 64)) 
-		{
-			//++monstersCaught;
-			//reset();
-			console.log("Collide");
-		}
 	}
 
 	if (bOptions === true)
