@@ -1,6 +1,7 @@
 var playerTex;
 var playerXPos, playerYPos;
 var speed;
+var lives;
 var playerImgFrame = 0;
 var playerOldTime = Date.now();
 var fps = 24;
@@ -25,6 +26,7 @@ function Player(x, y){
 	this.playerXPos = x;
 	this.playerYPos = y;
 	speed = 16;
+	this.lives = 2;
 }
 
 Player.prototype.update = function(){
@@ -85,4 +87,9 @@ Player.prototype.update = function(){
 			app.ctx.drawImage(playerTex ,playerImgFrame*64, 0, 64, 90, this.playerXPos, this.playerYPos , 64, 90);
 		}
 	}
+}
+
+function CheckLives()
+{
+	
 }
