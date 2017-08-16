@@ -18,6 +18,7 @@ var btnPlay;
 var btnOptions;
 
 var levelLdr;
+var optMenu;
 
 var bMenu = true;
 var bPlay = false;
@@ -35,6 +36,7 @@ Game.prototype.init=function()
 	console.log(test.is_touch_device());
 
 	levelLdr = new Level();
+	optMenu = new OptionsMenu();
 
 	backgroundTex = new Image();
 	backgroundTex.addEventListener("load", function()
@@ -56,8 +58,6 @@ Game.prototype.init=function()
 
 	}, false);
 	btnOptions.src = 'Assets/Menu/optionsbtn.png';
-
-	
 }
 
 Game.prototype.update=function()
@@ -66,7 +66,7 @@ Game.prototype.update=function()
 	
 	app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-	//if menu is showing
+	//if main menu is showing
 	if (bMenu === true){
 		app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 		app.ctx.drawImage(backgroundTex, 0, 0, canvas.width, canvas.height);
@@ -79,10 +79,10 @@ Game.prototype.update=function()
 		levelLdr.update();
 	}
 
+	//if options menu is showing
 	if (bOptions === true)
 	{
-		app.ctx.clearRect(0, 0, canvas.width, canvas.height);
-		app.ctx.drawImage(backgroundTex, 0, 0, canvas.width, canvas.height);
+		optMenu.update();
 	}
 	
 	window.requestAnimationFrame(myGame.update);

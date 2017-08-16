@@ -42,22 +42,15 @@ Enemy.prototype.update = function(){
 	//play the swirl effect
 	if (Date.now() - swirlOldTime > 1000 / fps)
 	{
-		if (swirlImgFrame == 6)
-		{
-		//	swirlImgFrame = 0;
-		}
-
 		if (swirlImgFrame < 6)
 		{
 			swirlImgFrame++;
 		}
 
 		swirlOldTime = Date.now();
-		//app.ctx.clearRect(20,0,72,72);
 		app.ctx.drawImage(swirl,swirlImgFrame*72, 0,72, 72, swirlXPos, swirlYPos ,64,90 );
 	}
 
-	//
 	//draw & animate the enemy when the swirl has finished
 	if (swirlImgFrame === 6)
 	{
@@ -77,8 +70,6 @@ Enemy.prototype.update = function(){
 				enemyImgFrame++;
 
 				enemyOldTime = Date.now();
-				//app.ctx.clearRect(20,0,72,72);
-				//app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 				app.ctx.drawImage(enemyTex,enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos,64,90 );
 			}
 		}
@@ -97,8 +88,6 @@ Enemy.prototype.update = function(){
 				enemyImgFrame++;
 
 				enemyOldTime = Date.now();
-				//app.ctx.clearRect(20,0,72,72);
-				//app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 				app.ctx.drawImage(enemyTex,enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos,64,90 );
 			}
 		}
@@ -159,9 +148,7 @@ Enemy.prototype.CollisionPlayerToEnemy = function()
 	&& this.enemyYPos <= (app.player.playerYPos + 64)) 
 	{
 		//++monstersCaught;
-		
 		console.log("Collide");
-
 		return true;
 	}
 
