@@ -1,6 +1,7 @@
 var level1;
 var bdr_Tree;
 var groundTex;
+var bdr_Warning;
 var coin1;
 var HUDcoin;
 var HUDCtrls;
@@ -35,6 +36,13 @@ function Level(){
 	}, false);
 	bdr_Tree.src = 'Assets/Gameplay/border_hedge.png';
 
+	bdr_Warning = new Image();
+	bdr_Warning.addEventListener("load", function()
+	{
+
+	}, false);
+	bdr_Warning.src = 'Assets/Gameplay/radioactive.png';
+
 	groundTex = new Image();
 	groundTex.addEventListener("load", function()
 	{
@@ -65,21 +73,21 @@ function Level(){
 
 
 	level1 = [
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+		[1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1],
+		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+		[1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1]
 	];
 }
 
@@ -109,22 +117,12 @@ Level.prototype.update = function(){
 
 			if (level1[i][j] === 2)
 			{
-				//draw coin
-
-				for (c = 0; c < 2; c++)
-				{
-					//coins[c] = new Coin();
-					//coins[c].update();
-					//console.log(coins[c]);
-				}
-
-				//coin1.update();
+				app.ctx.drawImage(bdr_Warning, j * 64, i * 64, 64, 64);
 			}
 
 			if (level1[i][j] === 3)
 			{
-				//draw player
-
+				
 			}
 		}
 	}
