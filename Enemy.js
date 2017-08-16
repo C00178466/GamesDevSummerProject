@@ -2,6 +2,7 @@ var enemyTex;
 var enemyImgFrame = 0;
 var enemyOldTime = Date.now();
 var enemyXPos, enemyYPos;
+var right, left, up, down;
 
 var swirl;
 var swirlImgFrame = 0;
@@ -27,6 +28,11 @@ function Enemy(x, y){
 
 	swirlXPos = this.enemyXPos;
 	swirlYPos = this.enemyYPos;
+
+	right = true;
+	left = false;
+	up = false;
+	down = false;
 }
 
 Enemy.prototype.update = function(){
@@ -57,19 +63,90 @@ Enemy.prototype.update = function(){
 	{
 		app.ctx.drawImage(enemyTex, enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos, 64, 90 );
 
-		if (Date.now() - enemyOldTime > 1000 / fps)
+		if (right === true)
 		{
-			if (enemyImgFrame == 5)
+			enemyTex.src = 'Assets/Gameplay/player_walk_strip_right.png';
+
+			if (Date.now() - enemyOldTime > 1000 / fps)
 			{
-				enemyImgFrame = 0;
+				if (enemyImgFrame == 5)
+				{
+					enemyImgFrame = 0;
+				}
+
+				enemyImgFrame++;
+
+				enemyOldTime = Date.now();
+				//app.ctx.clearRect(20,0,72,72);
+				//app.ctx.clearRect(0, 0, canvas.width, canvas.height);
+				app.ctx.drawImage(enemyTex,enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos,64,90 );
 			}
-
-			enemyImgFrame++;
-
-			enemyOldTime = Date.now();
-			//app.ctx.clearRect(20,0,72,72);
-			//app.ctx.clearRect(0, 0, canvas.width, canvas.height);
-			app.ctx.drawImage(enemyTex,enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos,64,90 );
 		}
+
+		if (left === true)
+		{
+			enemyTex.src = 'Assets/Gameplay/player_walk_strip_left.png';
+
+			if (Date.now() - enemyOldTime > 1000 / fps)
+			{
+				if (enemyImgFrame == 5)
+				{
+					enemyImgFrame = 0;
+				}
+
+				enemyImgFrame++;
+
+				enemyOldTime = Date.now();
+				//app.ctx.clearRect(20,0,72,72);
+				//app.ctx.clearRect(0, 0, canvas.width, canvas.height);
+				app.ctx.drawImage(enemyTex,enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos,64,90 );
+			}
+		}
+		
+
+		this.FollowPlayer();
+	}
+}
+
+Enemy.prototype.FollowPlayer = function()
+{
+	if (app.player.playerXPos > app.enemy.enemyXPos) //right
+	{
+		app.enemy.enemyXPos = app.enemy.enemyXPos + 1;
+
+		right = true;
+		left = false;
+		up = false;
+		down = false;
+	}
+
+	else if (app.player.playerXPos < app.enemy.enemyXPos) //left
+	{
+		app.enemy.enemyXPos = app.enemy.enemyXPos - 1;
+
+		right = false;
+		left = true;
+		up = false;
+		down = false;
+	}
+
+	else if (app.player.playerYPos > app.enemy.enemyYPos) //up
+	{
+		app.enemy.enemyYPos = app.enemy.enemyYPos + 1;
+
+		right = false;
+		left = false;
+		up = true;
+		down = false;
+	}
+
+	else if (app.player.playerYPos < app.enemy.enemyYPos) //down
+	{
+		app.enemy.enemyYPos = app.enemy.enemyYPos - 1;
+
+		right = false;
+		left = false;
+		up = false;
+		down = true;
 	}
 }

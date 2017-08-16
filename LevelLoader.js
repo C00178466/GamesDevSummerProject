@@ -13,6 +13,9 @@ var enemy;
 
 var coins;
 
+var GameRunning;
+var GamePaused;
+
 function Level(){
 
 	coin1 = new Coin(300, 300);
@@ -130,7 +133,7 @@ Level.prototype.update = function(){
 	app.player.update();
 	coin1.update();
 	CollisionPlayerToEnemy();
-	FollowPlayer();
+	app.enemy.FollowPlayer();
 	GameOver();
 	drawHUD();
 }
@@ -178,31 +181,9 @@ function CollisionPlayerToEnemy()
 	}
 }
 
-function FollowPlayer()
-{
-	if (app.player.playerXPos > app.enemy.enemyXPos)
-	{
-		app.enemy.enemyXPos = app.enemy.enemyXPos + 1;
-	}
-
-	else if (app.player.playerXPos < app.enemy.enemyXPos)
-	{
-		app.enemy.enemyXPos = app.enemy.enemyXPos - 1;
-	}
-
-	else if (app.player.playerYPos > app.enemy.enemyYPos)
-	{
-		app.enemy.enemyYPos = app.enemy.enemyYPos + 1;
-	}
-
-	else if (app.player.playerYPos < app.enemy.enemyYPos)
-	{
-		app.enemy.enemyYPos = app.enemy.enemyYPos - 1;
-	}
-}
-
 function Reset()
 {
+	//reset player position
 	app.player.playerXPos = canvas.width / 3;
 	app.player.playerYPos = canvas.height / 3;
 
