@@ -1,42 +1,47 @@
-var coinTex;
-var oldTime = Date.now();
-var imageFrame = 0;
-var coinXPos, coinYPos;
+
 
 function Coin(x, y){
+	var coinTex;
+	var oldTime;
+	var imageFrame;
+	var coinXPos, coinYPos;
 
 	//Load coin image
-	coinTex = new Image();
-	coinTex.addEventListener("load", function() 
+	app.coinTex = new Image();
+	app.coinTex.addEventListener("load", function() 
 	{
 	}, false);
-	coinTex.src = 'Assets/Gameplay/coin.png';
+	app.coinTex.src = 'Assets/Gameplay/coin.png';
 
-	coinXPos = x;
-	coinYPos = y;
+	app.imageFrame = 0;
+	app.oldTime = Date.now();
+
+	app.coinXPos = x;
+	app.coinYPos = y;
 }
 
 Coin.prototype.update = function(){
 
-	app.ctx.drawImage(coinTex,imageFrame*44, 0, 44, 44, coinXPos, coinYPos, 64, 64 );
+	app.ctx.drawImage(app.coinTex, app.imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
 
 	//draw & animate the coin
-	if (Date.now() - oldTime > 1000 / fps)
+	if (Date.now() - app.oldTime > 1000 / fps)
 	{
-		if (imageFrame == 9)
+		if (app.imageFrame == 9)
 		{
-			imageFrame = 0;
+			app.imageFrame = 0;
 		}
 
-		imageFrame++;
+		app.imageFrame++;
 
-		oldTime = Date.now();
+		app.oldTime = Date.now();
 		//app.ctx.clearRect(app.coinXPos, app.coinYPos, 64, 64);
-		app.ctx.drawImage(coinTex,imageFrame*44, 0, 44, 44, coinXPos, coinYPos, 64, 64 );
-		//this.draw();
+		//app.ctx.drawImage(app.coinTex, app.imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
+		this.draw();
 	}
 }
 
 Coin.prototype.draw = function(){
-	app.ctx.drawImage(coinTex,imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
+	//app.ctx.drawImage(coinTex,imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
+	app.ctx.drawImage(app.coinTex, app.imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
 }

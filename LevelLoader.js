@@ -20,8 +20,8 @@ var GameOver;
 
 function Level(){
 
-	coin1 = new Coin(300, 300);
-	HUDcoin = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+	app.coin1 = new Coin(300, 300);
+	app.HUDcoin = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
 	app.player = new Player(canvas.width / 3, canvas.height / 3);
 	app.enemy = new Enemy(200, 200);
 
@@ -29,10 +29,10 @@ function Level(){
 	GameOver = false;
 	GamePaused = false;
 
-	//coins = [coin1, HUDcoin];
+	//app.coins = [2];
 
-	//coins[0] = new Coin(300, 300);
-	//coins[1] = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+	//app.coins[0] = new Coin(300, 300);
+	//app.coins[1] = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
 
 	bdr_Tree = new Image();
 	bdr_Tree.addEventListener("load", function()
@@ -136,10 +136,15 @@ Level.prototype.update = function(){
 	{
 		app.enemy.update();
 		app.player.update();
-		coin1.update();
-		CollisionPlayerToEnemy();
+		app.coin1.update();
+		app.HUDcoin.update();
 		app.enemy.FollowPlayer();
 		CheckLives();
+
+		//for (i = 0; i < 2; i++)
+		//{
+		//	app.coins[i].update();
+		//}
 	}
 	else
 	{
@@ -174,24 +179,7 @@ function drawHUD(){
 	app.ctx.drawImage(HUDPause, canvas.width / 7, (canvas.height / 7) * 6, 216, 96);
 }
 
-function CollisionPlayerToEnemy()
-{
-	if (app.player.playerXPos <= (app.enemy.enemyXPos + 64)
-	&& app.enemy.enemyXPos <= (app.player.playerXPos + 64)
-	&& app.player.playerYPos <= (app.enemy.enemyYPos + 64)
-	&& app.enemy.enemyYPos <= (app.player.playerYPos + 64)) 
-	{
-		//++monstersCaught;
-		
-		console.log("Collide");
 
-		if (app.player.lives > 0)
-		{
-			app.player.lives = app.player.lives - 1;
-			Reset();
-		}
-	}
-}
 
 function Reset()
 {
@@ -205,6 +193,15 @@ function Reset()
 
 function CheckLives()
 {
+	if (app.enemy.CollisionPlayerToEnemy())
+	{
+		if (app.player.lives > 0)
+		{
+			app.player.lives = app.player.lives - 1;
+			Reset();
+		}
+	}
+	
 	if (app.player.lives === 0)
 	{
 		GameOver = true;
@@ -214,9 +211,9 @@ function CheckLives()
 
 function CheckGameOver()
 {
-	app.ctx.fillStyle = "rgb(0, 0, 0)";
-	app.ctx.font = "42px Helvetica";
+	app.ctx.fillStyle = "rgb(255, 255, 255)";
+	app.ctx.font = "72px Helvetica";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
-	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 126, canvas.height / 2);
+	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, canvas.height / 2);
 }

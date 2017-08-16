@@ -110,9 +110,9 @@ Enemy.prototype.update = function(){
 
 Enemy.prototype.FollowPlayer = function()
 {
-	if (app.player.playerXPos > app.enemy.enemyXPos) //right
+	if (app.player.playerXPos > this.enemyXPos) //right
 	{
-		app.enemy.enemyXPos = app.enemy.enemyXPos + 1;
+		this.enemyXPos = this.enemyXPos + 1;
 
 		right = true;
 		left = false;
@@ -120,9 +120,9 @@ Enemy.prototype.FollowPlayer = function()
 		down = false;
 	}
 
-	else if (app.player.playerXPos < app.enemy.enemyXPos) //left
+	else if (app.player.playerXPos < this.enemyXPos) //left
 	{
-		app.enemy.enemyXPos = app.enemy.enemyXPos - 1;
+		this.enemyXPos = this.enemyXPos - 1;
 
 		right = false;
 		left = true;
@@ -130,9 +130,9 @@ Enemy.prototype.FollowPlayer = function()
 		down = false;
 	}
 
-	else if (app.player.playerYPos > app.enemy.enemyYPos) //up
+	else if (app.player.playerYPos > this.enemyYPos) //up
 	{
-		app.enemy.enemyYPos = app.enemy.enemyYPos + 1;
+		this.enemyYPos = this.enemyYPos + 1;
 
 		right = false;
 		left = false;
@@ -140,13 +140,33 @@ Enemy.prototype.FollowPlayer = function()
 		down = false;
 	}
 
-	else if (app.player.playerYPos < app.enemy.enemyYPos) //down
+	else if (app.player.playerYPos < this.enemyYPos) //down
 	{
-		app.enemy.enemyYPos = app.enemy.enemyYPos - 1;
+		this.enemyYPos = this.enemyYPos - 1;
 
 		right = false;
 		left = false;
 		up = false;
 		down = true;
+	}
+}
+
+Enemy.prototype.CollisionPlayerToEnemy = function()
+{
+	if (app.player.playerXPos <= (this.enemyXPos + 64)
+	&& this.enemyXPos <= (app.player.playerXPos + 64)
+	&& app.player.playerYPos <= (this.enemyYPos + 64)
+	&& this.enemyYPos <= (app.player.playerYPos + 64)) 
+	{
+		//++monstersCaught;
+		
+		console.log("Collide");
+
+		return true;
+	}
+
+	else
+	{
+		return false;
 	}
 }
