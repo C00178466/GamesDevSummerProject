@@ -16,6 +16,7 @@ var coins;
 
 var GameRunning;
 var GamePaused;
+var GameOver;
 
 function Level(){
 
@@ -23,6 +24,10 @@ function Level(){
 	HUDcoin = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
 	app.player = new Player(canvas.width / 3, canvas.height / 3);
 	app.enemy = new Enemy(200, 200);
+
+	GameRunning = true;
+	GameOver = false;
+	GamePaused = false;
 
 	//coins = [coin1, HUDcoin];
 
@@ -127,12 +132,21 @@ Level.prototype.update = function(){
 		}
 	}
 
-	app.enemy.update();
-	app.player.update();
-	coin1.update();
-	CollisionPlayerToEnemy();
-	app.enemy.FollowPlayer();
-	GameOver();
+	if (GameRunning)
+	{
+		app.enemy.update();
+		app.player.update();
+		coin1.update();
+		CollisionPlayerToEnemy();
+		app.enemy.FollowPlayer();
+		CheckLives();
+	}
+	else
+	{
+		CheckGameOver();
+	}
+
+	
 	drawHUD();
 }
 
@@ -189,14 +203,20 @@ function Reset()
 	app.enemy.enemyYPos = 200;
 }
 
-function GameOver()
+function CheckLives()
 {
 	if (app.player.lives === 0)
 	{
-		app.ctx.fillStyle = "rgb(0, 0, 0)";
-		app.ctx.font = "42px Helvetica";
-		app.ctx.textAlign = "left";
-		app.ctx.textBaseline = "top";
-		app.ctx.fillText("GAME OVER", (canvas.width / 2) - 126, canvas.height / 2);
+		GameOver = true;
+		GameRunning = false;
 	}
+}
+
+function CheckGameOver()
+{
+	app.ctx.fillStyle = "rgb(0, 0, 0)";
+	app.ctx.font = "42px Helvetica";
+	app.ctx.textAlign = "left";
+	app.ctx.textBaseline = "top";
+	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 126, canvas.height / 2);
 }

@@ -76,9 +76,7 @@ Game.prototype.update=function()
 	
 	//if gameplay is running
 	if (bPlay === true){
-
 		levelLdr.update();
-		
 	}
 
 	if (bOptions === true)
