@@ -1,94 +1,100 @@
-var enemyTex;
-var enemyImgFrame = 0;
-var enemyOldTime = Date.now();
-var enemyXPos, enemyYPos;
-var right, left, up, down;
+function Enemy(){
 
-var swirl;
-var swirlImgFrame = 0;
-var swirlOldTime = Date.now();
-var swirlXPos, swirlYPos;
+	var swirl;
+	var swirlImgFrame;
+	var swirlOldTime;
+	var swirlXPos, swirlYPos;
 
-function Enemy(x, y){
-	swirl = new Image();
-	swirl.addEventListener("load", function()
-	{
-	}, false);
-	swirl.src = 'Assets/Gameplay/swirleffect.png';
+	var img;
+	var imgFrame;
+	var oldTime;
+	var xPos, yPos;
+	var right, left, up, down;
+	var fps;
+}
 
-	enemyTex = new Image();
-	enemyTex.addEventListener("load", function()
-	{
+Enemy.prototype.init = function(x, y){
 
-	}, false);
-	enemyTex.src = 'Assets/Gameplay/player_walk_strip_right.png';
+	this.swirl = new Image();
+	this.swirl.src = 'Assets/Gameplay/swirleffect.png';
 
-	this.enemyXPos = x;
-	this.enemyYPos = y;
+	this.swirlImgFrame = 0;
+	this.swirlOldTime = Date.now();
 
-	swirlXPos = this.enemyXPos;
-	swirlYPos = this.enemyYPos;
+	this.img = new Image();
+	this.img.src = 'Assets/Gameplay/player_walk_strip_right.png';
 
-	right = true;
-	left = false;
-	up = false;
-	down = false;
+	this.imgFrame = 0;
+	this.oldTime = Date.now();
+
+	this.xPos = x;
+	this.yPos = y;
+
+	this.swirlXPos = this.xPos;
+	this.swirlYPos = this.yPos;
+
+	this.right = true;
+	this.left = false;
+	this.up = false;
+	this.down = false;
+
+	this.fps = 24;
 }
 
 Enemy.prototype.update = function(){
 
-	app.ctx.drawImage(swirl, swirlImgFrame*72, 0, 72, 72, swirlXPos, swirlYPos, 64, 90 );
+	app.ctx.drawImage(this.swirl, this.swirlImgFrame*72, 0, 72, 72, this.swirlXPos, this.swirlYPos, 64, 90);
 
 	//play the swirl effect
-	if (Date.now() - swirlOldTime > 1000 / fps)
+	if (Date.now() - this.swirlOldTime > 1000 / this.fps)
 	{
-		if (swirlImgFrame < 6)
+		if (this.swirlImgFrame < 6)
 		{
-			swirlImgFrame++;
+			this.swirlImgFrame++;
 		}
 
-		swirlOldTime = Date.now();
-		app.ctx.drawImage(swirl,swirlImgFrame*72, 0,72, 72, swirlXPos, swirlYPos ,64,90 );
+		this.swirlOldTime = Date.now();
+		app.ctx.drawImage(this.swirl, this.swirlImgFrame*72, 0, 72, 72, this.swirlXPos, this.swirlYPos, 64, 90);
 	}
 
 	//draw & animate the enemy when the swirl has finished
-	if (swirlImgFrame === 6)
+	if (this.swirlImgFrame === 6)
 	{
-		app.ctx.drawImage(enemyTex, enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos, 64, 90 );
+		app.ctx.drawImage(this.img, this.imgFrame*35, 0, 35, 57, this.xPos, this.yPos, 64, 90 );
 
-		if (right === true)
+		if (this.right === true)
 		{
-			enemyTex.src = 'Assets/Gameplay/player_walk_strip_right.png';
+			this.img.src = 'Assets/Gameplay/player_walk_strip_right.png';
 
-			if (Date.now() - enemyOldTime > 1000 / fps)
+			if (Date.now() - this.oldTime > 1000 / this.fps)
 			{
-				if (enemyImgFrame == 5)
+				if (this.imgFrame == 5)
 				{
-					enemyImgFrame = 0;
+					this.imgFrame = 0;
 				}
 
-				enemyImgFrame++;
+				this.imgFrame++;
 
-				enemyOldTime = Date.now();
-				app.ctx.drawImage(enemyTex,enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos,64,90 );
+				this.oldTime = Date.now();
+				app.ctx.drawImage(this.img, this.imgFrame*35, 0, 35, 57, this.xPos, this.yPos, 64, 90);
 			}
 		}
 
-		if (left === true)
+		if (this.left === true)
 		{
-			enemyTex.src = 'Assets/Gameplay/player_walk_strip_left.png';
+			this.img.src = 'Assets/Gameplay/player_walk_strip_left.png';
 
-			if (Date.now() - enemyOldTime > 1000 / fps)
+			if (Date.now() - this.oldTime > 1000 / this.fps)
 			{
-				if (enemyImgFrame == 5)
+				if (this.imgFrame == 5)
 				{
-					enemyImgFrame = 0;
+					this.imgFrame = 0;
 				}
 
-				enemyImgFrame++;
+				this.imgFrame++;
 
-				enemyOldTime = Date.now();
-				app.ctx.drawImage(enemyTex,enemyImgFrame*35, 0, 35, 57, this.enemyXPos, this.enemyYPos,64,90 );
+				this.oldTime = Date.now();
+				app.ctx.drawImage(this.img, this.imgFrame*35, 0, 35, 57, this.xPos, this.yPos, 64, 90);
 			}
 		}
 		
@@ -99,53 +105,53 @@ Enemy.prototype.update = function(){
 
 Enemy.prototype.FollowPlayer = function()
 {
-	if (app.player.xPos > this.enemyXPos) //right
+	if (app.player.xPos > this.xPos) //right
 	{
-		this.enemyXPos = this.enemyXPos + 1;
+		this.xPos = this.xPos + 1;
 
-		right = true;
-		left = false;
-		up = false;
-		down = false;
+		this.right = true;
+		this.left = false;
+		this.up = false;
+		this.down = false;
 	}
 
-	else if (app.player.xPos < this.enemyXPos) //left
+	else if (app.player.xPos < this.xPos) //left
 	{
-		this.enemyXPos = this.enemyXPos - 1;
+		this.xPos = this.xPos - 1;
 
-		right = false;
-		left = true;
-		up = false;
-		down = false;
+		this.right = false;
+		this.left = true;
+		this.up = false;
+		this.down = false;
 	}
 
-	else if (app.player.yPos > this.enemyYPos) //up
+	else if (app.player.yPos > this.yPos) //up
 	{
-		this.enemyYPos = this.enemyYPos + 1;
+		this.yPos = this.yPos + 1;
 
-		right = false;
-		left = false;
-		up = true;
-		down = false;
+		this.right = false;
+		this.left = false;
+		this.up = true;
+		this.down = false;
 	}
 
-	else if (app.player.yPos < this.enemyYPos) //down
+	else if (app.player.yPos < this.yPos) //down
 	{
-		this.enemyYPos = this.enemyYPos - 1;
+		this.yPos = this.yPos - 1;
 
-		right = false;
-		left = false;
-		up = false;
-		down = true;
+		this.right = false;
+		this.left = false;
+		this.up = false;
+		this.down = true;
 	}
 }
 
 Enemy.prototype.CollisionPlayerToEnemy = function()
 {
-	if (app.player.xPos <= (this.enemyXPos + 64)
-	&& this.enemyXPos <= (app.player.xPos + 64)
-	&& app.player.yPos <= (this.enemyYPos + 64)
-	&& this.enemyYPos <= (app.player.yPos + 64)) 
+	if (app.player.xPos <= (this.xPos + 64)
+	&& this.xPos <= (app.player.xPos + 64)
+	&& app.player.yPos <= (this.yPos + 64)
+	&& this.yPos <= (app.player.yPos + 64)) 
 	{
 		//++monstersCaught;
 		console.log("Collide");

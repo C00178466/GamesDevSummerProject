@@ -24,7 +24,9 @@ function Level(){
 	//app.HUDcoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
 	app.player = new Player();
 	app.player.init(canvas.width / 3, canvas.height / 3);
-	app.enemy = new Enemy(200, 200);
+
+	app.enemy = new Enemy();
+	app.enemy.init(200, 200);
 
 	GameRunning = true;
 	GameOver = false;
