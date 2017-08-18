@@ -5,6 +5,7 @@ var bdr_Warning;
 var HUDCtrls;
 var HUDLives;
 var HUDPause;
+var coinsCollected;
 
 var player;
 var enemy;
@@ -30,12 +31,21 @@ function Level(){
 	GameOver = false;
 	GamePaused = false;
 
-	app.coins = [2];
+	app.coins = [4];
 
+	//HUD coin
 	app.coins[0] = new Coin();
-	app.coins[0].init(300, 300);
+	app.coins[0].init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+
+	//Gameplay Coins
 	app.coins[1] = new Coin();
-	app.coins[1].init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+	app.coins[1].init(300, 300);
+	app.coins[2] = new Coin();
+	app.coins[2].init(500, 300);
+	app.coins[3] = new Coin();
+	app.coins[3].init(300, 700);
+
+	app.coinsCollected = 0;
 
 	bdr_Tree = new Image();
 	bdr_Tree.addEventListener("load", function()
@@ -139,8 +149,6 @@ Level.prototype.update = function(){
 
 	if (GameRunning)
 	{
-		app.enemy[0].update();
-		app.enemy[1].update();
 		app.player.update();
 		app.enemy[0].FollowPlayer();
 		CheckCoins();
@@ -149,6 +157,11 @@ Level.prototype.update = function(){
 		for (i = 0; i < app.coins.length; i++)
 		{
 			app.coins[i].update();
+		}
+
+		for (i = 0; i < app.enemy.length; i++)
+		{
+			app.enemy[i].update();
 		}
 	}
 	else
@@ -167,7 +180,7 @@ function drawHUD(){
 	app.ctx.font = "42px Helvetica";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
-	app.ctx.fillText("Coins: " + " 0 / 2", (canvas.width / 7), (canvas.height / 7) * 5.05);
+	app.ctx.fillText("Coins: " +  app.coinsCollected + " / 3", (canvas.width / 7), (canvas.height / 7) * 5.05);
 
 	//Lives
 	app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
@@ -225,16 +238,24 @@ function CheckCoins()
 	for (i = 0; i < app.coins.length; i++)
 	{
 		if (app.coins[i].xPos <= (app.player.xPos + 64)
-		&& app.player.xPos <= (app.coins[i].yPos + 64)
+		&& app.player.xPos <= (app.coins[i].xPos + 64)
 		&& app.coins[i].yPos <= (app.player.yPos + 64)
 		&& app.player.yPos <= (app.coins[i].yPos + 64)) 
 		{
-			//++monstersCaught;
-			console.log("Coin Collide");
+			++app.coinsCollected;
 
 			//remove the coin from the array
 			app.coins.splice(i, 1);
 		}
+	}
+
+	if (app.coinsCollected === 3)
+	{
+		app.ctx.fillStyle = "rgb(255, 255, 255)";
+		app.ctx.font = "72px Helvetica";
+		app.ctx.textAlign = "left";
+		app.ctx.textBaseline = "top";
+		app.ctx.fillText("YOU WIN", (canvas.width / 2) - 240, canvas.height / 2);
 	}
 }
 

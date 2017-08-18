@@ -99,7 +99,7 @@ Enemy.prototype.update = function(){
 		}
 		
 
-		this.FollowPlayer();
+		//this.FollowPlayer();
 	}
 }
 
