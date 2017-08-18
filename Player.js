@@ -89,7 +89,20 @@ Player.prototype.update = function(){
 	}
 }
 
-function CheckLives()
-{
-	
+Coin.prototype.CollisionToPlayer = function(){
+
+	if (app.player.playerXPos <= (this.XPos + 64)
+	&& this.XPos <= (app.player.playerXPos + 64)
+	&& app.player.playerYPos <= (this.YPos + 64)
+	&& this.YPos <= (app.player.playerYPos + 64)) 
+	{
+		//++monstersCaught;
+		console.log("Coin Collide");
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
 }

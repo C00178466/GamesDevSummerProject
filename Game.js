@@ -13,12 +13,9 @@ app.ctx = canvas.getContext("2d");
 var test;
 var touchXPos, touchYPos;
 
-var backgroundTex;
-var btnPlay;
-var btnOptions;
-
-var levelLdr;
+var mainMenu;
 var optMenu;
+var levelLdr;
 
 var bMenu = true;
 var bPlay = false;
@@ -37,27 +34,7 @@ Game.prototype.init=function()
 
 	levelLdr = new Level();
 	optMenu = new OptionsMenu();
-
-	backgroundTex = new Image();
-	backgroundTex.addEventListener("load", function()
-	{
-
-	}, false);
-	backgroundTex.src = 'Assets/Menu/background.png';
-
-	btnPlay = new Image();
-	btnPlay.addEventListener("load", function()
-	{
-
-	}, false);
-	btnPlay.src = 'Assets/Menu/playbtn.png';
-
-	btnOptions = new Image();
-	btnOptions.addEventListener("load", function()
-	{
-
-	}, false);
-	btnOptions.src = 'Assets/Menu/optionsbtn.png';
+	mainMenu = new MainMenu();
 }
 
 Game.prototype.update=function()
@@ -68,10 +45,7 @@ Game.prototype.update=function()
 
 	//if main menu is showing
 	if (bMenu === true){
-		app.ctx.clearRect(0, 0, canvas.width, canvas.height);
-		app.ctx.drawImage(backgroundTex, 0, 0, canvas.width, canvas.height);
-		app.ctx.drawImage(btnPlay, (canvas.width / 2) - 145, (canvas.height / 2) - 160, 290, 160);
-		app.ctx.drawImage(btnOptions, (canvas.width / 2) - 145, (canvas.height / 2) + 160, 290, 160);
+		mainMenu.update();
 	}
 	
 	//if gameplay is running

@@ -1,40 +1,39 @@
-
-
 function Coin(x, y){
-	var coinTex;
+	var img;
 	var oldTime;
 	var imageFrame;
-	var coinXPos, coinYPos;
+	var XPos;
+	var YPos;	
+}
+
+Coin.prototype.init = function(x, y){
 
 	//Load coin image
-	app.coinTex = new Image();
-	app.coinTex.addEventListener("load", function() 
-	{
-	}, false);
-	app.coinTex.src = 'Assets/Gameplay/coin.png';
+	this.img = new Image();
+	this.img.src = 'Assets/Gameplay/coin.png';
 
-	app.imageFrame = 0;
-	app.oldTime = Date.now();
+	this.imageFrame = 0;
+	this.oldTime = Date.now();
 
-	app.coinXPos = x;
-	app.coinYPos = y;
+	this.XPos = x;
+	this.YPos = y;
 }
 
 Coin.prototype.update = function(){
 
-	app.ctx.drawImage(app.coinTex, app.imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
+	app.ctx.drawImage(this.img, this.imageFrame*44, 0, 44, 44, this.XPos, this.YPos, 64, 64 );
 
 	//draw & animate the coin
-	if (Date.now() - app.oldTime > 1000 / fps)
+	if (Date.now() - this.oldTime > 1000 / fps)
 	{
-		if (app.imageFrame == 9)
+		if (this.imageFrame == 9)
 		{
-			app.imageFrame = 0;
+			this.imageFrame = 0;
 		}
 
-		app.imageFrame++;
+		this.imageFrame++;
 
-		app.oldTime = Date.now();
+		this.oldTime = Date.now();
 		//app.ctx.clearRect(app.coinXPos, app.coinYPos, 64, 64);
 		//app.ctx.drawImage(app.coinTex, app.imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
 		this.draw();
@@ -43,5 +42,5 @@ Coin.prototype.update = function(){
 
 Coin.prototype.draw = function(){
 	//app.ctx.drawImage(coinTex,imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
-	app.ctx.drawImage(app.coinTex, app.imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
+	app.ctx.drawImage(this.img, this.imageFrame*44, 0, 44, 44, this.XPos, this.YPos, 64, 64 );
 }

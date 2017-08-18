@@ -9,9 +9,7 @@ var HUDLives;
 var HUDPause;
 
 var player;
-
 var enemy;
-
 var coins;
 
 var GameRunning;
@@ -20,8 +18,10 @@ var GameOver;
 
 function Level(){
 
-	app.coin1 = new Coin(300, 300);
-	app.HUDcoin = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+	//app.coin1 = new Coin();
+	//app.coin1.init(300, 300);
+	//app.HUDcoin = new Coin();
+	//app.HUDcoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
 	app.player = new Player(canvas.width / 3, canvas.height / 3);
 	app.enemy = new Enemy(200, 200);
 
@@ -29,10 +29,12 @@ function Level(){
 	GameOver = false;
 	GamePaused = false;
 
-	//app.coins = [2];
+	app.coins = [2];
 
-	//app.coins[0] = new Coin(300, 300);
-	//app.coins[1] = new Coin((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+	app.coins[0] = new Coin();
+	app.coins[0].init(300, 300);
+	app.coins[1] = new Coin();
+	app.coins[1].init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
 
 	bdr_Tree = new Image();
 	bdr_Tree.addEventListener("load", function()
@@ -136,15 +138,15 @@ Level.prototype.update = function(){
 	{
 		app.enemy.update();
 		app.player.update();
-		app.coin1.update();
-		app.HUDcoin.update();
+		//app.coin1.update();
+		//app.HUDcoin.update();
 		app.enemy.FollowPlayer();
 		CheckLives();
 
-		//for (i = 0; i < 2; i++)
-		//{
-		//	app.coins[i].update();
-		//}
+		for (i = 0; i < 2; i++)
+		{
+			app.coins[i].update();
+		}
 	}
 	else
 	{
