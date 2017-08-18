@@ -2,8 +2,6 @@ var level1;
 var bdr_Tree;
 var groundTex;
 var bdr_Warning;
-var coin1;
-var HUDcoin;
 var HUDCtrls;
 var HUDLives;
 var HUDPause;
@@ -18,15 +16,15 @@ var GameOver;
 
 function Level(){
 
-	//app.coin1 = new Coin();
-	//app.coin1.init(300, 300);
-	//app.HUDcoin = new Coin();
-	//app.HUDcoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
 	app.player = new Player();
 	app.player.init(canvas.width / 3, canvas.height / 3);
 
-	app.enemy = new Enemy();
-	app.enemy.init(200, 200);
+	app.enemy = [2];
+
+	app.enemy[0] = new Enemy();
+	app.enemy[0].init(200, 200);
+	app.enemy[1] = new Enemy();
+	app.enemy[1].init(400, 200);
 
 	GameRunning = true;
 	GameOver = false;
@@ -103,6 +101,7 @@ function Level(){
 
 Level.prototype.update = function(){
 
+	//Colour the canvas green
 	app.ctx.beginPath();
 	app.ctx.rect(0, 0, canvas.width, canvas.height);
 	app.ctx.fillStyle = "green";
@@ -121,12 +120,13 @@ Level.prototype.update = function(){
 
 			if (level1[i][j] === 1)
 			{
-				//draw border
+				//draw hedge border images
 				app.ctx.drawImage(bdr_Tree, j * 64, i * 64, 64, 64);
 			}
 
 			if (level1[i][j] === 2)
 			{
+				//draw warning border images
 				app.ctx.drawImage(bdr_Warning, j * 64, i * 64, 64, 64);
 			}
 
@@ -139,14 +139,14 @@ Level.prototype.update = function(){
 
 	if (GameRunning)
 	{
-		app.enemy.update();
+		app.enemy[0].update();
+		app.enemy[1].update();
 		app.player.update();
-		//app.coin1.update();
-		//app.HUDcoin.update();
-		app.enemy.FollowPlayer();
+		app.enemy[0].FollowPlayer();
+		CheckCoins();
 		CheckLives();
 
-		for (i = 0; i < 2; i++)
+		for (i = 0; i < app.coins.length; i++)
 		{
 			app.coins[i].update();
 		}
@@ -192,25 +192,49 @@ function Reset()
 	app.player.xPos = canvas.width / 3;
 	app.player.yPos = canvas.height / 3;
 
-	app.enemy.enemyXPos = 200;
-	app.enemy.enemyYPos = 200;
+	app.enemy[0].xPos = 200;
+	app.enemy[0].yPos = 200;
+
+	app.enemy[1].xPos = 400;
+	app.enemy[1].yPos = 200;
 }
 
 function CheckLives()
-{
-	if (app.enemy.CollisionPlayerToEnemy())
+{	
+	for (i = 0; i < app.enemy.length; i++)
 	{
-		if (app.player.lives > 0)
+		if (app.enemy[i].CollisionPlayerToEnemy())
 		{
-			app.player.lives = app.player.lives - 1;
-			Reset();
+			if (app.player.lives > 0)
+			{
+				app.player.lives = app.player.lives - 1;
+				Reset();
+			}
 		}
-	}
+	}	
 	
 	if (app.player.lives === 0)
 	{
 		GameOver = true;
 		GameRunning = false;
+	}
+}
+
+function CheckCoins()
+{
+	for (i = 0; i < app.coins.length; i++)
+	{
+		if (app.coins[i].xPos <= (app.player.xPos + 64)
+		&& app.player.xPos <= (app.coins[i].yPos + 64)
+		&& app.coins[i].yPos <= (app.player.yPos + 64)
+		&& app.player.yPos <= (app.coins[i].yPos + 64)) 
+		{
+			//++monstersCaught;
+			console.log("Coin Collide");
+
+			//remove the coin from the array
+			app.coins.splice(i, 1);
+		}
 	}
 }
 

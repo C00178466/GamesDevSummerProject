@@ -96,21 +96,3 @@ Player.prototype.update = function(){
 		}
 	}
 }
-
-Player.prototype.CollisionToCoin = function(){
-
-	if (app.coin.xPos <= (this.xPos + 64)
-	&& this.xPos <= (app.coin.yPos + 64)
-	&& app.coin.yPos <= (this.yPos + 64)
-	&& this.yPos <= (app.coin.yPos + 64)) 
-	{
-		//++monstersCaught;
-		console.log("Coin Collide");
-		return true;
-	}
-
-	else
-	{
-		return false;
-	}
-}
