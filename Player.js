@@ -1,11 +1,3 @@
-var playerTex;
-var playerXPos, playerYPos;
-var speed;
-var lives;
-var playerImgFrame = 0;
-var playerOldTime = Date.now();
-var fps = 24;
-
 var keysDown = {};
 
 addEventListener("keydown", function(e) {
@@ -16,85 +8,101 @@ addEventListener("keyup", function(e) {
 	delete keysDown[e.keyCode];
 }, false);
 
-function Player(x, y){
-	playerTex = new Image();
-	playerTex.addEventListener("load", function()
+function Player(){
+
+	var img;
+	var xPos, yPos;
+	var speed;
+	var lives;
+	var imgFrame;
+	var oldTime;
+	var fps;
+}
+
+Player.prototype.init = function(x, y){
+
+	this.img = new Image();
+	this.img.addEventListener("load", function()
 	{
 	}, false);
-	playerTex.src = 'Assets/Gameplay/officer_walk_strip_right.png';
+	this.img.src = 'Assets/Gameplay/officer_walk_strip_right.png';
 
-	this.playerXPos = x;
-	this.playerYPos = y;
-	speed = 16;
+	this.xPos = x;
+	this.yPos = y;
+	this.speed = 16;
 	this.lives = 2;
+
+	this.imgFrame = 0;
+	this.oldTime = Date.now();
+	this.fps = 24;
 }
 
 Player.prototype.update = function(){
 
-	app.ctx.drawImage(playerTex, playerImgFrame*64, 0, 64, 90, this.playerXPos, this.playerYPos , 64, 90);
+	app.ctx.drawImage(this.img, this.imgFrame*64, 0, 64, 90, this.xPos, this.yPos , 64, 90);
 
 	//Move the player
 	if (38 in keysDown) 
 	{ // Player holding up
-		this.playerYPos -= speed * .5;
+		this.yPos -= this.speed * .5;
 	}
 
 	else if (40 in keysDown) 
 	{ // Player holding down
-		this.playerYPos += speed * .5;
+		this.yPos += this.speed * .5;
 	}
 
 	else if (37 in keysDown) 
 	{ // Player holding left
 
-		playerTex.src = 'Assets/Gameplay/officer_walk_strip_left.png';
+		this.img.src = 'Assets/Gameplay/officer_walk_strip_left.png';
 
-		this.playerXPos -= speed * .5;
+		this.xPos -= this.speed * .5;
 
 		//draw & animate the player
-		if (Date.now() - playerOldTime > 1000 / fps)
+		if (Date.now() - this.oldTime > 1000 / fps)
 		{
-			if (playerImgFrame == 7)
+			if (this.imgFrame == 7)
 			{
-				playerImgFrame = 0;
+				this.imgFrame = 0;
 			}
 
-			playerImgFrame++;
+			this.imgFrame++;
 
-			playerOldTime = Date.now();
-			app.ctx.drawImage(playerTex ,playerImgFrame*64, 0, 64, 90, this.playerXPos, this.playerYPos , 64, 90);
+			this.oldTime = Date.now();
+			app.ctx.drawImage(this.img, this.imgFrame*64, 0, 64, 90, this.xPos, this.yPos , 64, 90);
 		}
 	}
 
 	else if (39 in keysDown) 
 	{ // Player holding right
 
-		playerTex.src = 'Assets/Gameplay/officer_walk_strip_right.png';
+		this.img.src = 'Assets/Gameplay/officer_walk_strip_right.png';
 
-		this.playerXPos += speed * .5;
+		this.xPos += this.speed * .5;
 
 		//draw & animate the player
-		if (Date.now() - playerOldTime > 1000 / fps)
+		if (Date.now() - this.oldTime > 1000 / fps)
 		{
-			if (playerImgFrame == 7)
+			if (this.imgFrame == 7)
 			{
-				playerImgFrame = 0;
+				this.imgFrame = 0;
 			}
 
-			playerImgFrame++;
+			this.imgFrame++;
 
-			playerOldTime = Date.now();
-			app.ctx.drawImage(playerTex ,playerImgFrame*64, 0, 64, 90, this.playerXPos, this.playerYPos , 64, 90);
+			this.oldTime = Date.now();
+			app.ctx.drawImage(this.img, this.imgFrame*64, 0, 64, 90, this.xPos, this.yPos , 64, 90);
 		}
 	}
 }
 
-Coin.prototype.CollisionToPlayer = function(){
+Player.prototype.CollisionToCoin = function(){
 
-	if (app.player.playerXPos <= (this.XPos + 64)
-	&& this.XPos <= (app.player.playerXPos + 64)
-	&& app.player.playerYPos <= (this.YPos + 64)
-	&& this.YPos <= (app.player.playerYPos + 64)) 
+	if (app.coin.xPos <= (this.xPos + 64)
+	&& this.xPos <= (app.coin.yPos + 64)
+	&& app.coin.yPos <= (this.yPos + 64)
+	&& this.yPos <= (app.coin.yPos + 64)) 
 	{
 		//++monstersCaught;
 		console.log("Coin Collide");

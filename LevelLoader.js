@@ -22,7 +22,8 @@ function Level(){
 	//app.coin1.init(300, 300);
 	//app.HUDcoin = new Coin();
 	//app.HUDcoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
-	app.player = new Player(canvas.width / 3, canvas.height / 3);
+	app.player = new Player();
+	app.player.init(canvas.width / 3, canvas.height / 3);
 	app.enemy = new Enemy(200, 200);
 
 	GameRunning = true;
@@ -186,8 +187,8 @@ function drawHUD(){
 function Reset()
 {
 	//reset player position
-	app.player.playerXPos = canvas.width / 3;
-	app.player.playerYPos = canvas.height / 3;
+	app.player.xPos = canvas.width / 3;
+	app.player.yPos = canvas.height / 3;
 
 	app.enemy.enemyXPos = 200;
 	app.enemy.enemyYPos = 200;

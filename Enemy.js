@@ -99,7 +99,7 @@ Enemy.prototype.update = function(){
 
 Enemy.prototype.FollowPlayer = function()
 {
-	if (app.player.playerXPos > this.enemyXPos) //right
+	if (app.player.xPos > this.enemyXPos) //right
 	{
 		this.enemyXPos = this.enemyXPos + 1;
 
@@ -109,7 +109,7 @@ Enemy.prototype.FollowPlayer = function()
 		down = false;
 	}
 
-	else if (app.player.playerXPos < this.enemyXPos) //left
+	else if (app.player.xPos < this.enemyXPos) //left
 	{
 		this.enemyXPos = this.enemyXPos - 1;
 
@@ -119,7 +119,7 @@ Enemy.prototype.FollowPlayer = function()
 		down = false;
 	}
 
-	else if (app.player.playerYPos > this.enemyYPos) //up
+	else if (app.player.yPos > this.enemyYPos) //up
 	{
 		this.enemyYPos = this.enemyYPos + 1;
 
@@ -129,7 +129,7 @@ Enemy.prototype.FollowPlayer = function()
 		down = false;
 	}
 
-	else if (app.player.playerYPos < this.enemyYPos) //down
+	else if (app.player.yPos < this.enemyYPos) //down
 	{
 		this.enemyYPos = this.enemyYPos - 1;
 
@@ -142,10 +142,10 @@ Enemy.prototype.FollowPlayer = function()
 
 Enemy.prototype.CollisionPlayerToEnemy = function()
 {
-	if (app.player.playerXPos <= (this.enemyXPos + 64)
-	&& this.enemyXPos <= (app.player.playerXPos + 64)
-	&& app.player.playerYPos <= (this.enemyYPos + 64)
-	&& this.enemyYPos <= (app.player.playerYPos + 64)) 
+	if (app.player.xPos <= (this.enemyXPos + 64)
+	&& this.enemyXPos <= (app.player.xPos + 64)
+	&& app.player.yPos <= (this.enemyYPos + 64)
+	&& this.enemyYPos <= (app.player.yPos + 64)) 
 	{
 		//++monstersCaught;
 		console.log("Collide");

@@ -1,9 +1,9 @@
-function Coin(x, y){
+function Coin(){
 	var img;
 	var oldTime;
 	var imageFrame;
-	var XPos;
-	var YPos;	
+	var xPos;
+	var yPos;	
 }
 
 Coin.prototype.init = function(x, y){
@@ -15,13 +15,13 @@ Coin.prototype.init = function(x, y){
 	this.imageFrame = 0;
 	this.oldTime = Date.now();
 
-	this.XPos = x;
-	this.YPos = y;
+	this.xPos = x;
+	this.yPos = y;
 }
 
 Coin.prototype.update = function(){
 
-	app.ctx.drawImage(this.img, this.imageFrame*44, 0, 44, 44, this.XPos, this.YPos, 64, 64 );
+	app.ctx.drawImage(this.img, this.imageFrame*44, 0, 44, 44, this.xPos, this.yPos, 64, 64 );
 
 	//draw & animate the coin
 	if (Date.now() - this.oldTime > 1000 / fps)
@@ -34,13 +34,11 @@ Coin.prototype.update = function(){
 		this.imageFrame++;
 
 		this.oldTime = Date.now();
-		//app.ctx.clearRect(app.coinXPos, app.coinYPos, 64, 64);
-		//app.ctx.drawImage(app.coinTex, app.imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
 		this.draw();
 	}
 }
 
 Coin.prototype.draw = function(){
 	//app.ctx.drawImage(coinTex,imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
-	app.ctx.drawImage(this.img, this.imageFrame*44, 0, 44, 44, this.XPos, this.YPos, 64, 64 );
+	app.ctx.drawImage(this.img, this.imageFrame*44, 0, 44, 44, this.xPos, this.yPos, 64, 64 );
 }
