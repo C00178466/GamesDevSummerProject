@@ -151,8 +151,6 @@ Enemy.prototype.FollowPlayer = function()
 		this.up = false;
 		this.down = false;
 	}
-
-	
 }
 
 Enemy.prototype.CollisionPlayerToEnemy = function()
