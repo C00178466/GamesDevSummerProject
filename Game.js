@@ -121,6 +121,23 @@ function onTouchStart(e)
 
     if (bOptions === true)
     {
-    	
+    	if (touches[0].clientX >= (canvas.width / 2) + 50 &&
+	    	touches[0].clientX <= (canvas.width / 2) + 148 &&
+	    	touches[0].clientY >= (canvas.height / 4) - 16  &&
+	    	touches[0].clientY <= ((canvas.height / 4) + 82))
+	    {
+	    	console.log("Sound On");
+	    	sound_background.muted = false;
+	    }
+
+	    if (touches[0].clientX >= (canvas.width / 2) - 100 &&
+	    	touches[0].clientX <= (canvas.width / 2) - 2 &&
+	    	touches[0].clientY >= (canvas.height / 4) - 16 &&
+	    	touches[0].clientY <= ((canvas.height / 4) + 82))
+	    {
+	    	console.log("Sound Off");
+	    	
+	    	sound_background.muted = true;
+	    }
     }
 }

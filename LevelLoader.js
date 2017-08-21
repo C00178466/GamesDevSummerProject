@@ -49,68 +49,7 @@ function Level(){
 
 	app.coinsCollected = 0;
 
-	bdr_Tree = new Image();
-	bdr_Tree.addEventListener("load", function()
-	{
-
-	}, false);
-	bdr_Tree.src = 'Assets/Gameplay/border_hedge.png';
-
-	bdr_Warning = new Image();
-	bdr_Warning.addEventListener("load", function()
-	{
-
-	}, false);
-	bdr_Warning.src = 'Assets/Gameplay/radioactive.png';
-
-	groundTex = new Image();
-	groundTex.addEventListener("load", function()
-	{
-
-	}, false);
-	groundTex.src = 'Assets/Gameplay/ground.png';
-
-	HUDCtrls = new Image();
-	HUDCtrls.addEventListener("load", function()
-	{
-
-	}, false);
-	HUDCtrls.src = 'Assets/Gameplay/HUD/Screen_btns.png';
-
-	HUDLives = new Image();
-	HUDLives.addEventListener("load", function()
-	{
-
-	}, false);
-	HUDLives.src = 'Assets/Gameplay/HUD/Lives.png';
-
-	HUDPause = new Image();
-	HUDPause.addEventListener("load", function()
-	{
-
-	}, false);
-	HUDPause.src = 'Assets/Gameplay/HUD/Pause_btn.png';
-
-	sound_CoinCollect = new Audio("Assets/Sound/collect_coin.wav");
-	sound_CoinCollect.loop = false;
-
-	level1 = [
-		[1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1],
-		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1]
-	];
+	LoadAssets();
 }
 
 Level.prototype.update = function(){
@@ -247,7 +186,7 @@ function CheckCoins()
 		{
 			++app.coinsCollected;
 			sound_CoinCollect.play();
-			
+
 			//remove the coin from the array
 			app.coins.splice(i, 1);
 		}
@@ -270,4 +209,70 @@ function CheckGameOver()
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
 	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, canvas.height / 2);
+}
+
+function LoadAssets()
+{
+	bdr_Tree = new Image();
+	bdr_Tree.addEventListener("load", function()
+	{
+
+	}, false);
+	bdr_Tree.src = 'Assets/Gameplay/border_hedge.png';
+
+	bdr_Warning = new Image();
+	bdr_Warning.addEventListener("load", function()
+	{
+
+	}, false);
+	bdr_Warning.src = 'Assets/Gameplay/radioactive.png';
+
+	groundTex = new Image();
+	groundTex.addEventListener("load", function()
+	{
+
+	}, false);
+	groundTex.src = 'Assets/Gameplay/ground.png';
+
+	HUDCtrls = new Image();
+	HUDCtrls.addEventListener("load", function()
+	{
+
+	}, false);
+	HUDCtrls.src = 'Assets/Gameplay/HUD/Screen_btns.png';
+
+	HUDLives = new Image();
+	HUDLives.addEventListener("load", function()
+	{
+
+	}, false);
+	HUDLives.src = 'Assets/Gameplay/HUD/Lives.png';
+
+	HUDPause = new Image();
+	HUDPause.addEventListener("load", function()
+	{
+
+	}, false);
+	HUDPause.src = 'Assets/Gameplay/HUD/Pause_btn.png';
+
+	sound_CoinCollect = new Audio("Assets/Sound/collect_coin.wav");
+	sound_CoinCollect.loop = false;
+
+	level1 = [
+		[1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1],
+		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1]
+	];
 }
