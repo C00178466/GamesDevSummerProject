@@ -246,7 +246,8 @@ function CheckCoins()
 		&& app.player.yPos <= (app.coins[i].yPos + 64)) 
 		{
 			++app.coinsCollected;
-
+			sound_CoinCollect.play();
+			
 			//remove the coin from the array
 			app.coins.splice(i, 1);
 		}
