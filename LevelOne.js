@@ -28,19 +28,15 @@ LevelOne.prototype.init = function()
 	this.GameOver = false;
 	this.GamePaused = false;
 
-	app.coins = [4];
-
-	//HUD coin
-	app.coins[0] = new Coin();
-	app.coins[0].init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+	app.coins = [3];
 
 	//Gameplay Coins
+	app.coins[0] = new Coin();
+	app.coins[0].init(300, 300);
 	app.coins[1] = new Coin();
-	app.coins[1].init(300, 300);
+	app.coins[1].init(500, 300);
 	app.coins[2] = new Coin();
-	app.coins[2].init(500, 300);
-	app.coins[3] = new Coin();
-	app.coins[3].init(300, 700);
+	app.coins[2].init(300, 700);
 
 	app.coinsCollected = 0;
 
@@ -89,7 +85,6 @@ LevelOne.prototype.drawHUD = function()
 	app.ctx.fillText("Coins: " +  app.coinsCollected + " / 3", (canvas.width / 7), (canvas.height / 7) * 5.05);
 
 	//Lives
-	app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
 	app.ctx.fillText("Lives Left: " + app.player.lives, (canvas.width / 7), (canvas.height / 7) * 5.55);
 }
 
@@ -154,7 +149,7 @@ LevelOne.prototype.CheckCoins = function()
 	}
 }
 
-function CheckGameOver()
+LevelOne.prototype.CheckGameOver = function()
 {
 	app.ctx.fillStyle = "rgb(255, 255, 255)";
 	app.ctx.font = "72px Helvetica";

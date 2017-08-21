@@ -1,7 +1,11 @@
+//Level variables
 var level;
 var bdr_Tree;
 var groundTex;
 var bdr_Warning;
+
+//HUD Icons
+var HUDLives;
 var HUDCtrls;
 var HUDLives;
 var HUDPause;
@@ -10,44 +14,24 @@ var level_Tutorial;
 var levelOne;
 var levelTwo;
 
+var levelT;
 var level1;
 
 function Level(){
 
-	this.levelOne=true;
+	this.levelOne=false;
+	this.level_Tutorial = true;
+
+	if (this.level_Tutorial)
+	{
+		this.levelT = new TutorialLevel();
+		this.levelT.init();
+	}
+
 	if (this.levelOne) //if level one is showing
 	{
 		this.level1 = new LevelOne();
 		this.level1.init();
-		//app.player = new Player();
-		//app.player.init(canvas.width / 3, canvas.height / 3);
-
-		//app.enemy = [2];
-
-		//app.enemy[0] = new Enemy();
-		//app.enemy[0].init(200, 200);
-		//app.enemy[1] = new Enemy();
-		//app.enemy[1].init(400, 200);
-
-		//GameRunning = true;
-		//GameOver = false;
-		//GamePaused = false;
-
-		//app.coins = [4];
-
-		//HUD coin
-		//app.coins[0] = new Coin();
-		//app.coins[0].init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
-
-		//Gameplay Coins
-		//app.coins[1] = new Coin();
-		//app.coins[1].init(300, 300);
-		//app.coins[2] = new Coin();
-		//app.coins[2].init(500, 300);
-		//app.coins[3] = new Coin();
-		//app.coins[3].init(300, 700);
-
-		//app.coinsCollected = 0;
 	}
 
 	LoadAssets();
@@ -91,35 +75,15 @@ Level.prototype.update = function(){
 		}
 	}
 	
+	if (this.levelT)
+	{
+		this.levelT.update();
+	}
 
-	//if (GameRunning)
-	//{
-		//app.player.update();
-		//CheckCoins();
-		//CheckLives();
-
-		if (this.levelOne)
-		{
-			this.level1.update();
-			//for (i = 0; i < app.coins.length; i++)
-			//{
-			//	app.coins[i].update();
-			//}
-
-			//for (i = 0; i < app.enemy.length; i++)
-			//{
-			//	app.enemy[i].update();
-			//}
-			//app.enemy[0].FollowPlayer();
-			//app.enemy[1].WalkAroundCoin();
-		}
-	//}
-	//else
-	//{
-		//CheckGameOver();
-		//this.level1.CheckGameOver();
-	//}
-
+	if (this.levelOne)
+	{
+		this.level1.update();
+	}
 	
 	drawHUD();
 }
@@ -127,30 +91,16 @@ Level.prototype.update = function(){
 function drawHUD()
 {
 	//Player Movement Buttons
-	app.ctx.drawImage(HUDCtrls, (canvas.width / 7) * 4, canvas.width + 100, 320, 320);
+	app.ctx.drawImage(HUDCtrls, (canvas.width / 7) * 4, canvas.width + 200, 320, 320);
 
 	//Pause Button
 	app.ctx.drawImage(HUDPause, canvas.width / 7, (canvas.height / 7) * 6, 216, 96);
-}
 
-function Reset()
-{
+	//Draw and update Coin Icon
+	HUDCoin.update();
 
-}
-
-function CheckLives()
-{	
-	
-}
-
-function CheckCoins()
-{
-	
-}
-
-function CheckGameOver()
-{
-	
+	//Lives Icon
+	app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
 }
 
 function LoadAssets()
@@ -196,6 +146,10 @@ function LoadAssets()
 
 	}, false);
 	HUDPause.src = 'Assets/Gameplay/HUD/Pause_btn.png';
+
+	//HUD coin
+	HUDCoin = new Coin();
+	HUDCoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
 
 	level = [
 		[1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1],
