@@ -1,5 +1,6 @@
 var soundOnTex;
 var soundOffTex;
+var backbtnTex;
 
 function OptionsMenu()
 {
@@ -8,6 +9,9 @@ function OptionsMenu()
 
 	soundOffTex = new Image();
 	soundOffTex.src = "Assets/Menu/Options/sound_off.png";
+
+	backbtnTex = new Image();
+	backbtnTex.src = "Assets/Menu/backbtn.png";
 }
 
 OptionsMenu.prototype.update = function()
@@ -17,6 +21,7 @@ OptionsMenu.prototype.update = function()
 
 	app.ctx.drawImage(soundOnTex, (canvas.width / 2) + 50, (canvas.height / 4) - 16, 98, 98);
 	app.ctx.drawImage(soundOffTex, (canvas.width / 2) - 100, (canvas.height / 4) - 16, 98, 98);
+	app.ctx.drawImage(backbtnTex, (canvas.width / 2) - 145, (canvas.height / 4) * 3, 290, 160);
 
 	app.ctx.fillStyle = "rgb(255, 255, 255)";
 	app.ctx.font = "64px Helvetica";

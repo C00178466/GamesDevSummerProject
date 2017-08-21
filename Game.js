@@ -40,7 +40,7 @@ Game.prototype.init=function()
 
 	sound_background = new Audio("Assets/Sound/background.wav");
 	sound_background.loop = true;
-	sound_background.play();
+	//sound_background.play();
 }
 
 Game.prototype.update=function()
@@ -121,6 +121,7 @@ function onTouchStart(e)
 
     if (bOptions === true)
     {
+    	//turn sound on/off
     	if (touches[0].clientX >= (canvas.width / 2) + 50 &&
 	    	touches[0].clientX <= (canvas.width / 2) + 148 &&
 	    	touches[0].clientY >= (canvas.height / 4) - 16  &&
@@ -138,6 +139,16 @@ function onTouchStart(e)
 	    	console.log("Sound Off");
 	    	
 	    	sound_background.muted = true;
+	    }
+
+	    if (touches[0].clientX >= (canvas.width / 2) - 145 &&
+	    	touches[0].clientX <= (canvas.width / 2) + 145 &&
+	    	touches[0].clientY >= (canvas.height / 4) * 3 &&
+	    	touches[0].clientY <= ((canvas.height / 4) * 3) + 190)
+	    {
+	    	console.log("Back Pressed");
+	    	bMenu = true;
+	    	bOptions = false;
 	    }
     }
 }
