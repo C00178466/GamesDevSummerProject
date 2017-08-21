@@ -150,7 +150,6 @@ Level.prototype.update = function(){
 	if (GameRunning)
 	{
 		app.player.update();
-		app.enemy[0].FollowPlayer();
 		CheckCoins();
 		CheckLives();
 
@@ -163,6 +162,8 @@ Level.prototype.update = function(){
 		{
 			app.enemy[i].update();
 		}
+		app.enemy[0].FollowPlayer();
+		app.enemy[1].WalkAroundCoin();
 	}
 	else
 	{

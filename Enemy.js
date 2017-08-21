@@ -10,6 +10,7 @@ function Enemy(){
 	var oldTime;
 	var xPos, yPos;
 	var right, left, up, down;
+	var stopRight, stopLeft, stopUp, stopDown;
 	var fps;
 }
 
@@ -37,6 +38,11 @@ Enemy.prototype.init = function(x, y){
 	this.left = false;
 	this.up = false;
 	this.down = false;
+
+	this.stopRight = 0;
+	this.stopLeft = 128;
+	this.stopUp = 0;
+	this.stopDown = 128;
 
 	this.fps = 24;
 }
@@ -98,14 +104,34 @@ Enemy.prototype.update = function(){
 			}
 		}
 		
-
 		//this.FollowPlayer();
 	}
 }
 
 Enemy.prototype.FollowPlayer = function()
 {
-	if (app.player.xPos > this.xPos) //right
+
+	if (app.player.yPos < this.yPos) //up
+	{
+		this.yPos = this.yPos - 1;
+
+		this.right = false;
+		this.left = false;
+		this.up = true;
+		this.down = false;
+	}
+
+	else if (app.player.yPos > this.yPos) //down
+	{
+		this.yPos = this.yPos + 1;
+
+		this.right = false;
+		this.left = false;
+		this.up = false;
+		this.down = true;
+	}
+
+	else if (app.player.xPos > this.xPos) //right
 	{
 		this.xPos = this.xPos + 1;
 
@@ -125,25 +151,7 @@ Enemy.prototype.FollowPlayer = function()
 		this.down = false;
 	}
 
-	else if (app.player.yPos > this.yPos) //up
-	{
-		this.yPos = this.yPos + 1;
-
-		this.right = false;
-		this.left = false;
-		this.up = true;
-		this.down = false;
-	}
-
-	else if (app.player.yPos < this.yPos) //down
-	{
-		this.yPos = this.yPos - 1;
-
-		this.right = false;
-		this.left = false;
-		this.up = false;
-		this.down = true;
-	}
+	
 }
 
 Enemy.prototype.CollisionPlayerToEnemy = function()
@@ -161,5 +169,51 @@ Enemy.prototype.CollisionPlayerToEnemy = function()
 	else
 	{
 		return false;
+	}
+}
+
+Enemy.prototype.WalkAroundCoin = function()
+{
+	if (this.right)
+	{
+		for (i = 0; i < .128; i+=.1)
+		{
+			this.xPos += .01;
+
+			if (i >= 128)
+			{
+				this.up = true;
+			}
+		}
+	}
+
+	else if (this.up)
+	{
+		for (i = 0; i > 0; i++)
+		{
+			this.yPos -= 1;
+		}
+
+		this.left = true;
+	}
+
+	else if (this.left)
+	{
+		for (i = 0; i > 0; i++)
+		{
+			this.xPos -= 1;
+		}
+
+		this.down = true;
+	}
+
+	else if (this.down)
+	{
+		for (i = 0; i < 128; i++)
+		{
+			this.yPos += 1;
+		}
+
+		this.right = true;
 	}
 }
