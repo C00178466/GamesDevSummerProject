@@ -11,6 +11,8 @@ var player;
 var enemy;
 var coins;
 
+var sound_CoinCollect;
+
 var GameRunning;
 var GamePaused;
 var GameOver;
@@ -89,6 +91,8 @@ function Level(){
 	}, false);
 	HUDPause.src = 'Assets/Gameplay/HUD/Pause_btn.png';
 
+	sound_CoinCollect = new Audio("Assets/Sound/collect_coin.wav");
+	sound_CoinCollect.loop = false;
 
 	level1 = [
 		[1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1],
@@ -197,8 +201,6 @@ function drawHUD(){
 	//Pause Button
 	app.ctx.drawImage(HUDPause, canvas.width / 7, (canvas.height / 7) * 6, 216, 96);
 }
-
-
 
 function Reset()
 {

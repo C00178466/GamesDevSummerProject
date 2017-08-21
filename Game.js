@@ -17,6 +17,8 @@ var mainMenu;
 var optMenu;
 var levelLdr;
 
+var sound_background;
+
 var bMenu = true;
 var bPlay = false;
 var bOptions = false;
@@ -35,6 +37,10 @@ Game.prototype.init=function()
 	levelLdr = new Level();
 	optMenu = new OptionsMenu();
 	mainMenu = new MainMenu();
+
+	sound_background = new Audio("Assets/Sound/background.wav");
+	sound_background.loop = true;
+	sound_background.play();
 }
 
 Game.prototype.update=function()

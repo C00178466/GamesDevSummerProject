@@ -105,6 +105,7 @@ Enemy.prototype.update = function(){
 		}
 		
 		//this.FollowPlayer();
+		//this.CollisionPlayerToEnemy();
 	}
 }
 
@@ -176,15 +177,19 @@ Enemy.prototype.WalkAroundCoin = function()
 {
 	if (this.right)
 	{
-		for (i = 0; i < .128; i+=.1)
+		for (i = 0; i < 2; i++)
 		{
-			this.xPos += .01;
+			this.xPos += 2;
 
-			if (i >= 128)
+			if (i >= 2)
 			{
 				this.up = true;
 			}
 		}
+
+		console.log("right");
+
+		//this.up = true;
 	}
 
 	else if (this.up)
@@ -194,6 +199,7 @@ Enemy.prototype.WalkAroundCoin = function()
 			this.yPos -= 1;
 		}
 
+		console.log("up");
 		this.left = true;
 	}
 
