@@ -41,8 +41,8 @@ TutorialLevel.prototype.init = function()
 	this.coinsCollected = 0;
 	this.timer1 = 0;
 	this.timer2 = 0;
-	this.part1 = true;
-	this.part2 = false;
+	this.part1 = false;
+	this.part2 = true;
 
 	this.helpText = "";
 	this.helpTextLine2 = "";
@@ -134,6 +134,7 @@ TutorialLevel.prototype.update = function()
 			{
 				this.helpText = "Exit using the portal";
 				app.ctx.drawImage(this.portalImg, 500, 200, 64, 64);
+				//this.CollisionWithPortal();
 			}
 		}
 	}
@@ -211,4 +212,22 @@ TutorialLevel.prototype.CheckCoin = function()
 			delete this.coin;
 		}
 	}
+}
+
+TutorialLevel.prototype.CollisionWithPortal = function()
+{
+	if (500 <= (this.player.xPos + 64)
+	&& this.player.xPos <= (564)
+	&& 200 <= (this.player.yPos + 64)
+	&& this.player.yPos <= (264)) 
+	{
+		console.log("Portal Hit");
+		return true;
+	}
+}
+
+TutorialLevel.prototype.DeleteLevel = function()
+{
+	delete this.player;
+	delete this.portalImg;
 }

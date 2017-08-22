@@ -9,7 +9,6 @@ addEventListener("keyup", function(e) {
 }, false);
 
 function Player(){
-
 	var img;
 	var xPos, yPos;
 	var speed;
@@ -95,4 +94,32 @@ Player.prototype.update = function(){
 			app.ctx.drawImage(this.img, this.imgFrame*64, 0, 64, 90, this.xPos, this.yPos , 64, 90);
 		}
 	}
+
+	PlayerBoundary();
+}
+
+function PlayerBoundary()
+{
+	if (this.xPos >= 896)
+	{
+		this.xPos -= 2;
+		console.log("Collide");
+ 	}
+
+ 	else if(this.xPos <= 64)
+ 	{
+ 		this.xPos += 2;
+ 	}
+
+ 	else if (this.yPos <= 64)
+ 	{
+ 		this.yPos += 2;
+ 	}
+
+ 	else if (this.yPos >= 896)
+ 	{
+ 		this.yPos -= 2;
+ 	}
+
+
 }

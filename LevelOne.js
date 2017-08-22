@@ -11,12 +11,14 @@ function LevelOne()
 	var coinsCollected;
 	var maxCoins;
 	var sound_CoinCollect;
+
+	var portalImg;
 }
 
 LevelOne.prototype.init = function()
 {
 	app.player = new Player();
-	app.player.init(canvas.width / 3, canvas.height / 3);
+	app.player.init(448, 448);
 
 	this.enemy = [5];
 
@@ -52,6 +54,9 @@ LevelOne.prototype.init = function()
 
 	this.sound_CoinCollect = new Audio("Assets/Sound/collect_coin.wav");
 	this.sound_CoinCollect.loop = false;
+
+	this.portalImg = new Image();
+	this.portalImg.src = "Assets/Gameplay/portal.png";
 }
 
 LevelOne.prototype.update = function()
@@ -67,14 +72,18 @@ LevelOne.prototype.update = function()
 
 		for (i = 0; i < this.enemy.length; i++)
 		{
-			this.enemy[i].update();
-		}
+			if (this.enemy[i] != null)
+			{
+				this.enemy[i].update();
 
-		this.enemy[0].FollowPlayer();
-		this.enemy[1].WalkAroundCoin();
-		this.enemy[2].WalkAroundCoin();
-		this.enemy[3].WalkAroundCoin();
-		this.enemy[4].WalkAroundCoin();
+				this.enemy[0].FollowPlayer();
+
+				this.enemy[1].WalkAroundCoin();
+				this.enemy[2].WalkAroundCoin();
+				this.enemy[3].WalkAroundCoin();
+				this.enemy[4].WalkAroundCoin();
+			}
+		}
 
 		this.CheckLives();
 		this.CheckCoins();
@@ -103,26 +112,27 @@ LevelOne.prototype.drawHUD = function()
 LevelOne.prototype.Reset = function()
 {
 	//reset player position
-	app.player.xPos = canvas.width / 3;
-	app.player.yPos = canvas.height / 3;
+	app.player.xPos = 448;
+	app.player.yPos = 448;
 
-	this.enemy[0].xPos = 200;
+	//reset position of enemy following the player
+	this.enemy[0].xPos = 400;
 	this.enemy[0].yPos = 200;
-
-	this.enemy[1].xPos = 400;
-	this.enemy[1].yPos = 200;
 }
 
 LevelOne.prototype.CheckLives = function()
 {	
 	for (i = 0; i < this.enemy.length; i++)
 	{
-		if (this.enemy[i].CollisionPlayerToEnemy())
+		if (this.enemy[i] != null)
 		{
-			if (app.player.lives > 0)
+			if (this.enemy[i].CollisionPlayerToEnemy())
 			{
-				app.player.lives = app.player.lives - 1;
-				this.Reset();
+				if (app.player.lives > 0)
+				{
+					//app.player.lives = app.player.lives - 1;
+					//this.Reset();
+				}
 			}
 		}
 	}	
@@ -154,10 +164,22 @@ LevelOne.prototype.CheckCoins = function()
 	if (app.coinsCollected === this.maxCoins)
 	{
 		app.ctx.fillStyle = "rgb(255, 255, 255)";
-		app.ctx.font = "72px Helvetica";
+		app.ctx.font = "36px Helvetica";
 		app.ctx.textAlign = "left";
 		app.ctx.textBaseline = "top";
-		app.ctx.fillText("YOU WIN", (canvas.width / 2) - 240, canvas.height / 2);
+		app.ctx.fillText("Level 1 Complete", (canvas.width / 2) - 190, canvas.height / 7 - 40);
+		app.ctx.fillText("Enter Level 2 through the portal", canvas.width / 5, canvas.height / 7);
+
+		for (i = 0; i < this.enemy.length; i++)
+		{
+			delete this.enemy[i];
+		}
+
+		//////////////
+		//Draw particles for portal here
+		//////////////
+
+		app.ctx.drawImage(this.portalImg, 448, 448, 64, 64);
 	}
 }
 
@@ -167,5 +189,27 @@ LevelOne.prototype.CheckGameOver = function()
 	app.ctx.font = "72px Helvetica";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
-	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, canvas.height / 2);
+	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, canvas.height / 2 - 100);
+}
+
+LevelOne.prototype.CollisionWithPortal = function()
+{
+	if (448 <= (app.player.xPos + 64)
+	&& app.player.xPos <= (512)
+	&& 448 <= (app.player.yPos + 64)
+	&& app.player.yPos <= (512)) 
+	{
+		console.log("Portal Hit");
+		return true;
+	}
+}
+
+LeveOne.prototype.DeleteLevel = function()
+{
+	delete app.player;
+
+	for (i = 0; i < this.enemy.length; i++)
+	{
+		delete this.enemy[i];
+	}
 }

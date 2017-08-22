@@ -121,7 +121,7 @@ Enemy.prototype.FollowPlayer = function()
 
 	if (app.player.yPos < this.yPos) //up
 	{
-		this.yPos = this.yPos - 1;
+		this.yPos = this.yPos - .5;
 
 		this.right = false;
 		this.left = false;
@@ -131,7 +131,7 @@ Enemy.prototype.FollowPlayer = function()
 
 	else if (app.player.yPos > this.yPos) //down
 	{
-		this.yPos = this.yPos + 1;
+		this.yPos = this.yPos + .5
 
 		this.right = false;
 		this.left = false;
@@ -141,7 +141,7 @@ Enemy.prototype.FollowPlayer = function()
 
 	else if (app.player.xPos > this.xPos) //right
 	{
-		this.xPos = this.xPos + 1;
+		this.xPos = this.xPos + .5;
 
 		this.right = true;
 		this.left = false;
@@ -151,7 +151,7 @@ Enemy.prototype.FollowPlayer = function()
 
 	else if (app.player.xPos < this.xPos) //left
 	{
-		this.xPos = this.xPos - 1;
+		this.xPos = this.xPos - .5;
 
 		this.right = false;
 		this.left = true;
@@ -184,7 +184,7 @@ Enemy.prototype.WalkAroundCoin = function()
 	{
 		if (this.xPos <= this.tempRight)
 		{
-			this.xPos += 2;
+			this.xPos += .8;
 		}
 		else
 		{
@@ -197,7 +197,7 @@ Enemy.prototype.WalkAroundCoin = function()
 	{
 		if (this.yPos >= this.tempUp)
 		{
-			this.yPos -= 2;
+			this.yPos -= .8;
 		}
 		else
 		{
@@ -210,7 +210,7 @@ Enemy.prototype.WalkAroundCoin = function()
 	{
 		if (this.xPos >= this.tempLeft)
 		{
-			this.xPos -= 2;
+			this.xPos -= .8;
 		}
 		else
 		{
@@ -223,7 +223,7 @@ Enemy.prototype.WalkAroundCoin = function()
 	{
 		if (this.yPos <= this.tempDown)
 		{
-			this.yPos += 2;
+			this.yPos += .8;
 		}
 		else
 		{

@@ -1,26 +1,37 @@
-//Level variables
-var level;
-var bdr_Tree;
-var groundTex;
-var bdr_Warning;
-
-//HUD Icons
-var HUDLives;
-var HUDCtrls;
-var HUDLives;
-var HUDPause;
-
-var level_Tutorial;
-var levelOne;
-var levelTwo;
-
-var levelT;
-var level1;
-
 function Level(){
 
-	this.levelOne=true;
-	this.level_Tutorial = false;
+	//Level variables
+	var level;
+	var bdr_Tree;
+	var groundTex;
+	var bdr_Warning;
+
+	//HUD Icons
+	var HUDLives;
+	var HUDCtrls;
+	var HUDLives;
+	var HUDPause;
+	var HUDplay;
+	var HUDrestart;
+	var HUDexit;
+
+	//levels
+	var level_Tutorial;
+	var levelOne;
+	var levelTwo;
+
+	var levelT;
+	var level1;
+	var level2;
+}
+
+Level.prototype.init = function()
+{
+	this.level_Tutorial = true;
+	this.levelOne=false;
+	this.levelTwo = false;
+
+	LoadAssets();
 
 	if (this.level_Tutorial)
 	{
@@ -34,7 +45,12 @@ function Level(){
 		this.level1.init();
 	}
 
-	LoadAssets();
+	if (this.levelTwo)
+	{
+		this.level2 = new LevelTwo();
+		this.level2.init();
+	}
+
 }
 
 Level.prototype.update = function(){
@@ -67,22 +83,37 @@ Level.prototype.update = function(){
 				//draw warning border images
 				app.ctx.drawImage(bdr_Warning, j * 64, i * 64, 64, 64);
 			}
-
-			if (level[i][j] === 3)
-			{
-				
-			}
 		}
 	}
+
+
 	
-	if (this.levelT)
+	if (this.level_Tutorial)
 	{
 		this.levelT.update();
+
+		if (this.levelT.CollisionWithPortal())
+		{
+			this.levelOne = true;
+			this.level_Tutorial = false;
+			this.level1 = new LevelOne();
+			this.level1.init();
+			this.levelT.DeleteLevel();
+		}
 	}
 
 	if (this.levelOne)
 	{
 		this.level1.update();
+
+		if (this.level1.CollisionWithPortal())
+		{
+			this.levelOne = false;
+			this.levelTwo = true;
+			this.level2 = new LevelTwo();
+			this.level2.init();
+			this.level1.DeleteLevel();
+		}
 	}
 	
 	drawHUD();
@@ -150,6 +181,15 @@ function LoadAssets()
 	//HUD coin
 	HUDCoin = new Coin();
 	HUDCoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+
+	HUDplay = new Image();
+	HUDplay.src = "Assets/Gameplay/HUD/continuebtn.png";
+
+	HUDrestart = new Image();
+	HUDrestart.src = "Assets/Gameplay/HUD/restartbtn.png";
+
+	HUDexit = new Image();
+	HUDexit.src = "Assets/Gameplay/HUD/quitbtn.png";
 
 	level = [
 		[1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1],

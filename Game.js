@@ -38,6 +38,8 @@ Game.prototype.init=function()
 	optMenu = new OptionsMenu();
 	mainMenu = new MainMenu();
 
+	levelLdr.init();
+
 	sound_background = new Audio("Assets/Sound/background.wav");
 	sound_background.loop = true;
 	//sound_background.play();
@@ -137,7 +139,6 @@ function onTouchStart(e)
 	    	touches[0].clientY <= ((canvas.height / 4) + 82))
 	    {
 	    	console.log("Sound Off");
-	    	
 	    	sound_background.muted = true;
 	    }
 
