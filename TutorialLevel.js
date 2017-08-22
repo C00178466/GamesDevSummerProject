@@ -41,8 +41,8 @@ TutorialLevel.prototype.init = function()
 	this.coinsCollected = 0;
 	this.timer1 = 0;
 	this.timer2 = 0;
-	this.part1 = false;
-	this.part2 = true;
+	this.part1 = true;
+	this.part2 = false;
 
 	this.helpText = "";
 	this.helpTextLine2 = "";

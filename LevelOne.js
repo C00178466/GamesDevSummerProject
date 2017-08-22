@@ -9,6 +9,7 @@ function LevelOne()
 	var GameOver;
 
 	var coinsCollected;
+	var maxCoins;
 	var sound_CoinCollect;
 }
 
@@ -28,17 +29,20 @@ LevelOne.prototype.init = function()
 	this.GameOver = false;
 	this.GamePaused = false;
 
-	app.coins = [3];
+	app.coins = [this.maxCoins];
 
 	//Gameplay Coins
 	app.coins[0] = new Coin();
-	app.coins[0].init(300, 300);
+	app.coins[0].init(250, 200);
 	app.coins[1] = new Coin();
-	app.coins[1].init(500, 300);
+	app.coins[1].init(640, 200);
 	app.coins[2] = new Coin();
-	app.coins[2].init(300, 700);
+	app.coins[2].init(250, 700);
+	app.coins[3] = new Coin();
+	app.coins[3].init(640, 700);
 
 	app.coinsCollected = 0;
+	this.maxCoins = 4;
 
 	this.sound_CoinCollect = new Audio("Assets/Sound/collect_coin.wav");
 	this.sound_CoinCollect.loop = false;
@@ -82,7 +86,7 @@ LevelOne.prototype.drawHUD = function()
 	app.ctx.font = "42px Helvetica";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
-	app.ctx.fillText("Coins: " +  app.coinsCollected + " / 3", (canvas.width / 7), (canvas.height / 7) * 5.05);
+	app.ctx.fillText("Coins: " +  app.coinsCollected + " / " + this.maxCoins, (canvas.width / 7), (canvas.height / 7) * 5.05);
 
 	//Lives
 	app.ctx.fillText("Lives Left: " + app.player.lives, (canvas.width / 7), (canvas.height / 7) * 5.55);
@@ -139,7 +143,7 @@ LevelOne.prototype.CheckCoins = function()
 		}
 	}
 
-	if (app.coinsCollected === 3)
+	if (app.coinsCollected === this.maxCoins)
 	{
 		app.ctx.fillStyle = "rgb(255, 255, 255)";
 		app.ctx.font = "72px Helvetica";

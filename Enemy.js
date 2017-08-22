@@ -12,6 +12,8 @@ function Enemy(){
 	var right, left, up, down;
 	var stopRight, stopLeft, stopUp, stopDown;
 	var fps;
+
+	var tempRight, tempLeft, tempUp, tempDown;
 }
 
 Enemy.prototype.init = function(x, y){
@@ -30,6 +32,11 @@ Enemy.prototype.init = function(x, y){
 
 	this.xPos = x;
 	this.yPos = y;
+
+	this.tempRight = x + 128;
+	this.tempLeft = x;
+	this.tempUp = y - 128;
+	this.tempDown = y;
 
 	this.swirlXPos = this.xPos;
 	this.swirlYPos = this.yPos;
@@ -175,49 +182,64 @@ Enemy.prototype.WalkAroundCoin = function()
 {
 	if (this.right)
 	{
-		for (i = 0; i < 2; i++)
+
+		if (this.xPos < this.tempRight)
 		{
 			this.xPos += 2;
-
-			if (i >= 2)
-			{
-				this.up = true;
-			}
+		}
+		else
+		{
+			this.up = true;
+			this.right = false;
 		}
 
 		console.log("right");
 
-		//this.up = true;
+		
 	}
 
 	else if (this.up)
 	{
-		for (i = 0; i > 0; i++)
+		if (this.yPos >= this.tempUp)
 		{
-			this.yPos -= 1;
+			this.yPos -= 2;
+		}
+		else
+		{
+			this.left = true;
+			this.up = false;
 		}
 
 		console.log("up");
-		this.left = true;
+		
 	}
 
 	else if (this.left)
 	{
-		for (i = 0; i > 0; i++)
+		if (this.xPos >= this.tempLeft)
 		{
-			this.xPos -= 1;
+			this.xPos -= 2;
 		}
-
-		this.down = true;
+		else
+		{
+			this.down = true;
+			this.left = false;
+		}
+		
 	}
 
 	else if (this.down)
 	{
-		for (i = 0; i < 128; i++)
+		if (this.yPos <= this.tempDown)
 		{
-			this.yPos += 1;
+			this.yPos += 2;
+		}
+		else
+		{
+			this.right = true;
+			this.down = false;
 		}
 
-		this.right = true;
+		
 	}
 }

@@ -19,8 +19,8 @@ var level1;
 
 function Level(){
 
-	this.levelOne=false;
-	this.level_Tutorial = true;
+	this.levelOne=true;
+	this.level_Tutorial = false;
 
 	if (this.level_Tutorial)
 	{
