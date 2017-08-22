@@ -35,7 +35,7 @@ Enemy.prototype.init = function(x, y){
 
 	this.tempRight = x + 128;
 	this.tempLeft = x;
-	this.tempUp = y - 128;
+	this.tempUp = y - 150;
 	this.tempDown = y;
 
 	this.swirlXPos = this.xPos;
@@ -182,8 +182,7 @@ Enemy.prototype.WalkAroundCoin = function()
 {
 	if (this.right)
 	{
-
-		if (this.xPos < this.tempRight)
+		if (this.xPos <= this.tempRight)
 		{
 			this.xPos += 2;
 		}
@@ -191,11 +190,7 @@ Enemy.prototype.WalkAroundCoin = function()
 		{
 			this.up = true;
 			this.right = false;
-		}
-
-		console.log("right");
-
-		
+		}	
 	}
 
 	else if (this.up)
@@ -208,10 +203,7 @@ Enemy.prototype.WalkAroundCoin = function()
 		{
 			this.left = true;
 			this.up = false;
-		}
-
-		console.log("up");
-		
+		}	
 	}
 
 	else if (this.left)
@@ -225,7 +217,6 @@ Enemy.prototype.WalkAroundCoin = function()
 			this.down = true;
 			this.left = false;
 		}
-		
 	}
 
 	else if (this.down)
@@ -238,8 +229,6 @@ Enemy.prototype.WalkAroundCoin = function()
 		{
 			this.right = true;
 			this.down = false;
-		}
-
-		
+		}	
 	}
 }
