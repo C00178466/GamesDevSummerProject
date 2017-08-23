@@ -10,18 +10,29 @@ canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 app.ctx = canvas.getContext("2d");
 
+var keysDown = {};
+addEventListener("keydown", function(e) {
+	keysDown[e.keyCode] = true;
+}, false);
+
+addEventListener("keyup", function(e) {
+	delete keysDown[e.keyCode];
+}, false);
+
 var test;
 var touchXPos, touchYPos;
 
 var mainMenu;
 var optMenu;
 var levelLdr;
+var tutLevel;
 
 var sound_background;
 
 var bMenu = true;
 var bPlay = false;
 var bOptions = false;
+var bTutorial = false;
 
 function Game(){
 	this.init();
@@ -37,12 +48,11 @@ Game.prototype.init=function()
 	levelLdr = new Level();
 	optMenu = new OptionsMenu();
 	mainMenu = new MainMenu();
-
-	levelLdr.init();
+	tutLevel = new TutorialLevel();
+	tutLevel.init();
 
 	sound_background = new Audio("Assets/Sound/background.wav");
 	sound_background.loop = true;
-	//sound_background.play();
 }
 
 Game.prototype.update=function()
@@ -52,17 +62,28 @@ Game.prototype.update=function()
 	app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	//if main menu is showing
-	if (bMenu === true){
+	if (bMenu){
 		mainMenu.update();
 	}
 	
 	//if gameplay is running
-	if (bPlay === true){
+	if (bPlay){
 		levelLdr.update();
 	}
 
+	//if tutorial level is
+	if (bTutorial){
+		tutLevel.update();
+
+		if (27 in keysDown)
+		{
+			bMenu = true;
+			bTutorial = false;
+		}
+	}
+
 	//if options menu is showing
-	if (bOptions === true)
+	if (bOptions)
 	{
 		optMenu.update();
 	}
@@ -83,12 +104,12 @@ function onTouchStart(e)
 
     console.log(touchXPos, touchYPos);
 
-    if (bMenu === true)
+    if (bMenu)
     {
     	if (touches[0].clientX >= (canvas.width / 2) - 145 &&
 	    	touches[0].clientX <= (canvas.width / 2) + 145 &&
-	    	touches[0].clientY >= (canvas.height / 2) - 160 &&
-	    	touches[0].clientY <= canvas.height / 2)
+	    	touches[0].clientY >= (canvas.height / 2) - 320 &&
+	    	touches[0].clientY <= (canvas.height / 2) - 160)
 	    {
 	    	console.log("Play Button Pressed");
 	    	bMenu = false;
@@ -98,17 +119,30 @@ function onTouchStart(e)
 
 	    if (touches[0].clientX >= (canvas.width / 2) - 145 &&
 	    	touches[0].clientX <= (canvas.width / 2) + 145 &&
-	    	touches[0].clientY >= (canvas.height / 2) + 160 &&
-	    	touches[0].clientY <= (canvas.height / 2) + 320)
+	    	touches[0].clientY >= (canvas.height / 2) - 90 &&
+	    	touches[0].clientY <= (canvas.height / 2) + 70)
+	    {
+	    	console.log("Tutorial Button Pressed");
+	    	bMenu = false;
+	    	bPlay = false;
+	    	bTutorial = true;
+	    	bOptions = false;
+	    }
+
+	    if (touches[0].clientX >= (canvas.width / 2) - 145 &&
+	    	touches[0].clientX <= (canvas.width / 2) + 145 &&
+	    	touches[0].clientY >= (canvas.height / 2) + 150 &&
+	    	touches[0].clientY <= (canvas.height / 2) + 310)
 	    {
 	    	console.log("Options Button Pressed");
 	    	bMenu = false;
 	    	bPlay = false;
+	    	bTutorial = false;
 	    	bOptions = true;
 	    }
     }
 
-    if (bPlay === true)
+    if (bPlay)
     {
     	//code for when HUD controls are pressed/touched
     	//Pause Button
@@ -121,7 +155,7 @@ function onTouchStart(e)
 	    }
     }
 
-    if (bOptions === true)
+    if (bOptions)
     {
     	//turn sound on/off
     	if (touches[0].clientX >= (canvas.width / 2) + 50 &&

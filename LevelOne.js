@@ -194,17 +194,21 @@ LevelOne.prototype.CheckGameOver = function()
 
 LevelOne.prototype.CollisionWithPortal = function()
 {
-	if (448 <= (app.player.xPos + 64)
-	&& app.player.xPos <= (512)
-	&& 448 <= (app.player.yPos + 64)
-	&& app.player.yPos <= (512)) 
+	if (app.coinsCollected === this.maxCoins)
 	{
-		console.log("Portal Hit");
-		return true;
+		if (448 <= (app.player.xPos + 64)
+		&& app.player.xPos <= (512)
+		&& 448 <= (app.player.yPos + 64)
+		&& app.player.yPos <= (512)) 
+		{
+			console.log("Portal Hit");
+			return true;
+		}
 	}
+	
 }
 
-LeveOne.prototype.DeleteLevel = function()
+LevelOne.prototype.DeleteLevel = function()
 {
 	delete app.player;
 

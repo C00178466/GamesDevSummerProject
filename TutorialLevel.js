@@ -22,10 +22,24 @@ function TutorialLevel(){
 	var check_Left;
 	var check_Up;
 	var check_Down;
+
+	//Level variables
+	var level;
+	var bdr_Tree;
+	var groundTex;
+	var bdr_Warning;
+
+	//HUD Icons
+	var HUDLives;
+	var HUDCtrls;
+	var HUDLives;
+	var HUDPause;
 }
 
 TutorialLevel.prototype.init = function()
 {
+	this.LoadAssets();
+
 	this.player = new Player();
 	this.player.init(canvas.width / 3, canvas.height / 3);
 
@@ -41,8 +55,8 @@ TutorialLevel.prototype.init = function()
 	this.coinsCollected = 0;
 	this.timer1 = 0;
 	this.timer2 = 0;
-	this.part1 = false;
-	this.part2 = true;
+	this.part1 = true;
+	this.part2 = false;
 
 	this.helpText = "";
 	this.helpTextLine2 = "";
@@ -55,6 +69,37 @@ TutorialLevel.prototype.init = function()
 
 TutorialLevel.prototype.update = function()
 {
+	//Colour the canvas green
+	app.ctx.beginPath();
+	app.ctx.rect(0, 0, canvas.width, canvas.height);
+	app.ctx.fillStyle = "green";
+	app.ctx.fill();
+
+	//loop through array and draw the map/level
+	for (i = 0; i < 15; i++)
+	{
+		for (j = 0; j < 15; j++)
+		{
+			if (level[i][j] === 0)
+			{
+				//draw ground
+				app.ctx.drawImage(groundTex, j * 64, i * 64, 64, 64);
+			}
+
+			if (level[i][j] === 1)
+			{
+				//draw hedge border images
+				app.ctx.drawImage(bdr_Tree, j * 64, i * 64, 64, 64);
+			}
+
+			if (level[i][j] === 2)
+			{
+				//draw warning border images
+				app.ctx.drawImage(bdr_Warning, j * 64, i * 64, 64, 64);
+			}
+		}
+	}
+
 	if (this.part1 === true)
 	{
 		this.timer1++;
@@ -160,6 +205,15 @@ TutorialLevel.prototype.DrawText = function()
 
 	//Lives
 	app.ctx.fillText("Lives Left: Infinite", (canvas.width / 7), (canvas.height / 7) * 5.55);
+
+	//Player Movement Buttons
+	app.ctx.drawImage(HUDCtrls, (canvas.width / 7) * 4, canvas.width + 200, 320, 320);
+
+	//Draw and update Coin Icon
+	HUDCoin.update();
+
+	//Lives Icon
+	app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
 }
 
 TutorialLevel.prototype.CheckPlayerMovement = function()
@@ -230,4 +284,71 @@ TutorialLevel.prototype.DeleteLevel = function()
 {
 	delete this.player;
 	delete this.portalImg;
+}
+
+TutorialLevel.prototype.LoadAssets = function()
+{
+	bdr_Tree = new Image();
+	bdr_Tree.addEventListener("load", function()
+	{
+
+	}, false);
+	bdr_Tree.src = 'Assets/Gameplay/border_hedge.png';
+
+	bdr_Warning = new Image();
+	bdr_Warning.addEventListener("load", function()
+	{
+
+	}, false);
+	bdr_Warning.src = 'Assets/Gameplay/radioactive.png';
+
+	groundTex = new Image();
+	groundTex.addEventListener("load", function()
+	{
+
+	}, false);
+	groundTex.src = 'Assets/Gameplay/ground.png';
+
+	HUDCtrls = new Image();
+	HUDCtrls.addEventListener("load", function()
+	{
+
+	}, false);
+	HUDCtrls.src = 'Assets/Gameplay/HUD/Screen_btns.png';
+
+	HUDLives = new Image();
+	HUDLives.addEventListener("load", function()
+	{
+
+	}, false);
+	HUDLives.src = 'Assets/Gameplay/HUD/Lives.png';
+
+	HUDPause = new Image();
+	HUDPause.addEventListener("load", function()
+	{
+
+	}, false);
+	HUDPause.src = 'Assets/Gameplay/HUD/Pause_btn.png';
+
+	//HUD coin
+	HUDCoin = new Coin();
+	HUDCoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+
+	level = [
+		[1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1],
+		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1]
+	];
 }

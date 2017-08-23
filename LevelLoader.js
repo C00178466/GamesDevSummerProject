@@ -1,19 +1,18 @@
-function Level(){
-
 	//Level variables
 	var level;
 	var bdr_Tree;
 	var groundTex;
 	var bdr_Warning;
 
+	var level2Map;
+	var bdr_Acid;
+	var groundTexLevel2;
+
 	//HUD Icons
 	var HUDLives;
 	var HUDCtrls;
 	var HUDLives;
 	var HUDPause;
-	var HUDplay;
-	var HUDrestart;
-	var HUDexit;
 
 	//levels
 	var level_Tutorial;
@@ -23,34 +22,15 @@ function Level(){
 	var levelT;
 	var level1;
 	var level2;
-}
 
-Level.prototype.init = function()
-{
-	this.level_Tutorial = true;
-	this.levelOne=false;
-	this.levelTwo = false;
+function Level(){
 
 	LoadAssets();
 
-	if (this.level_Tutorial)
-	{
-		this.levelT = new TutorialLevel();
-		this.levelT.init();
-	}
-
-	if (this.levelOne) //if level one is showing
-	{
-		this.level1 = new LevelOne();
-		this.level1.init();
-	}
-
-	if (this.levelTwo)
-	{
-		this.level2 = new LevelTwo();
-		this.level2.init();
-	}
-
+	this.levelOne = true;
+	this.levelTwo = false;
+	this.level1 = new LevelOne();
+	this.level1.init();
 }
 
 Level.prototype.update = function(){
@@ -61,59 +41,72 @@ Level.prototype.update = function(){
 	app.ctx.fillStyle = "green";
 	app.ctx.fill();
 
-	//loop through array and draw the map/level
-	for (i = 0; i < 15; i++)
-	{
-		for (j = 0; j < 15; j++)
-		{
-			if (level[i][j] === 0)
-			{
-				//draw ground
-				app.ctx.drawImage(groundTex, j * 64, i * 64, 64, 64);
-			}
-
-			if (level[i][j] === 1)
-			{
-				//draw hedge border images
-				app.ctx.drawImage(bdr_Tree, j * 64, i * 64, 64, 64);
-			}
-
-			if (level[i][j] === 2)
-			{
-				//draw warning border images
-				app.ctx.drawImage(bdr_Warning, j * 64, i * 64, 64, 64);
-			}
-		}
-	}
-
-
-	
-	if (this.level_Tutorial)
-	{
-		this.levelT.update();
-
-		if (this.levelT.CollisionWithPortal())
-		{
-			this.levelOne = true;
-			this.level_Tutorial = false;
-			this.level1 = new LevelOne();
-			this.level1.init();
-			this.levelT.DeleteLevel();
-		}
-	}
-
 	if (this.levelOne)
 	{
+		//loop through array and draw the map/level
+		for (i = 0; i < 15; i++)
+		{
+			for (j = 0; j < 15; j++)
+			{
+				if (level[i][j] === 0)
+				{
+					//draw ground
+					app.ctx.drawImage(groundTex, j * 64, i * 64, 64, 64);
+				}
+
+				if (level[i][j] === 1)
+				{
+					//draw hedge border images
+					app.ctx.drawImage(bdr_Tree, j * 64, i * 64, 64, 64);
+				}
+
+				if (level[i][j] === 2)
+				{
+					//draw warning border images
+					app.ctx.drawImage(bdr_Warning, j * 64, i * 64, 64, 64);
+				}
+			}
+		}
+
 		this.level1.update();
 
 		if (this.level1.CollisionWithPortal())
 		{
 			this.levelOne = false;
 			this.levelTwo = true;
+			this.level1.DeleteLevel();
 			this.level2 = new LevelTwo();
 			this.level2.init();
-			this.level1.DeleteLevel();
 		}
+	}
+
+	if (this.levelTwo)
+	{
+		//loop through array and draw the map/level
+		for (i = 0; i < 15; i++)
+		{
+			for (j = 0; j < 15; j++)
+			{
+				if (level2Map[i][j] === 0)
+				{
+					//draw ground
+					app.ctx.drawImage(groundTexLevel2, j * 64, i * 64, 64, 64);
+				}
+
+				if (level2Map[i][j] === 1)
+				{
+					//draw hedge border images
+					app.ctx.drawImage(bdr_Acid, j * 64, i * 64, 64, 64);
+				}
+			}
+		}
+
+		this.level2.update();
+
+		//if (this.level2.CollisionWithPortal())
+		//{
+			//this.level2.DeleteLevel();
+		//}
 	}
 	
 	drawHUD();
@@ -182,14 +175,11 @@ function LoadAssets()
 	HUDCoin = new Coin();
 	HUDCoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
 
-	HUDplay = new Image();
-	HUDplay.src = "Assets/Gameplay/HUD/continuebtn.png";
+	bdr_Acid = new Image();
+	bdr_Acid.src = "Assets/Gameplay/Level2/Acid.png";
 
-	HUDrestart = new Image();
-	HUDrestart.src = "Assets/Gameplay/HUD/restartbtn.png";
-
-	HUDexit = new Image();
-	HUDexit.src = "Assets/Gameplay/HUD/quitbtn.png";
+	groundTexLevel2 = new Image();
+	groundTexLevel2.src = "Assets/Gameplay/Level2/ground.png";
 
 	level = [
 		[1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1],
@@ -207,5 +197,23 @@ function LoadAssets()
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1]
+	];
+
+	level2Map = [
+		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 	];
 }

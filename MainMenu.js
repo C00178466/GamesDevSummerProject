@@ -1,6 +1,7 @@
 var backgroundTex;
 var btnPlay;
 var btnOptions;
+var btnTutorial;
 
 function MainMenu()
 {
@@ -24,12 +25,20 @@ function MainMenu()
 
 	}, false);
 	btnOptions.src = 'Assets/Menu/optionsbtn.png';
+
+	btnTutorial = new Image();
+	btnTutorial.addEventListener("load", function()
+	{
+
+	}, false);
+	btnTutorial.src = 'Assets/Menu/tutorialbtn.png';
 }
 
 MainMenu.prototype.update = function()
 {
 	app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 	app.ctx.drawImage(backgroundTex, 0, 0, canvas.width, canvas.height);
-	app.ctx.drawImage(btnPlay, (canvas.width / 2) - 145, (canvas.height / 2) - 160, 290, 160);
-	app.ctx.drawImage(btnOptions, (canvas.width / 2) - 145, (canvas.height / 2) + 160, 290, 160);
+	app.ctx.drawImage(btnPlay, (canvas.width / 2) - 145, (canvas.height / 2) - 320, 290, 160);
+	app.ctx.drawImage(btnTutorial, (canvas.width / 2) - 145, (canvas.height / 2) - 90, 290, 160);
+	app.ctx.drawImage(btnOptions, (canvas.width / 2) - 145, (canvas.height / 2) + 150, 290, 160);
 }
