@@ -25,7 +25,7 @@ Enemy.prototype.init = function(x, y){
 	this.swirlOldTime = Date.now();
 
 	this.img = new Image();
-	this.img.src = 'Assets/Gameplay/player_walk_strip_right.png';
+	this.img.src = 'Assets/Gameplay/enemy_walk_right.png';
 
 	this.imgFrame = 0;
 	this.oldTime = Date.now();
@@ -73,15 +73,15 @@ Enemy.prototype.update = function(){
 	//draw & animate the enemy when the swirl has finished
 	if (this.swirlImgFrame === 6)
 	{
-		app.ctx.drawImage(this.img, this.imgFrame*35, 0, 35, 57, this.xPos, this.yPos, 64, 90 );
+		app.ctx.drawImage(this.img, this.imgFrame*90, 0, 90, 90, this.xPos, this.yPos, 64, 90);
 
 		if (this.right === true)
 		{
-			this.img.src = 'Assets/Gameplay/player_walk_strip_right.png';
+			this.img.src = 'Assets/Gameplay/enemy_walk_right.png';
 
 			if (Date.now() - this.oldTime > 1000 / this.fps)
 			{
-				if (this.imgFrame == 5)
+				if (this.imgFrame == 7)
 				{
 					this.imgFrame = 0;
 				}
@@ -89,17 +89,17 @@ Enemy.prototype.update = function(){
 				this.imgFrame++;
 
 				this.oldTime = Date.now();
-				app.ctx.drawImage(this.img, this.imgFrame*35, 0, 35, 57, this.xPos, this.yPos, 64, 90);
+				app.ctx.drawImage(this.img, this.imgFrame*90, 0, 90, 90, this.xPos, this.yPos, 64, 90);
 			}
 		}
 
 		if (this.left === true)
 		{
-			this.img.src = 'Assets/Gameplay/player_walk_strip_left.png';
+			this.img.src = 'Assets/Gameplay/enemy_walk_left.png';
 
 			if (Date.now() - this.oldTime > 1000 / this.fps)
 			{
-				if (this.imgFrame == 5)
+				if (this.imgFrame == 7)
 				{
 					this.imgFrame = 0;
 				}
@@ -107,7 +107,43 @@ Enemy.prototype.update = function(){
 				this.imgFrame++;
 
 				this.oldTime = Date.now();
-				app.ctx.drawImage(this.img, this.imgFrame*35, 0, 35, 57, this.xPos, this.yPos, 64, 90);
+				app.ctx.drawImage(this.img, this.imgFrame*90, 0, 90, 90, this.xPos, this.yPos, 64, 90);
+			}
+		}
+
+		if (this.up)
+		{
+			this.img.src = 'Assets/Gameplay/enemy_walk_up.png';
+
+			if (Date.now() - this.oldTime > 1000 / this.fps)
+			{
+				if (this.imgFrame == 7)
+				{
+					this.imgFrame = 0;
+				}
+
+				this.imgFrame++;
+
+				this.oldTime = Date.now();
+				app.ctx.drawImage(this.img, this.imgFrame*90, 0, 90, 90, this.xPos, this.yPos, 64, 90);
+			}
+		}
+
+		if (this.down)
+		{
+			this.img.src = 'Assets/Gameplay/enemy_walk_down.png';
+
+			if (Date.now() - this.oldTime > 1000 / this.fps)
+			{
+				if (this.imgFrame == 7)
+				{
+					this.imgFrame = 0;
+				}
+
+				this.imgFrame++;
+
+				this.oldTime = Date.now();
+				app.ctx.drawImage(this.img, this.imgFrame*90, 0, 90, 90, this.xPos, this.yPos, 64, 90);
 			}
 		}
 		

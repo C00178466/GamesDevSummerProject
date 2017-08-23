@@ -40,6 +40,12 @@ Player.prototype.update = function(){
 
 	app.ctx.drawImage(this.img, this.imgFrame*64, 0, 64, 90, this.xPos, this.yPos , 64, 90);
 
+	this.Move();
+	PlayerBoundary();
+}
+
+Player.prototype.Move = function()
+{
 	//Move the player
 	if (38 in keysDown) 
 	{ // Player holding up
@@ -94,8 +100,6 @@ Player.prototype.update = function(){
 			app.ctx.drawImage(this.img, this.imgFrame*64, 0, 64, 90, this.xPos, this.yPos , 64, 90);
 		}
 	}
-
-	PlayerBoundary();
 }
 
 function PlayerBoundary()
