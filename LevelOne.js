@@ -20,18 +20,16 @@ LevelOne.prototype.init = function()
 	app.player = new Player();
 	app.player.init(448, 448);
 
-	this.enemy = [5];
+	this.enemy = [4];
 
 	this.enemy[0] = new Enemy();
-	this.enemy[0].init(400, 200);
+	this.enemy[0].init(196, 264);
 	this.enemy[1] = new Enemy();
-	this.enemy[1].init(196, 264);
+	this.enemy[1].init(576, 264);
 	this.enemy[2] = new Enemy();
-	this.enemy[2].init(576, 264);
+	this.enemy[2].init(196, 764);
 	this.enemy[3] = new Enemy();
-	this.enemy[3].init(196, 764);
-	this.enemy[4] = new Enemy();
-	this.enemy[4].init(576, 764);
+	this.enemy[3].init(576, 764);
 
 	this.GameRunning = true;
 	this.GameOver = false;
@@ -76,12 +74,10 @@ LevelOne.prototype.update = function()
 			{
 				this.enemy[i].update();
 
-				this.enemy[0].FollowPlayer();
-
+				this.enemy[0].WalkAroundCoin();
 				this.enemy[1].WalkAroundCoin();
 				this.enemy[2].WalkAroundCoin();
 				this.enemy[3].WalkAroundCoin();
-				this.enemy[4].WalkAroundCoin();
 			}
 		}
 

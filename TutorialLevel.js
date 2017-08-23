@@ -270,13 +270,16 @@ TutorialLevel.prototype.CheckCoin = function()
 
 TutorialLevel.prototype.CollisionWithPortal = function()
 {
-	if (500 <= (this.player.xPos + 64)
-	&& this.player.xPos <= (564)
-	&& 200 <= (this.player.yPos + 64)
-	&& this.player.yPos <= (264)) 
+	if (this.timer2 > 360)
 	{
-		console.log("Portal Hit");
-		return true;
+		if (500 <= (this.player.xPos + 64)
+		&& this.player.xPos <= (564)
+		&& 200 <= (this.player.yPos + 64)
+		&& this.player.yPos <= (264)) 
+		{
+			console.log("Portal Hit");
+			return true;
+		}
 	}
 }
 

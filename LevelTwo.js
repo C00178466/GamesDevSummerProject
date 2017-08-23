@@ -55,7 +55,10 @@ LevelTwo.prototype.update = function()
 				this.enemy[i].update();
 
 				this.enemy[0].FollowPlayer();
-				this.enemy[1].FollowPlayer();
+				this.enemy[1].WalkAroundCoin();
+				this.enemy[2].WalkAroundCoin();
+				this.enemy[3].WalkAroundCoin();
+				this.enemy[4].WalkAroundCoin();
 			}
 			
 		}

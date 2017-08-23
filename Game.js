@@ -80,6 +80,12 @@ Game.prototype.update=function()
 			bMenu = true;
 			bTutorial = false;
 		}
+
+		if (tutLevel.CollisionWithPortal())
+		{
+			bMenu = true;
+			bTutorial = false;
+		}
 	}
 
 	//if options menu is showing
