@@ -41,7 +41,7 @@ Player.prototype.update = function(){
 	app.ctx.drawImage(this.img, this.imgFrame*64, 0, 64, 90, this.xPos, this.yPos , 64, 90);
 
 	this.Move();
-	PlayerBoundary();
+	this.PlayerBoundary();
 }
 
 Player.prototype.Move = function()
@@ -102,7 +102,7 @@ Player.prototype.Move = function()
 	}
 }
 
-function PlayerBoundary()
+Player.prototype.PlayerBoundary = function()
 {
 	if (this.xPos >= 896)
 	{

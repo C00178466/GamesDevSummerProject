@@ -210,7 +210,7 @@ LevelOne.prototype.CollisionWithPortal = function()
 
 LevelOne.prototype.DeleteLevel = function()
 {
-	delete app.player;
+	//delete app.player;
 
 	for (i = 0; i < this.enemy.length; i++)
 	{
