@@ -58,7 +58,6 @@ Game.prototype.init=function()
 Game.prototype.update=function()
 {
 	console.log('Updating');
-	
 	app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	//if main menu is showing
@@ -152,12 +151,36 @@ function onTouchStart(e)
     {
     	//code for when HUD controls are pressed/touched
     	//Pause Button
-    	if (touches[0].clientX >= (canvas.width / 7) &&
-	    	touches[0].clientX <= (canvas.width / 7) + 216 &&
-	    	touches[0].clientY >= ((canvas.height / 7) * 6)  &&
-	    	touches[0].clientY <= ((canvas.height / 7) * 6 ) + 96)
+    	if (touches[0].clientX >= ((canvas.width / 7) * 4) + 100 &&
+	    	touches[0].clientX <= ((canvas.width / 7) * 4) + 220 &&
+	    	touches[0].clientY >= canvas.width + 200 &&
+	    	touches[0].clientY <= canvas.width + 300)
 	    {
-	    	console.log("Pause");
+	    	console.log("Player Move Up");
+	    }
+
+	    if (touches[0].clientX >= ((canvas.width / 7) * 4) + 100 &&
+	    	touches[0].clientX <= ((canvas.width / 7) * 4) + 220 &&
+	    	touches[0].clientY >= canvas.width + 420 &&
+	    	touches[0].clientY <= canvas.width + 520)
+	    {
+	    	console.log("Player Move Down");
+	    }
+
+	    if (touches[0].clientX >= (canvas.width / 7) * 4 &&
+	    	touches[0].clientX <= ((canvas.width / 7) * 4) + 100 &&
+	    	touches[0].clientY >= canvas.width + 300 &&
+	    	touches[0].clientY <= canvas.width + 420)
+	    {
+	    	console.log("Player Move Left");
+	    }
+
+	    if (touches[0].clientX >= ((canvas.width / 7) * 4) + 220 &&
+	    	touches[0].clientX <= ((canvas.width / 7) * 4) + 320 &&
+	    	touches[0].clientY >= canvas.width + 300 &&
+	    	touches[0].clientY <= canvas.width + 420)
+	    {
+	    	console.log("Player Move Right");
 	    }
     }
 

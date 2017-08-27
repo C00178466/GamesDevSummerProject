@@ -59,13 +59,14 @@ LevelTwo.prototype.update = function()
 				this.enemy[2].WalkAroundCoin();
 				this.enemy[3].WalkAroundCoin();
 				this.enemy[4].WalkAroundCoin();
-			}
-			
+			}	
 		}
+
+		this.CheckLives();
 	}
 	else
 	{
-
+		this.CheckGameOver();
 	}
 
 	this.drawHUD;
