@@ -1,27 +1,27 @@
-	//Level variables
-	var level;
-	var bdr_Tree;
-	var groundTex;
-	var bdr_Warning;
+//Level variables
+var level;
+var bdr_Tree;
+var groundTex;
+var bdr_Warning;
 
-	var level2Map;
-	var bdr_Acid;
-	var groundTexLevel2;
+var level2Map;
+var bdr_Acid;
+var groundTexLevel2;
 
-	//HUD Icons
-	var HUDLives;
-	var HUDCtrls;
-	var HUDLives;
-	var HUDPause;
+//HUD Icons
+var HUDLives;
+var HUDCtrls;
+var HUDLives;
+var HUDPause;
 
-	//levels
-	var level_Tutorial;
-	var levelOne;
-	var levelTwo;
+//levels
+var level_Tutorial;
+var levelOne;
+var levelTwo;
 
-	var levelT;
-	var level1;
-	var level2;
+var levelT;
+var level1;
+var level2;
 
 function Level(){
 

@@ -13,6 +13,8 @@ function LevelOne()
 	var sound_CoinCollect;
 
 	var portalImg;
+	var portalTimer;
+	var portalEffect;
 }
 
 LevelOne.prototype.init = function()
@@ -55,6 +57,13 @@ LevelOne.prototype.init = function()
 
 	this.portalImg = new Image();
 	this.portalImg.src = "Assets/Gameplay/portal.png";
+	this.portalTimer = 0;
+	this.portalEffect = [];
+
+	for (i = 0; i < 200; i++)
+	{
+		this.portalEffect[i] = new Particle(Math.random() * canvas.width, Math.random() * canvas.height);
+	}
 }
 
 LevelOne.prototype.update = function()
@@ -174,6 +183,14 @@ LevelOne.prototype.CheckCoins = function()
 		//////////////
 		//Draw particles for portal here
 		//////////////
+
+		for (var i = 0; i < 200; i++)
+		{
+		  //particles[i].attract(mouse.x, mouse.y);
+		  this.portalEffect[i].attract(480, 480);
+		  this.portalEffect[i].integrate();
+		  this.portalEffect[i].draw();
+		}
 
 		app.ctx.drawImage(this.portalImg, 448, 448, 64, 64);
 	}

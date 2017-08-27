@@ -8,6 +8,8 @@ addEventListener("keyup", function(e) {
 	delete keysDown[e.keyCode];
 }, false);
 
+addEventListener("touchstart", onTouchStart);
+
 function Player(){
 	var img;
 	var xPos, yPos;
@@ -170,6 +172,48 @@ Player.prototype.PlayerBoundary = function()
  	{
  		this.yPos -= 2;
  	}
+}
 
+function onTouchStart(e)
+{
+    touches = e.touches;
+    touchXPos = e.touches[0].clientX;
+    touchYPos = e.touches[0].clientY;
 
+    //code for when HUD controls are pressed/touched
+	if (touches[0].clientX >= ((canvas.width / 7) * 4) + 100 &&
+    	touches[0].clientX <= ((canvas.width / 7) * 4) + 220 &&
+    	touches[0].clientY >= canvas.width + 200 &&
+    	touches[0].clientY <= canvas.width + 300)
+    {
+    	this.MoveUp();
+    	console.log("Player Move Up");
+    }
+
+    if (touches[0].clientX >= ((canvas.width / 7) * 4) + 100 &&
+    	touches[0].clientX <= ((canvas.width / 7) * 4) + 220 &&
+    	touches[0].clientY >= canvas.width + 420 &&
+    	touches[0].clientY <= canvas.width + 520)
+    {
+    	this.MoveDown();
+    	console.log("Player Move Down");
+    }
+
+    if (touches[0].clientX >= (canvas.width / 7) * 4 &&
+    	touches[0].clientX <= ((canvas.width / 7) * 4) + 100 &&
+    	touches[0].clientY >= canvas.width + 300 &&
+    	touches[0].clientY <= canvas.width + 420)
+    {
+    	this.MoveLeft();
+    	console.log("Player Move Left");
+    }
+
+    if (touches[0].clientX >= ((canvas.width / 7) * 4) + 220 &&
+    	touches[0].clientX <= ((canvas.width / 7) * 4) + 320 &&
+    	touches[0].clientY >= canvas.width + 300 &&
+    	touches[0].clientY <= canvas.width + 420)
+    {
+    	this.MoveRight();
+    	console.log("Player Move Right");
+    }
 }

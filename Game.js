@@ -149,39 +149,7 @@ function onTouchStart(e)
 
     if (bPlay)
     {
-    	//code for when HUD controls are pressed/touched
-    	//Pause Button
-    	if (touches[0].clientX >= ((canvas.width / 7) * 4) + 100 &&
-	    	touches[0].clientX <= ((canvas.width / 7) * 4) + 220 &&
-	    	touches[0].clientY >= canvas.width + 200 &&
-	    	touches[0].clientY <= canvas.width + 300)
-	    {
-	    	console.log("Player Move Up");
-	    }
-
-	    if (touches[0].clientX >= ((canvas.width / 7) * 4) + 100 &&
-	    	touches[0].clientX <= ((canvas.width / 7) * 4) + 220 &&
-	    	touches[0].clientY >= canvas.width + 420 &&
-	    	touches[0].clientY <= canvas.width + 520)
-	    {
-	    	console.log("Player Move Down");
-	    }
-
-	    if (touches[0].clientX >= (canvas.width / 7) * 4 &&
-	    	touches[0].clientX <= ((canvas.width / 7) * 4) + 100 &&
-	    	touches[0].clientY >= canvas.width + 300 &&
-	    	touches[0].clientY <= canvas.width + 420)
-	    {
-	    	console.log("Player Move Left");
-	    }
-
-	    if (touches[0].clientX >= ((canvas.width / 7) * 4) + 220 &&
-	    	touches[0].clientX <= ((canvas.width / 7) * 4) + 320 &&
-	    	touches[0].clientY >= canvas.width + 300 &&
-	    	touches[0].clientY <= canvas.width + 420)
-	    {
-	    	console.log("Player Move Right");
-	    }
+    	
     }
 
     if (bOptions)
