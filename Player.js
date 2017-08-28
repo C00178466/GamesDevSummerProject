@@ -63,7 +63,7 @@ Player.prototype.update = function(){
 		this.MoveRight();
 	}
 
-	this.PlayerBoundary();
+	//this.PlayerBoundary();
 }
 
 Player.prototype.MoveUp = function()
@@ -150,27 +150,27 @@ Player.prototype.MoveRight = function()
 	}
 }
 
-Player.prototype.PlayerBoundary = function()
+Player.prototype.Ptesjhg = function()
 {
 	if (this.xPos >= 896)
 	{
-		this.xPos -= 2;
-		console.log("Collide");
+		//this.xPos -= 2;
+		//console.log("Collide");
  	}
 
  	else if(this.xPos <= 64)
  	{
- 		this.xPos += 2;
+ 		//this.xPos += 2;
  	}
 
  	else if (this.yPos <= 64)
  	{
- 		this.yPos += 2;
+ 		//this.yPos += 2;
  	}
 
  	else if (this.yPos >= 896)
  	{
- 		this.yPos -= 2;
+ 		//this.yPos -= 2;
  	}
 }
 

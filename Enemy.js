@@ -154,7 +154,7 @@ Enemy.prototype.FollowPlayer = function()
 
 	if (app.player.yPos < this.yPos) //up
 	{
-		this.yPos = this.yPos - .5;
+		this.yPos = this.yPos - .25;
 
 		this.right = false;
 		this.left = false;
@@ -164,7 +164,7 @@ Enemy.prototype.FollowPlayer = function()
 
 	else if (app.player.yPos > this.yPos) //down
 	{
-		this.yPos = this.yPos + .5
+		this.yPos = this.yPos + .25;
 
 		this.right = false;
 		this.left = false;
@@ -174,7 +174,7 @@ Enemy.prototype.FollowPlayer = function()
 
 	else if (app.player.xPos > this.xPos) //right
 	{
-		this.xPos = this.xPos + .5;
+		this.xPos = this.xPos + .25;
 
 		this.right = true;
 		this.left = false;
@@ -184,7 +184,7 @@ Enemy.prototype.FollowPlayer = function()
 
 	else if (app.player.xPos < this.xPos) //left
 	{
-		this.xPos = this.xPos - .5;
+		this.xPos = this.xPos - .25;
 
 		this.right = false;
 		this.left = true;
@@ -198,7 +198,7 @@ Enemy.prototype.CollisionPlayerToEnemy = function()
 	if (app.player.xPos <= (this.xPos + 64)
 	&& this.xPos <= (app.player.xPos + 64)
 	&& app.player.yPos <= (this.yPos + 64)
-	&& this.yPos <= (app.player.yPos + 64)) 
+	&& this.yPos <= (app.player.yPos + 90)) 
 	{
 		console.log("Collide");
 		return true;

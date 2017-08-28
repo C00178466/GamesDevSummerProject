@@ -85,6 +85,7 @@ LevelTwo.prototype.update = function()
 
 		this.CheckLives();
 		this.CheckCoins();
+		this.PlayerBoundary();
 	}
 	else
 	{
@@ -187,4 +188,31 @@ LevelTwo.prototype.CheckCoins = function()
 			delete this.enemy[i];
 		}
 	}
+}
+
+LevelTwo.prototype.PlayerBoundary = function()
+{
+	if (app.player.xPos >= 832)
+	{
+		app.player.lives = app.player.lives - 1;
+		this.Reset();
+ 	}
+
+ 	else if(app.player.xPos <= 64)
+ 	{
+ 		app.player.lives = app.player.lives - 1;
+ 		this.Reset();
+ 	}
+
+ 	else if (app.player.yPos <= 64)
+ 	{
+ 		app.player.lives = app.player.lives - 1;
+ 		this.Reset();
+ 	}
+
+ 	else if (app.player.yPos >= 832)
+ 	{
+ 		app.player.lives = app.player.lives - 1;
+ 		this.Reset();
+ 	}
 }

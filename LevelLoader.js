@@ -1,9 +1,10 @@
-//Level variables
+//Level 1 variables
 var level;
 var bdr_Tree;
 var groundTex;
 var bdr_Warning;
 
+//Level 2 variables
 var level2Map;
 var bdr_Acid;
 var groundTexLevel2;
@@ -15,11 +16,8 @@ var HUDLives;
 var HUDPause;
 
 //levels
-var level_Tutorial;
 var levelOne;
 var levelTwo;
-
-var levelT;
 var level1;
 var level2;
 
@@ -78,8 +76,6 @@ Level.prototype.update = function(){
 			this.level2 = new LevelTwo();
 			this.level2.init();
 		}
-
-		//drawHUD();
 	}
 
 	if (this.levelTwo)
@@ -104,28 +100,7 @@ Level.prototype.update = function(){
 		}
 
 		this.level2.update();
-
-		//if (this.level2.CollisionWithPortal())
-		//{
-			//this.level2.DeleteLevel();
-		//}
 	}
-	
-}
-
-function drawHUD()
-{
-	//Player Movement Buttons
-	//app.ctx.drawImage(HUDCtrls, (canvas.width / 7) * 4, canvas.width + 200, 320, 320);
-
-	//Pause Button
-	//app.ctx.drawImage(HUDPause, canvas.width / 7, (canvas.height / 7) * 6, 216, 96);
-
-	//Draw and update Coin Icon
-	//HUDCoin.update();
-
-	//Lives Icon
-	//app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
 }
 
 function LoadAssets()
@@ -164,15 +139,6 @@ function LoadAssets()
 
 	}, false);
 	HUDLives.src = 'Assets/Gameplay/HUD/Lives.png';
-
-	HUDPause = new Image();
-	HUDPause.addEventListener("load", function()
-	{
-
-	}, false);
-	HUDPause.src = 'Assets/Gameplay/HUD/Pause_btn.png';
-
-
 
 	bdr_Acid = new Image();
 	bdr_Acid.src = "Assets/Gameplay/Level2/Acid.png";
@@ -216,3 +182,36 @@ function LoadAssets()
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 	];
 }
+
+
+/*      
+This is my attempt at getting the level arrays loading from a JSON file.
+I could not get it working but I left the code here
+*/
+
+/*
+function loadJSON(file, callback) {   
+
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', "data.json", true); // Replace 'my_data' with the path to your file
+    xobj.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a 
+            //value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);  
+ }
+
+function load() {
+    
+    loadJSON("data.json", function(response) {
+  
+        var actual_JSON = JSON.parse(response);
+        console.log(actual_JSON);
+    });  
+}
+*/
