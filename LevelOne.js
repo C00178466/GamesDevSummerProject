@@ -3,6 +3,7 @@ function LevelOne()
 	var player;
 	var enemy;
 	var coins;
+	var HUDcoin;
 
 	var GameRunning;
 	var GamePaused;
@@ -51,6 +52,10 @@ LevelOne.prototype.init = function()
 
 	app.coinsCollected = 0;
 	this.maxCoins = 4;
+
+	//HUD coin
+	this.HUDCoin = new Coin();
+	this.HUDCoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
 
 	this.sound_CoinCollect = new Audio("Assets/Sound/collect_coin.wav");
 	this.sound_CoinCollect.loop = false;
@@ -103,6 +108,18 @@ LevelOne.prototype.update = function()
 
 LevelOne.prototype.drawHUD = function()
 {
+	//Player Movement Buttons
+	app.ctx.drawImage(HUDCtrls, (canvas.width / 7) * 4, canvas.width + 200, 320, 320);
+
+	//Pause Button
+	//app.ctx.drawImage(HUDPause, canvas.width / 7, (canvas.height / 7) * 6, 216, 96);
+
+	//Draw and update Coin Icon
+	this.HUDCoin.update();
+
+	//Lives Icon
+	app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
+
 	//Score
 	app.ctx.fillStyle = "rgb(0, 0, 0)";
 	app.ctx.font = "42px Helvetica";
@@ -119,10 +136,6 @@ LevelOne.prototype.Reset = function()
 	//reset player position
 	app.player.xPos = 448;
 	app.player.yPos = 448;
-
-	//reset position of enemy following the player
-	this.enemy[0].xPos = 400;
-	this.enemy[0].yPos = 200;
 }
 
 LevelOne.prototype.CheckLives = function()
@@ -223,8 +236,6 @@ LevelOne.prototype.CollisionWithPortal = function()
 
 LevelOne.prototype.DeleteLevel = function()
 {
-	//delete app.player;
-
 	for (i = 0; i < this.enemy.length; i++)
 	{
 		delete this.enemy[i];

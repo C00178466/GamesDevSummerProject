@@ -78,6 +78,8 @@ Level.prototype.update = function(){
 			this.level2 = new LevelTwo();
 			this.level2.init();
 		}
+
+		//drawHUD();
 	}
 
 	if (this.levelTwo)
@@ -109,22 +111,21 @@ Level.prototype.update = function(){
 		//}
 	}
 	
-	drawHUD();
 }
 
 function drawHUD()
 {
 	//Player Movement Buttons
-	app.ctx.drawImage(HUDCtrls, (canvas.width / 7) * 4, canvas.width + 200, 320, 320);
+	//app.ctx.drawImage(HUDCtrls, (canvas.width / 7) * 4, canvas.width + 200, 320, 320);
 
 	//Pause Button
-	app.ctx.drawImage(HUDPause, canvas.width / 7, (canvas.height / 7) * 6, 216, 96);
+	//app.ctx.drawImage(HUDPause, canvas.width / 7, (canvas.height / 7) * 6, 216, 96);
 
 	//Draw and update Coin Icon
-	HUDCoin.update();
+	//HUDCoin.update();
 
 	//Lives Icon
-	app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
+	//app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
 }
 
 function LoadAssets()
@@ -171,9 +172,7 @@ function LoadAssets()
 	}, false);
 	HUDPause.src = 'Assets/Gameplay/HUD/Pause_btn.png';
 
-	//HUD coin
-	HUDCoin = new Coin();
-	HUDCoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+
 
 	bdr_Acid = new Image();
 	bdr_Acid.src = "Assets/Gameplay/Level2/Acid.png";

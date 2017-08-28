@@ -146,9 +146,6 @@ Enemy.prototype.update = function(){
 				app.ctx.drawImage(this.img, this.imgFrame*90, 0, 90, 90, this.xPos, this.yPos, 64, 90);
 			}
 		}
-		
-		//this.FollowPlayer();
-		//this.CollisionPlayerToEnemy();
 	}
 }
 
@@ -203,7 +200,6 @@ Enemy.prototype.CollisionPlayerToEnemy = function()
 	&& app.player.yPos <= (this.yPos + 64)
 	&& this.yPos <= (app.player.yPos + 64)) 
 	{
-		//++monstersCaught;
 		console.log("Collide");
 		return true;
 	}
