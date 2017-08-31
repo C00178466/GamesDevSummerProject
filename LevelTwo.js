@@ -46,7 +46,7 @@ LevelTwo.prototype.init = function() {
 	this.maxItems = 4;
 	this.itemsCollected = 0;
 
-	this.sound_powerCollect = new Audio("Assets/Sound/collect_coin.wav");
+	this.sound_powerCollect = new Audio("Assets/Sound/collect_power.wav");
 	this.sound_powerCollect.loop = false;
 
 	this.HUDLevel = new Image();
@@ -65,7 +65,7 @@ LevelTwo.prototype.init = function() {
 
 	//HUD Power
 	this.HUDPower = new PowerBank();
-	this.HUDPower.init((canvas.width / 2) - 190, (canvas.height / 7) * 5 - 15);
+	this.HUDPower.init((canvas.width / 2) - 270, (canvas.height / 7) * 5 - 15);
 }
 
 LevelTwo.prototype.update = function()
@@ -119,15 +119,13 @@ LevelTwo.prototype.drawHUD = function()
 	app.ctx.font = "42px Helvetica";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
-	app.ctx.fillText("Power Banks: " +  this.itemsCollected + " / " + this.maxItems, (canvas.width / 2) - 100, (canvas.height / 7) * 5.05);
+	app.ctx.fillText("Power Banks: " +  this.itemsCollected + " / " + this.maxItems, (canvas.width / 2) - 180, (canvas.height / 7) * 5.05);
 
 	//Lives
 	app.ctx.fillText("Lives Left: " + app.player.lives, (canvas.width / 2) - 100, (canvas.height / 7) * 5.55);
+	app.ctx.drawImage(HUDLives, canvas.width / 2 - 185, (canvas.height / 7) * 5.5);
 
 	this.HUDPower.update();
-
-	//Lives Icon
-	app.ctx.drawImage(HUDLives, canvas.width / 2 - 185, (canvas.height / 7) * 5.5);
 
 	//Level Number
 	app.ctx.fillText("LEVEL 2", canvas.width / 2 - 50, canvas.height / 7 * 4.2);
@@ -164,8 +162,8 @@ LevelTwo.prototype.CheckGameOver = function()
 	app.ctx.font = "72px Helvetica";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
-	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, canvas.height / 2 - 100);
-	app.ctx.fillText("Press R to restart", (canvas.width / 2) - 300, canvas.height / 2 - 100);
+	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, (canvas.height / 2 - 200));
+	app.ctx.fillText("Press R to restart", (canvas.width / 2) - 300, (canvas.height / 2 - 100));
 }
 
 LevelTwo.prototype.LevelRestart = function()
@@ -199,7 +197,7 @@ LevelTwo.prototype.CheckCoins = function()
 		&& app.player.yPos <= (this.power[i].yPos + 64)) 
 		{
 			++this.itemsCollected;
-			//this.sound_CoinCollect.play();
+			this.sound_powerCollect.play();
 
 			//remove the coin from the array
 			this.power.splice(i, 1);

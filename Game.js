@@ -28,6 +28,7 @@ var levelLdr;
 var tutLevel;
 
 var sound_background;
+var game_background;
 
 var bMenu = true;
 var bPlay = false;
@@ -53,7 +54,7 @@ Game.prototype.init=function()
 
 	sound_background = new Audio("Assets/Sound/background.mp3");
 	sound_background.loop = true;
-	sound_background.play();
+	//sound_background.play();
 }
 
 Game.prototype.update=function()
@@ -150,7 +151,7 @@ function onTouchStart(e)
 
     if (bPlay)
     {
-    	
+
     }
 
     if (bOptions)
