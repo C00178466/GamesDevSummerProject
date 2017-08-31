@@ -77,7 +77,7 @@ LevelOne.prototype.init = function()
 
 	for (i = 0; i < 200; i++)
 	{
-		this.portalEffect[i] = new Particle(Math.random() * canvas.width, Math.random() * canvas.height);
+		this.portalEffect[i] = new Particle(Math.random() * canvas.width / 2, Math.random() * canvas.height / 2);
 	}
 }
 
@@ -127,7 +127,7 @@ LevelOne.prototype.update = function()
 LevelOne.prototype.drawHUD = function()
 {
 	app.ctx.fillStyle = "rgb(0, 0, 0)";
-	app.ctx.font = "42px Helvetica";
+	app.ctx.font = "42px RalewayBlack";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
 
@@ -209,7 +209,7 @@ LevelOne.prototype.CheckCoins = function()
 	if (app.coinsCollected === this.maxCoins)
 	{
 		app.ctx.fillStyle = "rgb(255, 255, 255)";
-		app.ctx.font = "36px Helvetica";
+		app.ctx.font = "36px RalewayBlack";
 		app.ctx.textAlign = "left";
 		app.ctx.textBaseline = "top";
 		app.ctx.fillText("Level 1 Complete", (canvas.width / 2) - 190, canvas.height / 7 - 40);
@@ -236,7 +236,7 @@ LevelOne.prototype.CheckCoins = function()
 LevelOne.prototype.CheckGameOver = function()
 {
 	app.ctx.fillStyle = "rgb(255, 255, 255)";
-	app.ctx.font = "72px Helvetica";
+	app.ctx.font = "72px RalewayBlack";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
 	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, canvas.height / 2 - 200);

@@ -116,7 +116,7 @@ LevelTwo.prototype.drawHUD = function()
 {
 	//Score
 	app.ctx.fillStyle = "rgb(0, 0, 0)";
-	app.ctx.font = "42px Helvetica";
+	app.ctx.font = "42px RalewayBlack";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
 	app.ctx.fillText("Power Banks: " +  this.itemsCollected + " / " + this.maxItems, (canvas.width / 2) - 180, (canvas.height / 7) * 5.05);
@@ -159,7 +159,7 @@ LevelTwo.prototype.CheckLives = function()
 LevelTwo.prototype.CheckGameOver = function()
 {
 	app.ctx.fillStyle = "rgb(255, 255, 255)";
-	app.ctx.font = "72px Helvetica";
+	app.ctx.font = "72px RalewayBlack";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
 	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, (canvas.height / 2 - 200));
@@ -207,7 +207,7 @@ LevelTwo.prototype.CheckCoins = function()
 	if (this.itemsCollected === this.maxItems)
 	{
 		app.ctx.fillStyle = "rgb(255, 255, 255)";
-		app.ctx.font = "48px Helvetica";
+		app.ctx.font = "48px RalewayBlack";
 		app.ctx.textAlign = "left";
 		app.ctx.textBaseline = "top";
 		app.ctx.fillText("Level 2 Complete", (canvas.width / 2) - 190, canvas.height / 7 - 40);
