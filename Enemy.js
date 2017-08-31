@@ -198,7 +198,7 @@ Enemy.prototype.CollisionPlayerToEnemy = function()
 	if (app.player.xPos <= (this.xPos + 64)
 	&& this.xPos <= (app.player.xPos + 64)
 	&& app.player.yPos <= (this.yPos + 64)
-	&& this.yPos <= (app.player.yPos + 90)) 
+	&& this.yPos <= (app.player.yPos + 64)) 
 	{
 		console.log("Collide");
 		return true;
