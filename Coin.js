@@ -21,7 +21,7 @@ Coin.prototype.init = function(x, y){
 
 Coin.prototype.update = function(){
 
-	app.ctx.drawImage(this.img, this.imageFrame*44, 0, 44, 44, this.xPos, this.yPos, 64, 64 );
+	app.ctx.drawImage(this.img, this.imageFrame*44, 0, 44, 40, this.xPos, this.yPos, 64, 64);
 
 	//draw & animate the coin
 	if (Date.now() - this.oldTime > 1000 / fps)
@@ -39,6 +39,5 @@ Coin.prototype.update = function(){
 }
 
 Coin.prototype.draw = function(){
-	//app.ctx.drawImage(coinTex,imageFrame*44, 0, 44, 44, app.coinXPos, app.coinYPos, 64, 64 );
-	app.ctx.drawImage(this.img, this.imageFrame*44, 0, 44, 44, this.xPos, this.yPos, 64, 64 );
+	app.ctx.drawImage(this.img, this.imageFrame*44, 0, 44, 44, this.xPos, this.yPos, 64, 64);
 }

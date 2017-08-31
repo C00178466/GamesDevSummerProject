@@ -61,7 +61,7 @@ LevelOne.prototype.init = function()
 
 	//HUD coin
 	this.HUDCoin = new Coin();
-	this.HUDCoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+	this.HUDCoin.init((canvas.width / 2) - 185, (canvas.height / 7) * 5);
 
 	this.sound_CoinCollect = new Audio("Assets/Sound/collect_coin.wav");
 	this.sound_CoinCollect.loop = false;
@@ -122,21 +122,25 @@ LevelOne.prototype.update = function()
 
 LevelOne.prototype.drawHUD = function()
 {
-	//Draw and update Coin Icon
-	this.HUDCoin.update();
-
-	//Lives Icon
-	app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
-
-	//Score
 	app.ctx.fillStyle = "rgb(0, 0, 0)";
 	app.ctx.font = "42px Helvetica";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
-	app.ctx.fillText("Coins: " +  app.coinsCollected + " / " + this.maxCoins, (canvas.width / 7), (canvas.height / 7) * 5.05);
+
+	//Level Number
+	app.ctx.fillText("LEVEL 1", canvas.width / 2 - 100, canvas.height / 7 * 4);
+
+	//Draw and update Coin Icon
+	this.HUDCoin.update();
+
+	//Lives Icon
+	app.ctx.drawImage(HUDLives, canvas.width / 2 - 185, (canvas.height / 7) * 5.5);
+
+	//Score
+	app.ctx.fillText("Coins: " +  app.coinsCollected + " / " + this.maxCoins, (canvas.width / 2) - 100, (canvas.height / 7) * 5.05);
 
 	//Lives
-	app.ctx.fillText("Lives Left: " + app.player.lives, (canvas.width / 7), (canvas.height / 7) * 5.55);
+	app.ctx.fillText("Lives Left: " + app.player.lives, (canvas.width / 2) - 100, (canvas.height / 7) * 5.55);
 }
 
 LevelOne.prototype.Reset = function()
@@ -153,7 +157,7 @@ LevelOne.prototype.LevelRestart = function()
 	app.player.yPos = 448;
 
 	//reset the player lives
-	app.player.lives = 3;
+	app.player.lives = 2;
 }
 
 LevelOne.prototype.CheckLives = function()

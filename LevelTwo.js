@@ -1,3 +1,9 @@
+var keysDown = {};
+
+addEventListener("keydown", function(e) {
+	keysDown[e.keyCode] = true;
+}, false);
+
 function LevelTwo()
 {
 	var player;
@@ -90,6 +96,13 @@ LevelTwo.prototype.update = function()
 	else
 	{
 		this.CheckGameOver();
+
+		//check if spacebar is pressed
+		if (82 in keysDown)
+		{
+			this.LevelRestart();
+			this.init();
+		}
 	}
 
 	this.drawHUD();
@@ -111,6 +124,9 @@ LevelTwo.prototype.drawHUD = function()
 
 	//Lives Icon
 	app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
+
+	//Level Number
+	app.ctx.fillText("LEVEL 1", canvas.width / 2 - 100, canvas.height / 7 * 4);
 }
 
 LevelTwo.prototype.CheckLives = function()
@@ -144,6 +160,17 @@ LevelTwo.prototype.CheckGameOver = function()
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
 	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, canvas.height / 2 - 100);
+	app.ctx.fillText("Press R to restart", (canvas.width / 2) - 300, canvas.height / 2 - 100);
+}
+
+LevelTwo.prototype.LevelRestart = function()
+{
+	//reset player position
+	app.player.xPos = 448;
+	app.player.yPos = 448;
+
+	//reset the player lives
+	app.player.lives = 2;
 }
 
 LevelTwo.prototype.Reset = function()
