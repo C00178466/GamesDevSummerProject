@@ -10,6 +10,7 @@ function LevelTwo()
 	var enemy;
 	var power;
 	var HUDPower;
+	var HUDLevel;
 
 	var GameRunning;
 	var GamePaused;
@@ -48,6 +49,9 @@ LevelTwo.prototype.init = function() {
 	this.sound_powerCollect = new Audio("Assets/Sound/collect_coin.wav");
 	this.sound_powerCollect.loop = false;
 
+	this.HUDLevel = new Image();
+	this.HUDLevel.src = "Assets/Gameplay/level_2.png";
+
 	this.power = [4];
 
 	this.power[0] = new PowerBank();
@@ -61,7 +65,7 @@ LevelTwo.prototype.init = function() {
 
 	//HUD Power
 	this.HUDPower = new PowerBank();
-	this.HUDPower.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+	this.HUDPower.init((canvas.width / 2) - 190, (canvas.height / 7) * 5 - 15);
 }
 
 LevelTwo.prototype.update = function()
@@ -115,18 +119,19 @@ LevelTwo.prototype.drawHUD = function()
 	app.ctx.font = "42px Helvetica";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
-	app.ctx.fillText("Power Banks: " +  this.itemsCollected + " / " + this.maxItems, (canvas.width / 7), (canvas.height / 7) * 5.05);
+	app.ctx.fillText("Power Banks: " +  this.itemsCollected + " / " + this.maxItems, (canvas.width / 2) - 100, (canvas.height / 7) * 5.05);
 
 	//Lives
-	app.ctx.fillText("Lives Left: " + app.player.lives, (canvas.width / 7), (canvas.height / 7) * 5.55);
+	app.ctx.fillText("Lives Left: " + app.player.lives, (canvas.width / 2) - 100, (canvas.height / 7) * 5.55);
 
 	this.HUDPower.update();
 
 	//Lives Icon
-	app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
+	app.ctx.drawImage(HUDLives, canvas.width / 2 - 185, (canvas.height / 7) * 5.5);
 
 	//Level Number
-	app.ctx.fillText("LEVEL 1", canvas.width / 2 - 100, canvas.height / 7 * 4);
+	app.ctx.fillText("LEVEL 2", canvas.width / 2 - 50, canvas.height / 7 * 4.2);
+	app.ctx.drawImage(this.HUDLevel, canvas.width / 2 - 200, (canvas.height / 7) * 4.2 - 30, 98, 98);
 }
 
 LevelTwo.prototype.CheckLives = function()

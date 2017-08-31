@@ -10,6 +10,7 @@ function LevelOne()
 	var enemy;
 	var coins;
 	var HUDcoin;
+	var HUDLevel;
 
 	var GameRunning;
 	var GamePaused;
@@ -65,6 +66,9 @@ LevelOne.prototype.init = function()
 
 	this.sound_CoinCollect = new Audio("Assets/Sound/collect_coin.wav");
 	this.sound_CoinCollect.loop = false;
+
+	this.HUDLevel = new Image();
+	this.HUDLevel.src = "Assets/Gameplay/level_1.png";
 
 	this.portalImg = new Image();
 	this.portalImg.src = "Assets/Gameplay/portal.png";
@@ -128,7 +132,8 @@ LevelOne.prototype.drawHUD = function()
 	app.ctx.textBaseline = "top";
 
 	//Level Number
-	app.ctx.fillText("LEVEL 1", canvas.width / 2 - 100, canvas.height / 7 * 4);
+	app.ctx.fillText("LEVEL 1", canvas.width / 2 - 50, canvas.height / 7 * 4.2);
+	app.ctx.drawImage(this.HUDLevel, canvas.width / 2 - 200, (canvas.height / 7) * 4.2 - 30, 98, 98);
 
 	//Draw and update Coin Icon
 	this.HUDCoin.update();

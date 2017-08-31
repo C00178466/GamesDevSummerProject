@@ -51,8 +51,9 @@ Game.prototype.init=function()
 	tutLevel = new TutorialLevel();
 	tutLevel.init();
 
-	sound_background = new Audio("Assets/Sound/background.wav");
+	sound_background = new Audio("Assets/Sound/background.mp3");
 	sound_background.loop = true;
+	sound_background.play();
 }
 
 Game.prototype.update=function()
