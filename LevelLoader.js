@@ -1,28 +1,31 @@
-//Level 1 variables
-var level;
-var bdr_Tree;
-var groundTex;
-var bdr_Warning;
-
-//Level 2 variables
-var level2Map;
-var bdr_Acid;
-var groundTexLevel2;
-
-//HUD Icons
-var HUDLives;
-var HUDCtrls;
-var HUDLives;
-var HUDPause;
-
-//levels
-var levelOne;
-var levelTwo;
-var level1;
-var level2;
-
 function Level(){
 
+	//Level 1 variables
+	var level;
+	var bdr_Tree;
+	var groundTex;
+	var bdr_Warning;
+
+	//Level 2 variables
+	var level2Map;
+	var bdr_Acid;
+	var groundTexLevel2;
+
+	//HUD Icons
+	var HUDLives;
+	var HUDCtrls;
+	var HUDLives;
+	var HUDPause;
+
+	//levels
+	var levelOne;
+	var levelTwo;
+	var level1;
+	var level2;
+}
+
+Level.prototype.init = function()
+{
 	LoadAssets();
 
 	this.levelOne = true;

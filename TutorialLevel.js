@@ -204,6 +204,8 @@ TutorialLevel.prototype.DrawHUD = function()
 	//Lives
 	app.ctx.drawImage(HUDLives, canvas.width / 2 - 235, (canvas.height / 7) * 5.5);
 	app.ctx.fillText("Lives Left: Infinite", (canvas.width / 2) - 150, (canvas.height / 7) * 5.55);
+
+	app.ctx.fillText("Press ESC to exit", (canvas.width / 2) - 160, (canvas.height / 7) * 6);
 }
 
 TutorialLevel.prototype.CheckPlayerMovement = function()
