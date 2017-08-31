@@ -1,3 +1,9 @@
+var keysDown = {};
+
+addEventListener("keydown", function(e) {
+	keysDown[e.keyCode] = true;
+}, false);
+
 function LevelOne()
 {
 	var player;
@@ -102,6 +108,13 @@ LevelOne.prototype.update = function()
 	else
 	{
 		this.CheckGameOver();
+
+		//check if spacebar is pressed
+		if (82 in keysDown)
+		{
+			this.LevelRestart();
+			this.init();
+		}
 	}
 	
 	this.drawHUD();
@@ -109,12 +122,6 @@ LevelOne.prototype.update = function()
 
 LevelOne.prototype.drawHUD = function()
 {
-	//Player Movement Buttons
-	app.ctx.drawImage(HUDCtrls, (canvas.width / 7) * 4, canvas.width + 200, 320, 320);
-
-	//Pause Button
-	//app.ctx.drawImage(HUDPause, canvas.width / 7, (canvas.height / 7) * 6, 216, 96);
-
 	//Draw and update Coin Icon
 	this.HUDCoin.update();
 
@@ -139,6 +146,16 @@ LevelOne.prototype.Reset = function()
 	app.player.yPos = 448;
 }
 
+LevelOne.prototype.LevelRestart = function()
+{
+	//reset player position
+	app.player.xPos = 448;
+	app.player.yPos = 448;
+
+	//reset the player lives
+	app.player.lives = 3;
+}
+
 LevelOne.prototype.CheckLives = function()
 {	
 	for (i = 0; i < this.enemy.length; i++)
@@ -149,8 +166,8 @@ LevelOne.prototype.CheckLives = function()
 			{
 				if (app.player.lives > 0)
 				{
-					//app.player.lives = app.player.lives - 1;
-					//this.Reset();
+					app.player.lives = app.player.lives - 1;
+					this.Reset();
 				}
 			}
 		}
@@ -194,11 +211,8 @@ LevelOne.prototype.CheckCoins = function()
 			delete this.enemy[i];
 		}
 
-		//////////////
-		//Draw particles for portal here
-		//////////////
-
-		for (var i = 0; i < 200; i++)
+		//Portal Particle Effect
+		for (i = 0; i < 200; i++)
 		{
 		  //particles[i].attract(mouse.x, mouse.y);
 		  this.portalEffect[i].attract(480, 480);
@@ -216,7 +230,8 @@ LevelOne.prototype.CheckGameOver = function()
 	app.ctx.font = "72px Helvetica";
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
-	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, canvas.height / 2 - 100);
+	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, canvas.height / 2 - 200);
+	app.ctx.fillText("Press R to restart", (canvas.width / 2) - 300, canvas.height / 2 - 100);
 }
 
 LevelOne.prototype.CollisionWithPortal = function()

@@ -29,10 +29,10 @@ Particle.prototype.attract = function(x, y)
 Particle.prototype.draw = function()
 {
 	app.ctx.strokeStyle = '#ffffff';
-    app.ctx.lineWidth = 2;
-    app.ctx.beginPath();
-    app.ctx.moveTo(this.oldX, this.oldY);
-    app.ctx.lineTo(this.x, this.y);
-    app.ctx.stroke();
+  app.ctx.lineWidth = 2;
+  app.ctx.beginPath();
+  app.ctx.moveTo(this.oldX, this.oldY);
+  app.ctx.lineTo(this.x, this.y);
+  app.ctx.stroke();
 }
 
