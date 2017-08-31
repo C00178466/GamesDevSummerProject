@@ -207,11 +207,11 @@ LevelTwo.prototype.CheckCoins = function()
 	if (this.itemsCollected === this.maxItems)
 	{
 		app.ctx.fillStyle = "rgb(255, 255, 255)";
-		app.ctx.font = "36px Helvetica";
+		app.ctx.font = "48px Helvetica";
 		app.ctx.textAlign = "left";
 		app.ctx.textBaseline = "top";
 		app.ctx.fillText("Level 2 Complete", (canvas.width / 2) - 190, canvas.height / 7 - 40);
-		app.ctx.fillText("You have saved the universe", canvas.width / 5, canvas.height / 7);
+		app.ctx.fillText("You have saved the universe", canvas.width / 5, canvas.height / 7 + 10);
 
 		for (i = 0; i < this.enemy.length; i++)
 		{

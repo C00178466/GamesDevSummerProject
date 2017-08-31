@@ -31,9 +31,6 @@ function TutorialLevel(){
 
 	//HUD Icons
 	var HUDLives;
-	var HUDCtrls;
-	var HUDLives;
-	var HUDPause;
 }
 
 TutorialLevel.prototype.init = function()
@@ -117,7 +114,7 @@ TutorialLevel.prototype.update = function()
 		if (this.timer1 >= 360 && this.timer1 < 540)
 		{
 			this.helpText = "Move your player by using the directional";
-			this.helpTextLine2 = "keys on the screen or your keyboard";
+			this.helpTextLine2 = "keys on your keyboard";
 		}
 
 		if (this.timer1 > 540)
@@ -185,10 +182,10 @@ TutorialLevel.prototype.update = function()
 	}
 
 	this.player.update();
-	this.DrawText();
+	this.DrawHUD();
 }
 
-TutorialLevel.prototype.DrawText = function()
+TutorialLevel.prototype.DrawHUD = function()
 {
 	//draw help icon
 	app.ctx.drawImage(this.helpImg, (canvas.width / 7) - 80, (canvas.height / 7) * 4.2, 64, 64);
@@ -200,20 +197,13 @@ TutorialLevel.prototype.DrawText = function()
 	app.ctx.fillText(this.helpText, (canvas.width / 7), (canvas.height / 7) * 4.25);
 	app.ctx.fillText(this.helpTextLine2, (canvas.width / 7), (canvas.height / 7) * 4.5)
 
-	//Coins
-	app.ctx.fillText("Coins: " +  this.coinsCollected + " / 1", (canvas.width / 7), (canvas.height / 7) * 5.05);
-
-	//Lives
-	app.ctx.fillText("Lives Left: Infinite", (canvas.width / 7), (canvas.height / 7) * 5.55);
-
-	//Player Movement Buttons
-	app.ctx.drawImage(HUDCtrls, (canvas.width / 7) * 4, canvas.width + 200, 320, 320);
-
 	//Draw and update Coin Icon
 	HUDCoin.update();
+	app.ctx.fillText("Coins: " +  this.coinsCollected + " / 1", (canvas.width / 2) - 100, (canvas.height / 7) * 5.05);
 
-	//Lives Icon
-	app.ctx.drawImage(HUDLives, canvas.width / 18, (canvas.height / 7) * 5.5);
+	//Lives
+	app.ctx.drawImage(HUDLives, canvas.width / 2 - 235, (canvas.height / 7) * 5.5);
+	app.ctx.fillText("Lives Left: Infinite", (canvas.width / 2) - 150, (canvas.height / 7) * 5.55);
 }
 
 TutorialLevel.prototype.CheckPlayerMovement = function()
@@ -326,16 +316,9 @@ TutorialLevel.prototype.LoadAssets = function()
 	}, false);
 	HUDLives.src = 'Assets/Gameplay/HUD/Lives.png';
 
-	HUDPause = new Image();
-	HUDPause.addEventListener("load", function()
-	{
-
-	}, false);
-	HUDPause.src = 'Assets/Gameplay/HUD/Pause_btn.png';
-
 	//HUD coin
 	HUDCoin = new Coin();
-	HUDCoin.init((canvas.width / 7) - 100, (canvas.height / 7) * 5);
+	HUDCoin.init((canvas.width / 2) - 185, (canvas.height / 7) * 5);
 
 	level = [
 		[1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1],
