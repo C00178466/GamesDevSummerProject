@@ -213,10 +213,12 @@ LevelTwo.prototype.CheckCoins = function()
 		app.ctx.fillText("Press SPACE to return ", canvas.width / 5 + 50, canvas.height / 7 * 3);
 		app.ctx.fillText("to the main menu", canvas.width / 5 + 100, canvas.height / 7 * 3 + 50);
 
+		//when space is pressed, go back to main menu and restart the levels
 		if (32 in keysDown)
 		{
 			app.bMenu = true;
 			app.bPlay = false;
+			app.levelLdr.init();
 		}
 
 		for (i = 0; i < this.enemy.length; i++)

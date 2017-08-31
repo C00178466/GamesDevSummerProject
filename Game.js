@@ -24,7 +24,7 @@ var touchXPos, touchYPos;
 
 var mainMenu;
 var optMenu;
-var levelLdr;
+app.levelLdr;
 var tutLevel;
 
 var sound_background;
@@ -45,8 +45,8 @@ Game.prototype.init=function()
 	test = new TouchTest();
 	console.log(test.is_touch_device());
 
-	levelLdr = new Level();
-	levelLdr.init();
+	app.levelLdr = new Level();
+	app.levelLdr.init();
 	optMenu = new OptionsMenu();
 	mainMenu = new MainMenu();
 	tutLevel = new TutorialLevel();
@@ -54,6 +54,7 @@ Game.prototype.init=function()
 
 	sound_background = new Audio("Assets/Sound/background.mp3");
 	sound_background.loop = true;
+	sound_background.play();
 }
 
 Game.prototype.update=function()
@@ -68,12 +69,7 @@ Game.prototype.update=function()
 	
 	//if gameplay is running
 	if (app.bPlay){
-		levelLdr.update();
-
-		if (32 in keysDown)
-		{
-			levelLdr.init();
-		}
+		app.levelLdr.update();
 	}
 
 	//if tutorial level is
@@ -83,6 +79,7 @@ Game.prototype.update=function()
 		//Escape button to exit the tutorial
 		if (27 in keysDown)
 		{
+			tutLevel.init();
 			app.bMenu = true;
 			bTutorial = false;
 		}

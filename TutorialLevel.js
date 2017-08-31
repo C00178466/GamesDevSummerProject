@@ -18,6 +18,8 @@ function TutorialLevel(){
 	var portalImg;
 	var part1, part2;
 
+	var sound_CoinCollect;
+
 	var check_Right;
 	var check_Left;
 	var check_Up;
@@ -45,6 +47,9 @@ TutorialLevel.prototype.init = function()
 
 	this.portalImg = new Image();
 	this.portalImg.src = "Assets/Gameplay/portal.png";
+
+	this.sound_CoinCollect = new Audio("Assets/Sound/collect_coin.wav");
+	this.sound_CoinCollect.loop = false;
 
 	this.coin = new Coin();
 	this.coin.init(300, 100);
@@ -113,8 +118,8 @@ TutorialLevel.prototype.update = function()
 
 		if (this.timer1 >= 360 && this.timer1 < 540)
 		{
-			this.helpText = "Move your player by using the directional";
-			this.helpTextLine2 = "keys on your keyboard";
+			this.helpText = "Move your player by using the";
+			this.helpTextLine2 = "directional keys on your keyboard";
 		}
 
 		if (this.timer1 > 540)
@@ -126,12 +131,14 @@ TutorialLevel.prototype.update = function()
 
 			if (this.check_Right)
 			{
-				this.helpText = "Great. Now move your player to the left";
+				this.helpText = "Great. Now move your player";
+				this.helpTextLine2 = "to the left";
 			}
 
 			if (this.check_Left)
 			{
 				this.helpText = "Move Up";
+				this.helpTextLine2 = "";
 			}
 
 			if (this.check_Up)
@@ -149,7 +156,8 @@ TutorialLevel.prototype.update = function()
 
 	if (this.part2 === true)
 	{
-		this.helpText = "Good Job. Now collect the coin on screen";
+		this.helpText = "Good Job. Now collect the coin";
+		this.helpTextLine2 = "on screen";
 
 		this.CheckCoin();
 
@@ -165,18 +173,20 @@ TutorialLevel.prototype.update = function()
 			if (this.timer2 < 180)
 			{
 				this.helpText = "Coin Collected. Well Done";
+				this.helpTextLine2 = "";
 			}
 
 			if (this.timer2 > 180 && this.timer2 < 360)
 			{
 				this.helpText = "You have finshed the tutorial";
+				this.helpTextLine2 = "";
 			}
 
 			if (this.timer2 > 360)
 			{
 				this.helpText = "Exit using the portal";
+				this.helpTextLine2 = "";
 				app.ctx.drawImage(this.portalImg, 500, 200, 64, 64);
-				//this.CollisionWithPortal();
 			}
 		}
 	}
@@ -254,7 +264,7 @@ TutorialLevel.prototype.CheckCoin = function()
 		&& this.player.yPos <= (this.coin.yPos + 64)) 
 		{
 			++this.coinsCollected;
-			//this.sound_CoinCollect.play();
+			this.sound_CoinCollect.play();
 			delete this.coin;
 		}
 	}
