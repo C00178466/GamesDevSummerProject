@@ -191,7 +191,6 @@ TutorialLevel.prototype.DrawHUD = function()
 	app.ctx.drawImage(this.helpImg, (canvas.width / 7) - 80, (canvas.height / 7) * 4.2, 64, 64);
 
 	app.ctx.fillStyle = "rgb(0, 0, 0)";
-	//app.ctx.font = "42px Helvetica";
 	app.ctx.font = "42px RalewayBlack"
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";

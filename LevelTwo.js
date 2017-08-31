@@ -9,6 +9,7 @@ function LevelTwo()
 	var player;
 	var enemy;
 	var power;
+
 	var HUDPower;
 	var HUDLevel;
 
@@ -23,11 +24,9 @@ function LevelTwo()
 
 LevelTwo.prototype.init = function() {
 
-	//app.player = new Player();
 	app.player.init(448, 448);
 
 	this.enemy = [5];
-
 	this.enemy[0] = new Enemy();
 	this.enemy[0].init(400, 200);
 	this.enemy[1] = new Enemy();
@@ -53,7 +52,6 @@ LevelTwo.prototype.init = function() {
 	this.HUDLevel.src = "Assets/Gameplay/level_2.png";
 
 	this.power = [4];
-
 	this.power[0] = new PowerBank();
 	this.power[0].init(250, 200);
 	this.power[1] = new PowerBank();
@@ -163,7 +161,7 @@ LevelTwo.prototype.CheckGameOver = function()
 	app.ctx.textAlign = "left";
 	app.ctx.textBaseline = "top";
 	app.ctx.fillText("GAME OVER", (canvas.width / 2) - 240, (canvas.height / 2 - 200));
-	app.ctx.fillText("Press R to restart", (canvas.width / 2) - 300, (canvas.height / 2 - 100));
+	app.ctx.fillText("Press R to restart", (canvas.width / 2) - 290, (canvas.height / 2 - 100));
 }
 
 LevelTwo.prototype.LevelRestart = function()
@@ -211,7 +209,15 @@ LevelTwo.prototype.CheckCoins = function()
 		app.ctx.textAlign = "left";
 		app.ctx.textBaseline = "top";
 		app.ctx.fillText("Level 2 Complete", (canvas.width / 2) - 190, canvas.height / 7 - 40);
-		app.ctx.fillText("You have saved the universe", canvas.width / 5, canvas.height / 7 + 10);
+		app.ctx.fillText("You have saved the universe", canvas.width / 5 - 30, canvas.height / 7 + 10);
+		app.ctx.fillText("Press SPACE to return ", canvas.width / 5 + 50, canvas.height / 7 * 3);
+		app.ctx.fillText("to the main menu", canvas.width / 5 + 100, canvas.height / 7 * 3 + 50);
+
+		if (32 in keysDown)
+		{
+			app.bMenu = true;
+			app.bPlay = false;
+		}
 
 		for (i = 0; i < this.enemy.length; i++)
 		{

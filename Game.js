@@ -30,8 +30,8 @@ var tutLevel;
 var sound_background;
 var game_background;
 
-var bMenu = true;
-var bPlay = false;
+app.bMenu = true;
+app.bPlay = false;
 var bOptions = false;
 var bTutorial = false;
 
@@ -63,12 +63,12 @@ Game.prototype.update=function()
 	app.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	//if main menu is showing
-	if (bMenu){
+	if (app.bMenu){
 		mainMenu.update();
 	}
 	
 	//if gameplay is running
-	if (bPlay){
+	if (app.bPlay){
 		levelLdr.update();
 	}
 
@@ -78,13 +78,13 @@ Game.prototype.update=function()
 
 		if (27 in keysDown)
 		{
-			bMenu = true;
+			app.bMenu = true;
 			bTutorial = false;
 		}
 
 		if (tutLevel.CollisionWithPortal())
 		{
-			bMenu = true;
+			app.bMenu = true;
 			bTutorial = false;
 		}
 	}
@@ -111,7 +111,7 @@ function onTouchStart(e)
 
     console.log(touchXPos, touchYPos);
 
-    if (bMenu)
+    if (app.bMenu)
     {
     	if (touches[0].clientX >= (canvas.width / 2) - 145 &&
 	    	touches[0].clientX <= (canvas.width / 2) + 145 &&
@@ -119,8 +119,8 @@ function onTouchStart(e)
 	    	touches[0].clientY <= (canvas.height / 2) - 160)
 	    {
 	    	console.log("Play Button Pressed");
-	    	bMenu = false;
-	    	bPlay = true;
+	    	app.bMenu = false;
+	    	app.bPlay = true;
 	    	bOptions = false;
 	    }
 
@@ -130,8 +130,8 @@ function onTouchStart(e)
 	    	touches[0].clientY <= (canvas.height / 2) + 70)
 	    {
 	    	console.log("Tutorial Button Pressed");
-	    	bMenu = false;
-	    	bPlay = false;
+	    	app.bMenu = false;
+	    	app.bPlay = false;
 	    	bTutorial = true;
 	    	bOptions = false;
 	    }
@@ -142,16 +142,24 @@ function onTouchStart(e)
 	    	touches[0].clientY <= (canvas.height / 2) + 310)
 	    {
 	    	console.log("Options Button Pressed");
-	    	bMenu = false;
-	    	bPlay = false;
+	    	app.bMenu = false;
+	    	app.bPlay = false;
 	    	bTutorial = false;
 	    	bOptions = true;
 	    }
     }
 
-    if (bPlay)
+    if (app.bPlay)
     {
-
+    	if (touches[0].clientX >= (canvas.width / 2) - 145 &&
+	    	touches[0].clientX <= (canvas.width / 2) + 145 &&
+	    	touches[0].clientY >= (canvas.height / 4) * 3 &&
+	    	touches[0].clientY <= ((canvas.height / 4) * 3) + 190)
+	    {
+	    	console.log("Back Pressed");
+	    	app.bMenu = true;
+	    	app.bPlay = false;
+	    }
     }
 
     if (bOptions)
@@ -181,7 +189,7 @@ function onTouchStart(e)
 	    	touches[0].clientY <= ((canvas.height / 4) * 3) + 190)
 	    {
 	    	console.log("Back Pressed");
-	    	bMenu = true;
+	    	app.bMenu = true;
 	    	bOptions = false;
 	    }
     }
