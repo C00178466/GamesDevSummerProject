@@ -70,6 +70,14 @@ Game.prototype.update=function()
 	//if gameplay is running
 	if (app.bPlay){
 		app.levelLdr.update();
+
+		//Escape button to exit the tutorial
+		if (27 in keysDown)
+		{
+			app.levelLdr.init();
+			app.bMenu = true;
+			app.bPlay = false;
+		}
 	}
 
 	//if tutorial level is
