@@ -314,13 +314,6 @@ TutorialLevel.prototype.LoadAssets = function()
 	}, false);
 	groundTex.src = 'Assets/Gameplay/ground.png';
 
-	HUDCtrls = new Image();
-	HUDCtrls.addEventListener("load", function()
-	{
-
-	}, false);
-	HUDCtrls.src = 'Assets/Gameplay/HUD/Screen_btns.png';
-
 	HUDLives = new Image();
 	HUDLives.addEventListener("load", function()
 	{

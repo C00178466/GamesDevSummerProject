@@ -62,8 +62,6 @@ Player.prototype.update = function(){
 	{ // Player holding right
 		this.MoveRight();
 	}
-
-	//this.PlayerBoundary();
 }
 
 Player.prototype.MoveUp = function()
